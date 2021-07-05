@@ -1,0 +1,40 @@
+﻿@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "EditTacka";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Tacka t = (Tacka)ViewBag.Tacka;
+    Clan clan = ViewBag.Clan;
+}
+
+<h1>Измени тачку</h1>
+
+<div class="row" style="margin-left:2%;">
+    <div class="col-md-4">
+        <form asp-action="EditTacka">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label class="control-label">Текст Тачке</label>
+                <textarea name="Tekst">@t.Tekst</textarea>
+                <script>
+                    tinymce.init({
+                        selector: 'textarea',
+                        plugins: 'autoresize preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+                        autoresize_on_init: false,
+                        toolbar: 'a11ycheck preview addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+                        toolbar_mode: 'floating',
+                        tinycomments_mode: 'embedded',
+                        tinycomments_author: 'Author name'
+                    });
+                </script>
+                <br />
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сачувај" class="btn btn-primary" />
+            </div>
+            <a style="margin-bottom:50px;" asp-action="Index" asp-route-id="@clan.IdPropis">Назад на листу</a>
+        </form>
+    </div>
+</div>
+

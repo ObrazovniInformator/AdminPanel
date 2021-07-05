@@ -1,0 +1,100 @@
+﻿@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "PrikazCelogTeksta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ProsvetniPropis propis = (ProsvetniPropis)ViewBag.Propis;
+    List<PodnaslovPP> podnaslovi = (List<PodnaslovPP>)ViewBag.Podnaslovi;
+    List<ClanPP> clanovi = (List<ClanPP>)ViewBag.Clanovi;
+    List<StavPP> stavovi = (List<StavPP>)ViewBag.Stavovi;
+    List<TackaPP> tacke = (List<TackaPP>)ViewBag.Tacke;
+    List<AlinejaPP> alineje = (List<AlinejaPP>)ViewBag.Alineje;
+    List<PdfFajlProsvetniPropis> pdfovi = ViewBag.PDF;
+}
+
+<a href="~/ProsvetniPropisi/Index/@propis.IdRubrike/@propis.IdPodrubrike" style="margin-left:5%">Врати се на претходну страну</a>
+<hr />
+
+<div style="margin:4%">
+    @Html.Raw(propis.Preambula)
+    <h1 style="text-align:center">@propis.Naslov</h1>
+    <h4 style="margin-left:26%; text-align:justify">@propis.GlasiloIDatumObjavljivanja</h4>
+</div>
+<br />
+<div class="container" style="margin:3%">
+    @if (clanovi.Count != 0)
+    {
+        foreach (ClanPP c in clanovi)
+        {
+            if (c.IdPropis == propis.Id && c.IdPodnaslov == null)
+            {
+                @Html.Raw(c.Naziv)
+                @foreach (StavPP s in stavovi)
+                {
+                    if (s.IdClan == c.Id)
+                    {
+                        @Html.Raw(s.Tekst)
+                        @foreach (TackaPP t in tacke)
+                        {
+                            if (t.IdStav == s.Id)
+                            {
+                                @Html.Raw(t.Tekst)
+                            }
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+        @foreach (PodnaslovPP p in podnaslovi)
+        {
+
+            @Html.Raw(p.PodnaslovTekst)
+            @foreach (ClanPP c in clanovi)
+            {
+                if (c.IdPodnaslov == p.Id)
+                {
+                    <p style="text-align: center; text-indent: 24pt; line-height: normal; background: white; font-size: 13pt; font-family: Calibri, sans-serif;">
+                        <span style="font-size: 9.0pt; font-family: Verdana, sans-serif; color: #333333;">@Html.Raw(c.Naziv)</span><br />
+
+
+                    </p>
+                    @foreach (StavPP s in stavovi)
+                    {
+
+                        if (s.IdClan == c.Id)
+                        {
+                            @Html.Raw(s.Tekst)
+                            @foreach (TackaPP t in tacke)
+                            {
+                                if (t.IdStav == s.Id)
+                                {
+                                    @Html.Raw(t.Tekst)
+                                }
+                            }
+                            @foreach (AlinejaPP a in alineje)
+                            {
+                                if (a.IdStav == s.Id)
+                                {
+                                    @Html.Raw(a.Tekst)
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    @Html.Raw(@propis.TekstPropisa)
+
+    @foreach(PdfFajlProsvetniPropis pdf in pdfovi)
+    {
+
+        <p><a href="~/ObradaTekstaPP/CitajPdf/@pdf.Id" target="_blank">@pdf.NaslovPdf</a></p>
+    }
+</div>

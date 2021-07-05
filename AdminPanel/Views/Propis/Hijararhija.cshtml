@@ -1,0 +1,24 @@
+﻿@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Hijararhija";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Propis> propisi =(List<Propis>) ViewBag.Propisi;
+}
+
+<h1 style="margin-left:10%">Хијерархија прописа</h1>
+<div style="margin-left:10%">
+    <form asp-action="Hijararhija">
+        <table class="table">
+
+            @foreach (Propis p in propisi.OrderBy(c => c.RedniBroj))
+            {
+                <tr>
+                    <td>@p.Naslov</td>
+                    <td><input name="Propis @p.Id" type="number" value="@p.RedniBroj"/></td>
+                </tr>
+            }
+
+        </table>
+        <input type="submit" value="Чувај" />
+    </form>
+    </div>

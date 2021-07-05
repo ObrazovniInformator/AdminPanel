@@ -1,0 +1,180 @@
+﻿@model AdminPanel.Areas.Identity.Data.Propis
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Create";
+    int idPodrubrike = ViewBag.IdPodrubrike;
+    List<Rubrika> rubrike = ViewBag.ListaRubrike;
+    List<Propis> propisi = ViewBag.Propisi;
+    List<Clan> clanovi = ViewBag.Clanovi;
+    List<Stav> stavovi = ViewBag.Stavovi;
+    List<Tacka> tacke = ViewBag.Tacke;
+    int idMax = ViewBag.IdMaxP;
+
+}
+
+<h1 style="margin-left:6.5%;">Креирај пропис</h1>
+
+<hr />
+@if (ViewBag.Msg != null)
+{
+    <p style="color: forestgreen;margin-left:6.5%;"><b>@ViewBag.Msg</b></p>
+}
+<div class="row" style="margin-left:5%; margin-bottom:50px;">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Наслов</label>
+                <input asp-for="Naslov" class="form-control" />
+                <span asp-validation-for="Naslov" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="IdRubrike" class="control-label"></label>
+                    <input asp-for="IdRubrike" class="form-control" />
+                    <span asp-validation-for="IdRubrike" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="IdPodrubrike" class="control-label" hidden></label>
+                <input asp-for="IdPodrubrike" value="@idPodrubrike" class="form-control" hidden />
+                <span asp-validation-for="IdPodrubrike" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Гласило и датум објављивања</label>
+                <input asp-for="GlasiloIDatumObjavljivanja" class="form-control" />
+                <span asp-validation-for="GlasiloIDatumObjavljivanja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Врста прописа</label>
+                <input asp-for="VrstaPropisa" class="form-control" />
+                <span asp-validation-for="VrstaPropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Доносилац</label>
+                <input asp-for="Donosilac" class="form-control" />
+                <span asp-validation-for="Donosilac" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ниво важења</label>
+                <input asp-for="NivoVazenja" class="form-control" />
+                <span asp-validation-for="NivoVazenja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум ступања на снагу верзије прописа</label>
+                <input asp-for="DatumStupanjaNaSnaguVerzijePropisa" class="form-control" />
+                <span asp-validation-for="DatumStupanjaNaSnaguVerzijePropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум престанка верзије</label>
+                <input asp-for="DatumPrestankaVerzije" class="form-control" />
+                <span asp-validation-for="DatumPrestankaVerzije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум објављивања верзије</label>
+                <input asp-for="DatumObjavljivanjaVerzije" class="form-control" />
+                <span asp-validation-for="DatumObjavljivanjaVerzije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум објављивања основног текста</label>
+                <input asp-for="DatumObjavljivanjaOsnovnogTeksta" class="form-control" />
+                <span asp-validation-for="DatumObjavljivanjaOsnovnogTeksta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум ступања на снагу међународног уговора</label>
+                <input asp-for="DatumStupanjaNaSnaguMeđunarodnogUgovora" class="form-control" />
+                <span asp-validation-for="DatumStupanjaNaSnaguMeđunarodnogUgovora" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум ступања на снагу основног текста прописа</label>
+                <input asp-for="DatumStupanjaNaSnaguOsnovnogTekstaPropisa" class="form-control" />
+                <span asp-validation-for="DatumStupanjaNaSnaguOsnovnogTekstaPropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум престанка важења прописа</label>
+                <input asp-for="DatumPrestankaVazenjaPropisa" class="form-control" />
+                <span asp-validation-for="DatumPrestankaVazenjaPropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум почетка примене</label>
+                <input asp-for="DatumPocetkaPrimene" class="form-control" />
+                <span asp-validation-for="DatumPocetkaPrimene" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Правни основ за доношење прописа</label>
+                <input asp-for="PravniOsnovZaDonosenjaPropisa" class="form-control" />
+                <span asp-validation-for="PravniOsnovZaDonosenjaPropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Норма основа за доношење</label>
+                <input asp-for="NormaOsnovaZaDonosenje" class="form-control" />
+                <span asp-validation-for="NormaOsnovaZaDonosenje" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Пропис који је престао да важи</label>
+                <input asp-for="PropisKojiJePrestaoDaVazi" class="form-control" />
+                <span asp-validation-for="PropisKojiJePrestaoDaVazi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Норма основа за престанак важења</label>
+                <input asp-for="NormaOsnovaZaPrestanakVazenja" class="form-control" />
+                <span asp-validation-for="NormaOsnovaZaPrestanakVazenja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум престанка важења правног претходника</label>
+                <input asp-for="DatumPrestankaVazenjaPravnogPrethodnika" class="form-control" />
+                <span asp-validation-for="DatumPrestankaVazenjaPravnogPrethodnika" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Историјска верзија прописа</label>
+                <input asp-for="IstorijskaVerzijaPropisa" class="form-control" />
+                <span asp-validation-for="IstorijskaVerzijaPropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Напомена</label>
+                <input asp-for="Napomena" class="form-control" />
+                <span asp-validation-for="Napomena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Референца на пропис</label>
+                <input asp-for="ReferencaNaPropis" class="form-control" />
+                <span asp-validation-for="ReferencaNaPropis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Напомене гласника</label>
+                <input asp-for="NapomeneGlasnika" class="form-control" />
+                <span asp-validation-for="NapomeneGlasnika" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="TekstPropisa" class="control-label"></label>
+                    <input asp-for="TekstPropisa" class="form-control" />
+                    <span asp-validation-for="TekstPropisa" class="text-danger"></span>
+                </div>*@
+            <label class="control-label">Текст прописа</label>
+            <textarea name="TekstPropisa" style="width:700px; height:500px;"></textarea>
+            <script>
+                tinymce.init({
+                    selector: 'textarea',
+                    plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+                    toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+                    toolbar_mode: 'floating',
+                    tinycomments_mode: 'embedded',
+                    tinycomments_author: 'Author name'
+                });
+            </script>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Преамбула</label>
+                <input asp-for="Preambula" class="form-control" />
+                <span asp-validation-for="Preambula" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Креирај пропис" class="btn btn-primary" />
+            </div>
+            <div>
+                <a href="~/Propis/KreirajVezuPropisPropis/@idMax" class="btn btn-success">Креирај још веза са прописом</a>
+                <br />
+                <a href="~/Propis/Index/@idPodrubrike">Врати се на листу прописа</a>
+            </div>
+        </form>
+    </div>
+</div>
+

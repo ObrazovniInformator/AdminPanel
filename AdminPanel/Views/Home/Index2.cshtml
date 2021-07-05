@@ -1,0 +1,141 @@
+﻿@using AdminPanel.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http;
+@using AdminPanel.Data;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+    AdminPanelContext _context = new AdminPanelContext();
+    List<GlavneOblastiCasopis> glavneOblastiCasopis = ViewBag.GlavneOblastiCasopis;
+    List<RubrikaCasopis> casopisRubrike = ViewBag.CasopisRubrike;
+    List<PodrubrikaCasopis> podrubrike = ViewBag.Podrubrike;
+    List<CasopisGodina> casopisGodine = ViewBag.CasopisGodine;
+    List<CasopisBroj> casopisBrojevi = ViewBag.CasopisBrojevi;
+   // Dictionary<int, string> casopisNaslovi = ViewBag.CasopisNaslovi;
+    List<PodrubrikaCasopis> idPodrubrika = ViewBag.Result;
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    ul, #myUL {
+        list-style-type: none;
+    }
+
+    #myUL {
+        margin-top: 3%;
+        margin-left: 5%;
+        padding: 0;
+    }
+
+    .caret {
+        font-size: 22px;
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari 3.1+ */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none;
+    }
+
+        .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+    .caret-down::before {
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Safari */
+        ' transform: rotate(90deg);
+    }
+
+    .nested {
+        display: none;
+    }
+
+    .active {
+        display: block;
+    }
+
+    @@media (min-width: 1600px) {
+        .container {
+            max-width: 1600px;
+        }
+    }
+
+    #sidebar-wrapper {
+        font-size: 1.3rem;
+    }
+</style>
+<h1 style="margin-left:5%; margin-bottom:1%">Стабло</h1>
+<a href="~/Casopis/Create" class="btn btn-lg btn-success" style="margin-left:5%;">Додај часопис</a>
+<a href="~/Casopis/CreateGodina" class="btn btn-lg btn-success" style="margin-left:5%;">Додај годину</a>
+<a href="~/Casopis/CreateBroj" class="btn btn-lg btn-success" style="margin-left:5%;">Додај број</a>
+<a href="~/Casopis/CreateRubrika" class="btn btn-lg btn-success" style="margin-left:5%;">Додај рубрику</a>
+<a href="~/Casopis/CreatePodrubrika" class="btn btn-lg btn-success" style="margin-left:5%;">Додај подрубрику</a>
+<hr />
+<br>
+<a href="~/Casopis/IzmeniCasopis" class="btn btn-lg btn-danger" style="margin-left:5%;">Измени часописе</a>
+
+<hr />
+
+<ul id="myUL">
+    @foreach (GlavneOblastiCasopis go in glavneOblastiCasopis)
+    {
+        <li>
+            <span class="caret">@go.Naziv</span>
+
+            <ul>
+                @foreach (CasopisGodina cg in casopisGodine.OrderByDescending(m => m.Id))
+                {
+                    @if (cg.IdGlavneOblastiCasopis == go.ID)
+                    {
+                        <li>
+                            <span class="caret">@cg.Naziv</span>
+                            <ul class="nested">
+
+                                @foreach (CasopisBroj cb in casopisBrojevi.OrderByDescending(c => c.Id))
+                                {
+                                    @if (cb.IdGodina == cg.Id)
+                                    {
+                                        <li>
+                                            <span class="caret">@cb.Naziv</span>
+                                            <ul>
+                                                @foreach (RubrikaCasopis p in casopisRubrike)
+                                                {
+                                                    @if (p.IdOblast == go.ID && p.IdBroj == cb.Id)
+                                                    {
+                                                <li>
+                                                    <a href="~/Casopis/IspisListe/@p.ID"> <span class="caret">@p.NazivRubrike</span></a>
+                                                    @*<ul>
+
+
+        </ul>*@
+
+
+                                                </li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
+    }
+</ul>
+<script>
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function () {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+</script>

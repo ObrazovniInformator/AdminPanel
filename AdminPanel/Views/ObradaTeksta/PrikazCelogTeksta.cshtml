@@ -1,0 +1,85 @@
+﻿@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "PrikazCelogTeksta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Propis propis = (Propis)ViewBag.Propis;
+    List<Podnaslov> podnaslovi = (List<Podnaslov>)ViewBag.Podnaslovi;
+    List<Clan> clanovi = (List<Clan>)ViewBag.Clanovi;
+    List<Stav> stavovi = (List<Stav>)ViewBag.Stavovi;
+    List<Tacka> tacke = (List<Tacka>)ViewBag.Tacke;
+    List<Alineja> alineje = (List<Alineja>)ViewBag.Alineje;
+}
+
+<a href="~/Propis/Index/@propis.IdRubrike/@propis.IdPodrubrike" style="margin-left:5%">Врати се на претходну страну</a>
+<hr />
+
+<div style="margin:4%">
+    @Html.Raw(propis.Preambula)
+    <h1 style="text-align:center">@propis.Naslov</h1>
+    <h4 style="margin-left:26%; text-align:justify">@propis.GlasiloIDatumObjavljivanja</h4>
+</div>
+<br />
+<div class="container" style="margin:3%">
+    @if (clanovi.Count != 0)
+    {
+        foreach (Clan c in clanovi)
+        {
+            if (c.IdPropis == propis.Id && c.IdPodnaslov == null)
+            {
+                @Html.Raw(c.Naziv)
+                @foreach (Stav s in stavovi)
+                {
+                    if (s.IdClan == c.Id)
+                    {
+                        @Html.Raw(s.Tekst)
+                        @foreach (Tacka t in tacke)
+                        {
+                            if (t.IdStav == s.Id)
+                            {
+                                @Html.Raw(t.Tekst)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        @foreach (Podnaslov p in podnaslovi)
+        {
+            @Html.Raw(p.PodnaslovTekst)
+            @foreach (Clan c in clanovi)
+            {
+                if (c.IdPodnaslov == p.Id)
+                {
+                    <p style="text-align: center; text-indent: 24pt; line-height: normal; background: white; font-size: 13pt; font-family: Calibri, sans-serif;">
+                        <span style="font-size: 9.0pt; font-family: Verdana, sans-serif; color: #333333;">@Html.Raw(c.Naziv)</span><br />
+                    </p>
+                    @foreach (Stav s in stavovi)
+                    {
+
+                        if (s.IdClan == c.Id)
+                        {
+                            @Html.Raw(s.Tekst)
+                            @foreach (Tacka t in tacke)
+                            {
+                                if (t.IdStav == s.Id)
+                                {
+                                    @Html.Raw(t.Tekst)
+                                }
+                            }
+                            @foreach (Alineja a in alineje)
+                            {
+                                if (a.IdStav == s.Id)
+                                {
+                                    @Html.Raw(a.Tekst)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @Html.Raw(@propis.TekstPropisa)
+</div>

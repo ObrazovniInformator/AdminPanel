@@ -1,0 +1,42 @@
+﻿@model AdminPanel.Areas.Identity.Data.PodrubrikaPP
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "KreirajPodrubriku";
+    List<RubrikaPP> rubrike = (List<RubrikaPP>)ViewBag.Rubrike;
+}
+
+<h1 style="margin-left:5%;">Креирај подрубрику</h1>
+@if (ViewBag.Msg != null)
+{
+    <h4 style="margin-left:5%; color:green">@ViewBag.Msg</h4>
+}
+<hr />
+<div class="row" style="margin-left:5%;">
+    <div class="col-md-4">
+        <form asp-action="KreirajPodrubrikuPP">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Назив подрубрике</label>
+                <input asp-for="NazivPodrubrike" class="form-control" />
+                <span asp-validation-for="NazivPodrubrike" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Рубрика којој припада</label>
+                <select name="IdRubrika" class="form-control">
+                    @foreach (RubrikaPP r in rubrike)
+                    {
+                        <option value="@r.ID">@r.NazivRubrike</option>
+                    }
+                </select>
+                <span asp-validation-for="IdRubrika" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Креирај подрубрику" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index" style="margin-left:5%;">Назад на листу</a>
+            </div>
+        </form>
+    </div>
+</div>
+

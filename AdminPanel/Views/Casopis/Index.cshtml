@@ -1,0 +1,50 @@
+﻿@*@model IEnumerable<AdminPanel.Areas.Identity.Data.CasopisNaslov>*@
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Index";
+    List<GlavneOblastiCasopis> glavneOblastiCasopis = ViewBag.GlavneOblastiCasopis;
+    List<RubrikaCasopis> rubrike = ViewBag.Rubrike;
+    List<PodrubrikaCasopis> podrubrike = ViewBag.Podrubrike;
+    List<CasopisGodina> casopisGodine = ViewBag.CasopisGodine;
+    List<CasopisBroj> casopisBrojevi = ViewBag.CasopisBrojevi;
+    Dictionary<int, string> casopisNaslov = ViewBag.CasopisNaslov;
+    //   List<CasopisNaslov> casopisNaslovi = ViewBag.CasopisNaslovi;
+}
+
+<h1>Чланци у овој рубрици</h1>
+
+<p>
+    <a asp-action="Create">Додај чланак</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("ИД")
+            </th>
+            <th>
+                @Html.DisplayName("Наслов")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in casopisNaslov)
+        {
+            <tr>
+                <td>
+                    @item.Key
+                </td>
+                <td>
+                    @item.Value
+                </td>
+                <td>
+                    @Html.ActionLink("Измени", "Edit", new {  id=item.Key  }) |
+                    @Html.ActionLink("Сви подаци", "Details", new {  id=item.Key  }) |
+                    <a href="~/Casopis/Delete/@item.Key" onclick="return confirm('Да ли сте сигурни да желите да избришете часопис: @item.Value')">Бриши часопис</a>
+                    @Html.ActionLink("Kreiraj vezu","KreirajVezuCasopisPropis",new {  id=item.Key  })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

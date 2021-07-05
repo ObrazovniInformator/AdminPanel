@@ -1,0 +1,62 @@
+﻿@model AdminPanel.Areas.Identity.Data.CasopisBroj
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "CreateBroj";
+    List<CasopisGodina> casopisGodine = ViewBag.CasopisGodine;
+    List<GlavneOblastiCasopis> glavneOblastiCasopis = ViewBag.GlavneOblastiCasopis;
+}
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#IdOblast").change(function () {
+
+            var url = '@Url.Content("~/")' + "Casopis/GetGodina";
+            var ddlsource = "#IdOblast";
+            $.getJSON(url, { IdOblast: $(ddlsource).val() }, function (data) {
+                var items = '';
+                $("#IdGodina").empty();
+                $.each(data, function (i, godina) {
+                    items += "<option value='" + godina.value + "'>" + godina.text + "</option>";
+                });
+                $("#IdGodina").html(items);
+            });
+        });
+    });
+
+</script>
+
+<h1 style="margin-left:6.5%;">Креирај број</h1>
+<hr />
+@if (ViewBag.Msg != null)
+{
+    <p>@ViewBag.Msg</p>
+}
+<div class="row" style="margin-left:5%; margin-bottom:50px;">
+    <div class="col-md-4">
+        <form asp-action="CreateBroj">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Назив</label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Област</label>
+                <select id="IdOblast" name="IdOblast" class="form-control" asp-items="@(new SelectList(ViewBag.GlavneOblastiCasopis,"ID","Naziv"))">
+                    <option value="">-- Изабери ОБЛАСТ --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Година</label>
+                <select id="IdGodina" name="IdGodina" class="form-control" asp-items="@(new SelectList(string.Empty,"Id","Naziv"))">  </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Креирај број" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index">Врати се на листу</a>
+            </div>
+        </form>
+    </div>
+</div>

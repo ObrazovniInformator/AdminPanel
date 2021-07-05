@@ -1,0 +1,97 @@
+﻿@using AdminPanel.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Index3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<RubrikaPP> rubrikePP = ViewBag.RubrikePP;
+    List<PodrubrikaPP> podrubrikePP = ViewBag.PodrubrikePP;
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    ul, #myUL {
+        list-style-type: none;
+    }
+
+    #myUL {
+        margin-top: 3%;
+        margin-left: 5%;
+        padding: 0;
+    }
+
+    .caret {
+        font-size: 22px;
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari 3.1+ */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none;
+    }
+
+        .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+    .caret-down::before {
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Safari */
+        ' transform: rotate(90deg);
+    }
+
+    .nested {
+        display: none;
+    }
+
+    .active {
+        display: block;
+    }
+
+    @@media (min-width: 1600px) {
+        .container {
+            max-width: 1600px;
+        }
+    }
+
+    #sidebar-wrapper {
+        font-size: 1.3rem;
+    }
+</style>
+<h1 style="margin-left:5%; margin-bottom:1%">Стабло</h1>
+<a href="~/Home/KreirajRubrikuPP" class="btn btn-lg btn-success" style="margin-left:5%;">Додај рубрику</a>
+<a href="~/Home/KreirajPodrubrikuPP" class="btn btn-lg btn-success" style="margin-left:5%;">Додај подрубрику</a>
+
+<hr />
+
+<ul id="myUL">
+    @foreach (RubrikaPP rp in rubrikePP)
+    {
+        <li>
+            <span class="caret">@rp.NazivRubrike</span>
+
+            <ul class="nested">
+                @foreach (PodrubrikaPP p in podrubrikePP)
+                {
+                    @if (rp.ID == p.IdRubrika)
+                    {
+                        <li> <span class="caret"><a href="~/ProsvetniPropisi/Index/@p.ID">@p.NazivPodrubrike</a></span></li>
+                    }
+                }
+            </ul>
+        </li>
+    }
+</ul>
+<script>
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function () {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+</script>
+

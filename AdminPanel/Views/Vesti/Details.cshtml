@@ -1,0 +1,76 @@
+﻿@model AdminPanel.Areas.Identity.Data.Vest
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    VestiKategorija kategorija = ViewBag.Kategorija;
+    
+}
+
+<h1 style="margin-left:5%;">Сви подаци из Вести</h1>
+
+<div style="margin-left:5%; margin-bottom:50px;">
+    @Html.ActionLink("Измени", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Врати се на листу вести</a>
+</div>
+
+<div>
+    <hr />
+    <dl class="row" style="margin-left:5%; margin-bottom:50px;">
+
+        <dt class="col-sm-2">
+            @Html.DisplayName("Наслов")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Naslov)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Сажетак")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.Raw(@Model.Sazetak)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Текст")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.Raw(@Model.Tekst)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Дан у недељи")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DanUNedelji)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Дан у месецу")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DanUMesecu)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Месец")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mesec)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Година")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Godina)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Рубрика")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdRubrikaVesti)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Категорија")
+        </dt>
+        <dd class="col-sm-10">
+            @kategorija.NazivKategorije
+        </dd>
+    </dl>
+</div>

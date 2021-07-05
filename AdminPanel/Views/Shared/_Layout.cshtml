@@ -1,0 +1,143 @@
+﻿
+@{ 
+    string email = ViewBag.Email;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AdminPanel</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/BootS/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/BootS/css/simple-sidebar.css" rel="stylesheet">
+    <script src="https://cdn.tiny.cloud/1/nxhqsb17xgyrtamjdp8g2sb4soaoyd2j4ebkt7vwdyt6sf99/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+    <style>
+        .body {
+            font-size: 1.3rem;
+        }
+
+        @@media (min-width: 1600px) {
+            .container {
+                max-width: 1600px;
+            }
+        }
+
+        .tox-notification {
+            display: none !important
+        }
+
+        #sidebar-wrapper {
+            font-size: 1.3rem !important;
+        }
+    </style>
+</head>
+
+<body>
+    
+  
+    <div class="container">
+        <div class="d-flex" id="wrapper">
+
+            <!-- Sidebar -->
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading" style="font-weight: bold; font-size:25px;">АДМИН ПАНЕЛ</div>
+                @*<hr style="width:auto;text-align:left;margin-left:0">*@
+            <div class="list-group list-group-flush">
+                <hr style="width:auto;text-align:left;margin-left:0">
+                <a href="~/Home/Index" class="list-group-item list-group-item-action bg-light">ПРОПИСИ</a>
+                <hr style="width:auto;text-align:left;margin-left:0">
+                <a href="~/SudskaPraksa/Index" class="list-group-item list-group-item-action bg-light">СУДСКА ПРАКСА</a>
+                <hr style="width:auto;text-align:left;margin-left:0">
+                <a href="~/SluzbenoMisljenje/Index" class="list-group-item list-group-item-action bg-light">СЛУЖБЕНА МИШЉЕЊА</a>
+                <hr style="width:auto;text-align:left;margin-left:0">
+                <a href="~/Home/Index2" class="list-group-item list-group-item-action bg-light">ЧАСОПИСИ</a>
+                <hr style="width:auto;text-align:left;margin-left:0">
+                <a href="~/InAkta/Index" class="list-group-item list-group-item-action bg-light">ИН АКТА (МОДЕЛИ)</a>
+                <hr style="width:auto;text-align:left;margin-left:0">
+                <a href="~/Home/Index3" class="list-group-item list-group-item-action bg-light">ПРОСВЕТНИ ПРОПИСИ</a>
+                <hr style="width:auto;text-align:left;margin-left:0">
+                <a href="~/PrimeriKnjizenja/Index" class="list-group-item list-group-item-action bg-light">ПРИМЕРИ КЊИЖЕЊА</a>
+                <hr style="width:auto;text-align:left;margin-left:0">
+                <a href="~/Vesti/Index" class="list-group-item list-group-item-action bg-light">ВЕСТИ</a>
+                <hr style="width:auto;text-align:left;margin-left:0">
+                @*<a href="#" class="list-group-item list-group-item-action bg-light">ПРИМЕРИ КЊИЖЕЊА</a>*@
+            </div>
+            </div>
+            <!-- /#sidebar-wrapper -->
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    @*<button class="btn btn-primary" id="menu-toggle">САКРИЈ МЕНИ</button>*@
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="~/Pretplatnik/Index">ПРЕТПЛАТНИЦИ <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">АДМИНИ</a>
+                            </li><li class="nav-item float-left">
+                                     <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="margin-left:5%;">Здраво @email!</a>
+                            </li>
+                            @*<li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>*@
+                        </ul>
+                        
+                    </div>
+                </nav>
+                <!-- /#wrapper -->
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+      
+    </div>
+
+    @*<footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - AdminPanel - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+         Bootstrap core JavaScript 
+        <script src="~/BootS/vendor/jquery/jquery.min.js"></script>
+        <script src="~/BootS/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+         Menu Toggle Script 
+        <script>
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

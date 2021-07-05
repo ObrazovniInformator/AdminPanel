@@ -1,0 +1,112 @@
+﻿@using AdminPanel.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http;
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+    List<GlavneOblasti> glavneOblasti = ViewBag.GlavneOblasti;
+    List<Rubrika> rubrike = ViewBag.Rubrike;
+    List<Podrubrika> podrubrike = ViewBag.Podrubrike;
+    
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    ul, #myUL {
+        list-style-type: none;
+    }
+
+    #myUL {
+        margin-top: 3%;
+        margin-left: 5%;
+        padding: 0;
+    }
+
+    .caret {
+        font-size: 22px;
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari 3.1+ */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none;
+    }
+
+        .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+    .caret-down::before {
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Safari */
+        ' transform: rotate(90deg);
+    }
+
+    .nested {
+        display: none;
+    }
+
+    .active {
+        display: block;
+    }
+
+   
+        .container {
+           width:100%!important;
+        }
+    
+
+    #sidebar-wrapper {
+        font-size: 1.3rem;
+    }
+</style>
+<h1 style="margin-left:5%; margin-bottom:1%">Стабло</h1>
+<a href="~/Home/KreirajRubriku" class="btn btn-lg btn-success" style="margin-left:5%;">Додај рубрику</a>
+<a href="~/Home/KreirajPodrubriku" class="btn btn-lg btn-success" style="margin-left:5%;">Додај подрубрику</a>
+
+
+<hr />
+
+<ul id="myUL">
+    @foreach (GlavneOblasti go in glavneOblasti)
+    {
+        <li>
+            <span class="caret">@go.Naziv</span>
+
+            <ul>
+                @foreach (Rubrika r in rubrike)
+                {
+                    @if (r.IdOblast == go.ID)
+                    {
+                        <li>
+                            <span class="caret">@r.NazivRubrike</span>
+                            <ul class="nested">
+                                @foreach (Podrubrika p in podrubrike)
+                                {
+                                    @if (p.IdRubrika == r.ID)
+                                    {
+                                        <li> <span class="caret"><a href="~/Propis/Index/@p.ID/@r.ID">@p.NazivPodrubrike</a></span></li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
+    }
+</ul>
+<script>
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function () {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+</script>

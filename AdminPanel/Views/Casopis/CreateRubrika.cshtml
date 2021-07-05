@@ -1,0 +1,82 @@
+﻿@model AdminPanel.Areas.Identity.Data.RubrikaCasopis
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "CreateRubrika";
+    List<GlavneOblastiCasopis> glavneOblastiCasopis = ViewBag.GlavneOblastiCasopis;
+    List<CasopisBroj> casopisBrojevi = ViewBag.CasopisBrojevi;
+}
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+         $("#IdOblast").change(function () {
+
+            var url = '@Url.Content("~/")' + "Casopis/GetGodina";
+            var ddlsource = "#IdOblast";
+            $.getJSON(url, { IdOblast: $(ddlsource).val() }, function (data) {
+                var items = '';
+                $("#IdGodina").empty();
+                $.each(data, function (i, godina) {
+                    items += "<option value='" + godina.value + "'>" + godina.text + "</option>";
+                });
+                $("#IdGodina").html(items);
+            });
+        });
+
+        $("#IdGodina").change(function () {
+            var url = '@Url.Content("~/")' + "Casopis/GetBroj";
+            var ddlsource = "#IdGodina";
+            $.getJSON(url, { IdGodina: $(ddlsource).val() }, function (data) {
+                var items = '';
+                $("#IdBroj").empty();
+                $.each(data, function (i, broj) {
+                    items += "<option value='" + broj.value + "'>" + broj.text + "</option>";
+                });
+                $("#IdBroj").html(items);
+            });
+        });
+        });
+</script>
+
+<h1 style="margin-left:6.5%;">Креирај рубрику</h1>
+<hr />
+@if (ViewBag.Msg != null)
+{
+    <p>@ViewBag.Msg</p>
+}
+
+<div class="row" style="margin-left:5%; margin-bottom:50px;">
+    <div class="col-md-4">
+        <form asp-action="CreateRubrika">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      
+            <div class="form-group">
+                <label class="control-label">Назив</label>
+                <input asp-for="NazivRubrike" class="form-control" />
+                <span asp-validation-for="NazivRubrike" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Област</label>
+                <select id="IdOblast" name="IdOblast" class="form-control" asp-items="@(new SelectList(ViewBag.GlavneOblastiCasopis,"ID","Naziv"))">
+                    <option value="">-- Изабери ОБЛАСТ --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Година</label>
+                <select id="IdGodina" name="IdGodina" class="form-control" asp-items="@(new SelectList(string.Empty,"Id","Naziv"))"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Број</label>
+                <select id="IdBroj" name="IdBroj" class="form-control" asp-items="@(new SelectList(string.Empty,"Id","Naziv"))"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Креирај рубрику" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index">Врати се на листу</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model AdminPanel.Areas.Identity.Data.CasopisGodina
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "CreateGodina";
+    List<GlavneOblastiCasopis> glavneOblastiCasopis = ViewBag.GlavneOblastiCasopis;
+}
+
+<h1 style="margin-left:6.5%;">Креирај годину</h1>
+<hr />
+<div class="row" style="margin-left:5%; margin-bottom:50px;">
+    <div class="col-md-4">
+        <form asp-action="CreateGodina">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Naziv" class="control-label"></label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Област</label>
+                <select name="IdGlavneOblastiCasopis" class="form-control">
+                    <option value="">-- Изабери ОБЛАСТ --</option>
+                    @foreach (GlavneOblastiCasopis goc in glavneOblastiCasopis)
+                    {
+                        <option value="@goc.ID">@goc.Naziv</option>
+                    }
+                </select>
+                <span asp-validation-for="IdGlavneOblastiCasopis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Креирај годину" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index">Врати се на листу</a>
+            </div>
+        </form>
+    </div>
+</div>

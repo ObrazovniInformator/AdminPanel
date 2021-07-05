@@ -1,0 +1,83 @@
+﻿@model AdminPanel.Areas.Identity.Data.Pretplatnik
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 style="margin-left:3%;">Креирај претплатника</h1>
+@if (ViewBag.Msg != null)
+{
+    <p>@ViewBag.Msg</p>
+}
+
+<hr />
+<div class="row" style="margin-left:2%;">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label  class="control-label">Име</label>
+                <input asp-for="Ime" class="form-control" />
+                <span asp-validation-for="Ime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Презиме</label>
+                <input asp-for="Prezime" class="form-control" />
+                <span asp-validation-for="Prezime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">ПИБ</label>
+                <input asp-for="PIB" class="form-control" />
+                <span asp-validation-for="PIB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Корисничко име</label>
+                <input asp-for="KorisnickoIme" class="form-control" />
+                <span asp-validation-for="KorisnickoIme" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Лозинка</label>
+                <input asp-for="Lozinka" class="form-control" />
+                <span asp-validation-for="Lozinka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Број телефона</label>
+                <input asp-for="BrojTelefona" class="form-control" />
+                <span asp-validation-for="BrojTelefona" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Емаил</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Матични број</label>
+                <input asp-for="MaticniBroj" class="form-control" />
+                <span asp-validation-for="MaticniBroj" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Претплата</label>
+                <input asp-for="Pretplata" class="form-control" />
+                <span asp-validation-for="Pretplata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Датум почетка претплате</label>
+                <input asp-for="DatumPocetkaPretplate" class="form-control" />
+                <span asp-validation-for="DatumPocetkaPretplate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Датум краја претплате</label>
+                <input asp-for="DatumKrajaPretplate" class="form-control" />
+                <span asp-validation-for="DatumKrajaPretplate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Креирај" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад на листу</a>
+</div>
+

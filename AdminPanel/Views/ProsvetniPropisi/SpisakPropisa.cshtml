@@ -1,0 +1,43 @@
+﻿@model IEnumerable<AdminPanel.Areas.Identity.Data.ProsvetniPropis>
+
+@{
+    ViewData["Title"] = "SpisakPropisa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>SpisakPropisa</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Наслов")
+            </th>
+          
+            <th>
+                @Html.DisplayName("Гласило и датум објављивања")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naslov)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GlasiloIDatumObjavljivanja)
+            </td>
+            <td>
+                <a href="~/ObradaTekstaPP/Index/@item.Id">Обрада текста</a>|<br />
+                @Html.ActionLink("Сви подаци", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

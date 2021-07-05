@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AdminPanel.Areas.Identity.Data.Pretplatnik>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="margin-left:32%; margin-bottom:1%">СПИСАК ПРЕТПЛАТНИКА</h1>
+
+<p>
+    <a asp-action="Create" style="font-size:25px;" class="btn btn-block btn-danger">КРЕИРАЈ ПРЕТПЛАТНИКА</a>
+</p>
+<div style="margin-left:10%">
+    <form asp-action="Search" method="post">
+        <p>Претражуј по:</p>
+        <p>ПИБу: <input type="checkbox" name="pib"/></p>
+        <p>Емајлу: <input type="checkbox" name="email" /></p>
+        <p>Унесите појам за претрагу:</p>
+        <input type="text" name="trazi" />
+        <input type="submit" value="Тражи" />
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Име")
+            </th>
+            <th>
+                @Html.DisplayName("Презиме")
+            </th>
+            <th>
+                @Html.DisplayName("ПИБ")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PIB)
+            </td>
+            <td>
+                @Html.ActionLink("Измени", "Edit", new {  id=item.ID  }) |
+                @Html.ActionLink("Сви подаци", "Details", new {  id=item.ID  }) |
+                <a href="~/Pretplatnik/Delete/@item.ID" onclick="return confirm('Да ли стварно желите да обришете претплатника @item.Ime')">Бриши</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

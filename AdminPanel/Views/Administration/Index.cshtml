@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Index";
+    List <IdentityUser> lista= ViewBag.Lista;
+}
+
+<h1 style="margin-left:32%; margin-bottom:1%">СПИСАК АДМИНА</h1>
+
+<p>
+    <a asp-action="Create" style="font-size:25px;" class="btn btn-block btn-danger">КРЕИРАЈ ПРЕТПЛАТНИКА</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Емаил")
+            </th>
+            <th>
+                @Html.DisplayName("Лозинка")
+            </th>
+            <th>
+                @Html.DisplayName("Број телефона")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in lista)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PasswordHash)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                @*<td>
+                    @Html.ActionLink("Измени", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Сви подаци", "Details", new { id = item.ID }) |
+                    <a href="~/Pretplatnik/Delete/@item.ID" onclick="return confirm('Да ли стварно желите да обришете претплатника @item.Ime')">Бриши</a>
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>

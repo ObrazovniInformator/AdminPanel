@@ -1,0 +1,112 @@
+﻿@model AdminPanel.Areas.Identity.Data.PrimeriKnjizenja
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Propis> propisi = ViewBag.Propis;
+    List<Clan> clanovi = ViewBag.Clan;
+    List<Stav> stavovi = ViewBag.Stav;
+    List<Tacka> tacke = ViewBag.Tacka;
+    List<PropisPrimeriKnjizenja> veze = ViewBag.Veze;
+    RubrikaPK rubrika = ViewBag.Rubrika;
+}
+
+<h1 style="margin-left:5%;">Сви подаци из примера књижења</h1>
+
+<div style="margin-left:5%; margin-bottom:50px;">
+    @Html.ActionLink("Измени", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Врати се на листу примера књижења</a>
+</div>
+
+<div>
+    <hr />
+    <dl class="row" style="margin-left:5%; margin-bottom:50px;">
+        <dt class="col-sm-2">
+            @Html.DisplayName("Наслов")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Naslov)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Поднаслов")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Podnaslov)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Напомена")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Napomena)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Текст")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.Raw(@Model.Tekst)
+        </dd>
+        @foreach (PropisPrimeriKnjizenja ppk in veze)
+        {
+            @foreach (Propis p in propisi)
+            {
+                if (p.Id == ppk.IdPropis)
+                {
+                    <dt class="col-sm-2">
+                        @Html.DisplayName("Пропис")
+                    </dt>
+                    <dd class="col-sm-10">
+                        @p.Naslov
+                    </dd>
+                    @foreach (Clan c in clanovi)
+                    {
+                        if (c.Id == ppk.IdClan && c.IdPropis == p.Id)
+                        {
+                            <dt class="col-sm-2">
+                                @Html.DisplayName("Члан")
+                            </dt>
+                            <dd class="col-sm-10">
+                                @c.Naziv
+                            </dd>
+                            @foreach (Stav s in stavovi)
+                            {
+                                if (s.Id == ppk.IdStav && s.IdClan == c.Id)
+                                {
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayName("Став")
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @s.Naziv <br /> Текст става:<br /> @Html.Raw(@s.Tekst)
+                                    </dd>
+                                    foreach (Tacka t in tacke)
+                                    {
+                                        if (t.Id == ppk.IdTacka && t.IdStav == s.Id)
+                                        {
+                                            <dt class="col-sm-2">
+                                                @Html.DisplayName("Тачка")
+                                            </dt>
+                                            <dd class="col-sm-10">
+                                                @t.Naziv <br />Текст тачке<br /> @Html.Raw(@t.Tekst)
+                                            </dd>
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+            }
+        }
+    <dt class="col-sm-2">
+        @Html.DisplayName("Рубрика")
+    </dt>
+    <dd class="col-sm-10">
+        @if (rubrika != null)
+        {
+            @rubrika.Naziv
+        }
+    </dd>
+    </dl>
+</div>

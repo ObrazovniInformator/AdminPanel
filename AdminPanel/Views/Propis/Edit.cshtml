@@ -1,0 +1,206 @@
+﻿@model AdminPanel.Areas.Identity.Data.Propis
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Edit";
+    Rubrika rubrika = (Rubrika)ViewBag.Rubrika;
+    Podrubrika podrubrika = (Podrubrika)ViewBag.Podrubrika;
+    List<Rubrika> rubrike = ViewBag.Rubrike;
+    List<Podrubrika> podrubrike = ViewBag.Podrubrike;
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+         $("#IdRubrika").change(function () {
+            var url = '@Url.Content("~/")' + "Propis/GetPodrubrika";
+            var ddlsource = "#IdRubrika";
+            $.getJSON(url, { IdRubrika: $(ddlsource).val() }, function (data) {
+                var items = '';
+                $("#IdPodrubrika").empty();
+                $.each(data, function (i, podrubrika) {
+                    items += "<option value='" + podrubrika.value + "'>" + podrubrika.text + "</option>";
+                });
+                $("#IdPodrubrika").html(items);
+            });
+        });
+    });
+</script>
+
+<h1 style="margin-left:5%;">Измени пропис</h1>
+
+<hr />
+<div class="row" style="margin-left:5%; margin-bottom:50px;">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Наслов</label>
+                <input asp-for="Naslov" class="form-control" />
+                <span asp-validation-for="Naslov" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Рубрика</label>
+                <select asp-for="IdRubrike" name="IdRubrika" id="IdRubrika" class="form-control">
+                    @if (rubrika != null)
+                    {
+                        @foreach (Rubrika rca in rubrike)
+                        {
+                            <option value="@rca.ID">@rca.NazivRubrike</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Подрубрика</label>
+                <select asp-for="IdPodrubrike" name="IdPodrubrika" id="IdPodrubrika" class="form-control">
+                    @if (podrubrika != null)
+                    {
+                        @foreach (Podrubrika prca in podrubrike)
+                        {
+                            @if (prca.IdRubrika == rubrika.ID)
+                            {
+                                <option value="@prca.ID">@prca.NazivPodrubrike</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Гласило и датум објављивања</label>
+                <input asp-for="GlasiloIDatumObjavljivanja" class="form-control" />
+                <span asp-validation-for="GlasiloIDatumObjavljivanja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Врста прописа</label>
+                <input asp-for="VrstaPropisa" class="form-control" />
+                <span asp-validation-for="VrstaPropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Доносилац</label>
+                <input asp-for="Donosilac" class="form-control" />
+                <span asp-validation-for="Donosilac" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ниво важења</label>
+                <input asp-for="NivoVazenja" class="form-control" />
+                <span asp-validation-for="NivoVazenja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум ступања на снагу верзије прописа</label>
+                <input asp-for="DatumStupanjaNaSnaguVerzijePropisa" class="form-control" />
+                <span asp-validation-for="DatumStupanjaNaSnaguVerzijePropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум престанка верзије</label>
+                <input asp-for="DatumPrestankaVerzije" class="form-control" />
+                <span asp-validation-for="DatumPrestankaVerzije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум објављивања верзије</label>
+                <input asp-for="DatumObjavljivanjaVerzije" class="form-control" />
+                <span asp-validation-for="DatumObjavljivanjaVerzije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум објављивања основног текста</label>
+                <input asp-for="DatumObjavljivanjaOsnovnogTeksta" class="form-control" />
+                <span asp-validation-for="DatumObjavljivanjaOsnovnogTeksta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум ступања на снагу међународног уговора</label>
+                <input asp-for="DatumStupanjaNaSnaguMeđunarodnogUgovora" class="form-control" />
+                <span asp-validation-for="DatumStupanjaNaSnaguMeđunarodnogUgovora" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум ступања на снагу основног текста прописа</label>
+                <input asp-for="DatumStupanjaNaSnaguOsnovnogTekstaPropisa" class="form-control" />
+                <span asp-validation-for="DatumStupanjaNaSnaguOsnovnogTekstaPropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум престанка важења прописа</label>
+                <input asp-for="DatumPrestankaVazenjaPropisa" class="form-control" />
+                <span asp-validation-for="DatumPrestankaVazenjaPropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум почетка примене</label>
+                <input asp-for="DatumPocetkaPrimene" class="form-control" />
+                <span asp-validation-for="DatumPocetkaPrimene" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Правни основ за доношење прописа</label>
+                <input asp-for="PravniOsnovZaDonosenjaPropisa" class="form-control" />
+                <span asp-validation-for="PravniOsnovZaDonosenjaPropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Норма основа за доношење</label>
+                <input asp-for="NormaOsnovaZaDonosenje" class="form-control" />
+                <span asp-validation-for="NormaOsnovaZaDonosenje" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Пропис који је престао да важи</label>
+                <input asp-for="PropisKojiJePrestaoDaVazi" class="form-control" />
+                <span asp-validation-for="PropisKojiJePrestaoDaVazi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Норма основа за престанак важења</label>
+                <input asp-for="NormaOsnovaZaPrestanakVazenja" class="form-control" />
+                <span asp-validation-for="NormaOsnovaZaPrestanakVazenja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Датум престанка важења правног претходника</label>
+                <input asp-for="DatumPrestankaVazenjaPravnogPrethodnika" class="form-control" />
+                <span asp-validation-for="DatumPrestankaVazenjaPravnogPrethodnika" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Историјска верзија прописа</label>
+                <input asp-for="IstorijskaVerzijaPropisa" class="form-control" />
+                <span asp-validation-for="IstorijskaVerzijaPropisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Напомена</label>
+                <input asp-for="Napomena" class="form-control" />
+                <span asp-validation-for="Napomena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Референца на пропис</label>
+                <input asp-for="ReferencaNaPropis" class="form-control" />
+                <span asp-validation-for="ReferencaNaPropis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Напомене гласника</label>
+                <input asp-for="NapomeneGlasnika" class="form-control" />
+                <span asp-validation-for="NapomeneGlasnika" class="text-danger"></span>
+            </div>
+            <label class="control-label">Текст</label>
+            <textarea name="TekstPropisa" style="width:700px; height:500px;"></textarea>
+            <script>
+                tinymce.init({
+                    selector: 'textarea',
+                    plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+                    toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+                    toolbar_mode: 'floating',
+                    tinycomments_mode: 'embedded',
+                    tinycomments_author: 'Author name'
+                });
+            </script>
+            <br />
+            <a href ="~/Propis/BrisiTekstNerazdeljen/@Model.Id" class="btn btn-danger">Бриши цео нераздељени текст</a>
+            <div class="form-group">
+                <label class="control-label">Преамбула</label>
+                <input asp-for="Preambula" class="form-control" />
+                <span asp-validation-for="Preambula" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сачувај" class="btn btn-primary" />
+            </div>
+            <a href="~/Propis/Index/@rubrika.ID/@podrubrika.ID">Врати се на листу прописа</a>
+        </form>
+    </div>
+</div>
+
+

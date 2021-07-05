@@ -1,0 +1,104 @@
+﻿@model IEnumerable<AdminPanel.Areas.Identity.Data.Pretplatnik>
+
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string prikaz = ViewBag.Pib;
+}
+
+<h1>Search</h1>
+
+<p>
+    <a asp-action="Create">@prikaz</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PIB)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.KorisnickoIme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lozinka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrojTelefona)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.MaticniBroj)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pretplata)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumPocetkaPretplate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumKrajaPretplate)
+            </th>*@
+          <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PIB)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.KorisnickoIme)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lozinka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrojTelefona)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.MaticniBroj)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pretplata)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumPocetkaPretplate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumKrajaPretplate)
+            </td>*@
+        <td>
+            @Html.ActionLink("Измени", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Сви подаци", "Details", new { id = item.ID }) |
+            <a href="~/Pretplatnik/Delete/@item.ID" onclick="return confirm('Да ли стварно желите да обришете претплатника @item.Ime')">Бриши</a>
+        </td>
+        </tr>
+}
+    </tbody>
+</table>

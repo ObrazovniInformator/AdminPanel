@@ -1,0 +1,41 @@
+﻿@model AdminPanel.Areas.Identity.Data.CasopisNaslov;
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "IzmeniCasopis";
+    List<GlavneOblastiCasopis> glavneOblastiCasopis = ViewBag.GlavneOblastiCasopis;
+    List<RubrikaCasopis> casopisRubrike = ViewBag.CasopisRubrike;
+    List<PodrubrikaCasopis> podrubrike = ViewBag.Podrubrike;
+    List<CasopisGodina> casopisGodine = ViewBag.CasopisGodine;
+    List<CasopisBroj> casopisBrojevi = ViewBag.CasopisBrojevi;
+    Dictionary<int,string> casopisNaslovi = ViewBag.CasopisNaslovi;
+}
+
+<h1 style=" margin-left:38%;">Списак Часописа за измену</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label class="control-label">Наслов</label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in casopisNaslovi)
+        {
+            <tr>
+                <td>
+                    @item.Value
+                </td>
+                <td>
+                    @Html.ActionLink("Измени", "Edit", new { id = item.Key }) |
+                    @*@Html.ActionLink("Сви подаци", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Веза са прописом", "KreirajVezuSudskaPraksaPropis", new { id = item.Id }) |*@
+                    <a href="~/Casopis/Delete/@item.Key" onclick="return confirm('Да ли сте сигурни да желите да избришете Часопис - @item.Value ?')">Избриши</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

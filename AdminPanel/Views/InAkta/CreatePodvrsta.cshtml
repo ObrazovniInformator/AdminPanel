@@ -1,0 +1,30 @@
+﻿@model AdminPanel.Areas.Identity.Data.InAktaPodvrsta
+
+@{
+    ViewData["Title"] = "CreatePodvrsta";
+}
+
+<h1 style="margin-left:6.5%;">Креирај подврсту за ин акта</h1>
+@if (ViewBag.Msg != null)
+{
+    <h4 style="color:green; margin-left:5%;">@ViewBag.Msg</h4>
+}
+<hr />
+<div class="row" style="margin-left:5%;">
+    <div class="col-md-4">
+        <form asp-action="CreatePodvrsta">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Назив</label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Креирај подврсту за ин акта" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index">Врати се на почетну страницу</a>
+            </div>
+        </form>
+    </div>
+</div>

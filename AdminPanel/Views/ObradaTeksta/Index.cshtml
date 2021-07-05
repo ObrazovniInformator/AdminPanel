@@ -1,0 +1,120 @@
+﻿@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Index";
+    List<Podnaslov> podnaslovi = ViewBag.Podnaslovi;
+    List<Clan> clanovi = ViewBag.Clanovi;
+    List<Stav> stavovi = ViewBag.Stavovi;
+    List<Tacka> tacke = ViewBag.Tacke;
+    List<Alineja> alineje = ViewBag.Alineje;
+    int? IdClan = ViewBag.Clan;
+    int? IdStav = ViewBag.Stav;
+    int idPropisa = ViewBag.IdPropisa;
+    Propis propis = ViewBag.Propis;
+}
+<h1 style="margin-left:5%">@propis.Naslov</h1>
+
+<h3 style="margin-left:5%">ОБРАДА ТЕКСТА</h3>
+
+<a href="~/Propis/Index/@propis.IdPodrubrike/@propis.IdRubrike" style="margin-left:5%">Врати се на претходну страну</a>
+<hr />
+<a href="~/Clan/DodajClan/@idPropisa" style="font-size:25px;" class="btn btn-block btn-danger">Додај члан</a>
+<hr />
+<a href="~/Stav/DodajStav/@idPropisa" style="font-size:25px;" class="btn btn-block btn-danger">Додај став</a>
+<hr />
+<a href="~/Tacka/DodajTacku/@idPropisa" style="font-size:25px;" class="btn btn-block btn-danger">Додај тачку</a>
+<hr />
+<div class="row" style="margin-bottom:10%">
+    <div class="col-md-6">
+        <form asp-action="Index">
+            <textarea name="TekstPropisa"></textarea>
+            <script>
+                tinymce.init({
+                    selector: 'textarea',
+                    plugins: 'autoresize preview a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+                    autoresize_on_init: false,
+                    toolbar: 'a11ycheck preview addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+                    toolbar_mode: 'floating',
+                    tinycomments_mode: 'embedded',
+                    tinycomments_author: 'Author name'
+                });
+            </script>
+            <br />
+            <input type="submit" value="Раздели текст прописа" class="btn btn-outline-info" /><br /><br />
+
+        </form>
+    </div>
+
+    <div class="col-md-6" style="margin-top:77px">
+        @if (clanovi.Count != 0)
+        {
+            foreach (Clan c in clanovi)
+            {
+                if (c.IdPropis == idPropisa && c.IdPodnaslov == null)
+                {
+                    @Html.Raw(c.Naziv)<span class="float-right"><a href="~/Clan/IzmeniClan/@c.Id">Измени члан</a></span>
+                    @foreach (Stav s in stavovi)
+                    {
+                        if (s.IdClan == c.Id)
+                        {
+                            @Html.Raw(s.Tekst)
+                            @foreach (Tacka t in tacke)
+                            {
+                                if (t.IdStav == s.Id)
+                                {
+                                    @Html.Raw(t.Tekst)
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
+            @foreach (Podnaslov p in podnaslovi)
+            {
+
+                @Html.Raw(p.PodnaslovTekst)
+                @foreach (Clan c in clanovi)
+                {
+                    if (c.IdPodnaslov == p.Id)
+                    {
+                        <p style="text-align: center; text-indent: 24pt; line-height: normal; background: white; font-size: 13pt; font-family: Calibri, sans-serif;">
+                            <span style="font-size: 9.0pt; font-family: Verdana, sans-serif; color: #333333;">@Html.Raw(c.Naziv)</span> <span><a href="~/Clan/IzmeniClan/@c.Id">Измени члан</a></span><br />
+
+
+                        </p>
+                        @foreach (Stav s in stavovi)
+                        {
+
+                            if (s.IdClan == c.Id)
+                            {
+                                @Html.Raw(s.Tekst)<span><a href="~/Stav/EditStav/@s.Id">Измени став</a></span> <span><a href="~/Stav/DeleteStav/@s.Id" onclick="return confirm('Да ли сте сигурни да желите да избришете @s.Naziv')">Бриши став</a></span>
+                                @foreach (Tacka t in tacke)
+                                {
+                                    if (t.IdStav == s.Id)
+                                    {
+                                        @Html.Raw(t.Tekst)<span><a href="~/Tacka/EditTacka/@t.Id">Измени тачку</a></span>
+                                    }
+                                }
+                                @foreach (Alineja a in alineje)
+                                {
+                                    if (a.IdStav == s.Id)
+                                    {
+                                        @Html.Raw(a.Tekst)
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+            }
+            <form asp-action="BrisiCeoTekst" asp-route-id="@idPropisa">
+                <input type="submit" value="Бриши текст прописа" class="btn btn-outline-danger" /><br /><br />
+            </form>
+        }
+    </div>
+</div>
+

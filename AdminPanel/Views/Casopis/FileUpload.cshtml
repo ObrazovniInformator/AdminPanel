@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "FileUpload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Unos PDF</h1>
+
+<form method="post" enctype="multipart/form-data" asp-controller="Casopis" asp-action="FileUpload">
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Unesi fajl</p>
+            <input type="file" name="file" />
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Unesi" />
+    </div>
+
+    <div class="form-group">
+        <span>@TempData["msg"]</span>
+    </div>
+</form>
+

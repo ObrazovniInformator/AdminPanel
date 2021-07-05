@@ -1,0 +1,30 @@
+﻿@model AdminPanel.Areas.Identity.Data.DonosilacSP
+
+@{
+    ViewData["Title"] = "CreateDonosilac";
+}
+
+<h1 style="margin-left:6.5%;">Креирај доносиоца за судску праксу</h1>
+@if (ViewBag.Msg != null)
+{
+    <h4 style="color:green; margin-left:5%;">@ViewBag.Msg</h4>
+}
+<hr />
+<div class="row" style="margin-left:5%; margin-bottom:50px;">
+    <div class="col-md-4">
+        <form asp-action="CreateDonosilac">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Назив</label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Креирај доносиоца за судску праксу" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index">Врати се на листу судских пракси</a>
+            </div>
+        </form>
+    </div>
+</div>

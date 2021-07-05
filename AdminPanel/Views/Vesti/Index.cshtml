@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AdminPanel.Areas.Identity.Data.Vest>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="margin-left:5%">Вести</h1>
+
+<p style="margin-left:5%">
+    <a asp-action="Create" class="btn btn-outline-success">Креирај нову вест</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Наслов")
+            <th>
+                @Html.DisplayName("Дан у месецу")
+            </th>
+            <th>
+                @Html.DisplayName("Месец")
+            </th>
+            <th>
+                @Html.DisplayName("Година")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+            <tr>
+            
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naslov)
+                </td> 
+                <td>
+                    @Html.DisplayFor(modelItem => item.DanUMesecu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mesec)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Godina)
+                </td>   
+                <td>
+                    @Html.ActionLink("Измени", "Edit", new {  id=item.Id  }) |
+                    @Html.ActionLink("Детаљи", "Details", new {  id=item.Id  }) |
+                    <a href="~/Vesti/Delete/@item.Id" onclick="return confirm('Да ли сте сигурни да желите да избришете вест @item.Naslov')">Избриши</a>
+                </td>
+            </tr>
+    }
+    </tbody>
+</table>

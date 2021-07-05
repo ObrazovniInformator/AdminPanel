@@ -1,0 +1,41 @@
+﻿@model AdminPanel.Areas.Identity.Data.PodpodrubrikaSM
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "CreatePodpodrubrika";
+    List<PodrubrikaSM> podrubrikeSM = (List<PodrubrikaSM>)ViewBag.PodrubrikeSM;
+}
+
+<h1 style="margin-left:6.5%;">Креирај подподрубрику за службено мишљење</h1>
+@if (ViewBag.Msg != null)
+{
+    <h4 style="color:green; margin-left:5%;">@ViewBag.Msg</h4>
+}
+<hr />
+<div class="row" style="margin-left:5%;">
+    <div class="col-md-4">
+        <form asp-action="CreatePodpodrubrika">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Назив</label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Подрубрика</label>
+                <select name="IdPodrubrikaSM" class="form-control">
+                    @foreach (PodrubrikaSM r in podrubrikeSM)
+                    {
+                        <option value="@r.Id">@r.Naziv</option>
+                    }
+                </select>
+                <span asp-validation-for="IdPodrubrika" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Креирај подподрубрику за службено мишљење" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index">Врати се на листу службених мишљења</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+﻿@model SluzbenoMisljenjeViewModel
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Index";
+    int idRubrikaSM = ViewBag.IdRubrikaSM;
+    int idPodrubrikaSM = ViewBag.IdPodrubrikaSM;
+    //int idPodpodrubrikaSM = ViewBag.IdPodpodrubrikaSM;
+    int idDonosilacSM = ViewBag.IdDonosilacSP;
+    //List<Propis> propisi = ViewBag.Propisi;
+    //List<Clan> clanovi = ViewBag.Clanovi;
+    //List<Stav> stavovi = ViewBag.Stavovi;
+    //List<Tacka> tacke = ViewBag.Tacke;
+}
+
+<style>
+    @@media (min-width: 1600px) {
+        .container {
+            max-width: 1600px;
+        }
+    }
+
+    #sidebar-wrapper {
+        font-size: 1.3rem !important;
+    }
+</style>
+<h1 style=" margin-left:38%;">Списак Службених мишљења</h1>
+<div style="margin-left:10%">
+    <form asp-action="Search">
+        <div class="form-group">
+            <label class="control-label">Наслов</label>
+            <input name="Naslov" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Тражи" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+<p>
+    <a href="~/SluzbenoMisljenje/CreateRubrika/@idRubrikaSM" style="font-size:25px;" class="btn btn-block btn-danger">Креирај рубрику за службено мишљење</a>
+    <a href="~/SluzbenoMisljenje/CreatePodrubrika/@idPodrubrikaSM" style="font-size:25px;" class="btn btn-block btn-danger">Креирај подрубрику за службено мишљење</a>
+    @*<a href="~/SluzbenoMisljenje/CreatePodrubrika/@idPodpodrubrikaSМ" style="font-size:25px;" class="btn btn-block btn-danger">Креирај подподрубрику за службено мишљење</a>*@
+    <a href="~/SluzbenoMisljenje/CreateDonosilac/@idDonosilacSM" style="font-size:25px;" class="btn btn-block btn-danger">Креирај доносиоца за службено мишљење</a>
+    <a href="~/SluzbenoMisljenje/Create/@idPodrubrikaSM" style="font-size:25px;" class="btn btn-block btn-danger">Креирај службено мишљење</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>*@
+            <th>
+                <label class="control-label">Наслов</label>
+            </th>
+            <th>
+                <label class="control-label">Поднаслов</label>
+            </th>
+            <th>
+                <label class="control-label">Број</label>
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.DatumDonosenja)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Napomena)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tekst)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdPropis)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdClan)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdStav)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdTacka)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdRubrikaSM)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdPodrubrikaSM)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdDonosilacSM)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SluzbenoMisljenjeList)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naslov)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Podnaslov)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Broj)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.DatumDonosenja)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Napomena)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tekst)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdPropis)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdClan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdStav)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdTacka)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdRubrikaSM)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdPodrubrikaSM)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdDonosilacSM)
+                    </td>*@
+            <td>
+                @*@Html.ActionLink("Измени", "Edit", new { id = item.Id }) |*@
+                @Html.ActionLink("Сви подаци", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Веза са прописом", "KreirajVezuPropisSluzbenoMisljenje", new { id = item.Id }) |
+                @Html.ActionLink("Веза са просветним прописом", "KreirajVezuProsvetniPropisSluzbenoMisljenje", new { id = item.Id }) |
+                <a href="~/SluzbenoMisljenje/Delete/@item.Id" onclick="return confirm('Да ли сте сигурни да желите да избришете Службено Мишљење - @item.Naslov ?')">Избриши</a>
+
+            </td>
+            </tr>
+        }
+    </tbody>
+</table>

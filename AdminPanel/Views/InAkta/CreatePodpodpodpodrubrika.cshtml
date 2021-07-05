@@ -1,0 +1,41 @@
+﻿@model AdminPanel.Areas.Identity.Data.PodpodpodpodrubrikaInAkta
+@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "CreatePodpodpodpodrubrika";
+    List<PodpodpodrubrikaInAkta> podpodpodRubrikeIA = (List<PodpodpodrubrikaInAkta>)ViewBag.PodpodpodrubrikeIA;
+}
+
+<h1 style="margin-left:6.5%;">Креирај подподподподрубрику за ин акта</h1>
+@if (ViewBag.Msg != null)
+{
+    <h4 style="color:green; margin-left:5%;">@ViewBag.Msg</h4>
+}
+<hr />
+<div class="row" style="margin-left:5%;">
+    <div class="col-md-4">
+        <form asp-action="CreatePodpodpodpodrubrika">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Назив</label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Подподподрубрика</label>
+                <select name="IdPodpodpodrubrika" class="form-control">
+                    @foreach (PodpodpodrubrikaInAkta r in podpodpodRubrikeIA)
+                    {
+                        <option value="@r.Id">@r.Naziv</option>
+                    }
+                </select>
+                <span asp-validation-for="IdPodpodpodrubrika" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Креирај подподподподрубрику за ин акта" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index">Врати се на почетну страницу</a>
+            </div>
+        </form>
+    </div>
+</div>
