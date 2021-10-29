@@ -71,6 +71,7 @@ namespace AdminPanel.Areas.Identity.Data
         public ICollection<PrimeriKnjizenja> PrimeriKnjizenja { get; set; }
         public ICollection<Vest> Vest { get; set; }
         public ICollection<PropisPropis> PropisPropis { get; set; }
+        public ICollection<PdfFajlPropis> PdfFajlPropis { get; set; }
 
         public static void DodajPropis(Propis propis)
         {

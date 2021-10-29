@@ -77,6 +77,7 @@ namespace AdminPanel.Data
         public virtual DbSet<ProsvetniPropisInAkta> ProsvetniPropisInAkta { get; set; }
         public virtual DbSet<ProsvetniPropisSluzbenoMisljenje> ProsvetniPropisSluzbenoMisljenje { get; set; }
         public virtual DbSet<ProsvetniPropisSudskaPraksa> ProsvetniPropisSudskaPraksa { get; set; }
+        public virtual DbSet<PdfFajlPropis> PdfFajlPropis { get; set; }
         public virtual DbSet<PdfFajlProsvetniPropis> PdfFajlProsvetniPropis { get; set; }
         //primeri knjizenja
         public virtual DbSet<PrimeriKnjizenja> PrimeriKnjizenja { get; set; }
@@ -93,7 +94,7 @@ namespace AdminPanel.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer("Server=DESKTOP-7Q87QHR\\SQLEXPRESS;Database=adminPanel;Integrated Security=True;");
+                //optionsBuilder.UseSqlServer("Server=DESKTOP-J6TSTOI\\SQLEXPRESS;Database=adminPanel;Integrated Security=True;");
                 optionsBuilder.UseSqlServer("Server=tcp:obrazovni-adminpanel.database.windows.net,1433;Initial Catalog=adminPanel;Persist Security Info=False;User ID=Andjelija;Password=Andja#Luka;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
@@ -470,15 +471,19 @@ namespace AdminPanel.Data
                     .HasForeignKey(d => d.IdRubrike)
                     .HasConstraintName("FK_Propis_Rubrika");
             });
+            modelBuilder.Entity<PdfFajlPropis>(entity =>
+            {
+                entity.HasOne(d => d.IdPropisNavigation)
+                   .WithMany(p => p.PdfFajlPropis)
+                   .HasForeignKey(d => d.IdPropis)
+                   .HasConstraintName("FK_PdfFajl_Propis");
+            });
             modelBuilder.Entity<PdfFajlProsvetniPropis>(entity =>
             {
                 entity.HasOne(d => d.IdProsvetniPropisNavigation)
                    .WithMany(p => p.PdfFajlProsvetniPropis)
                    .HasForeignKey(d => d.IdProsvetniPropis)
                    .HasConstraintName("FK_PdfFajl_ProsvetniPropis");
-
-                
-
             });
             modelBuilder.Entity<PdfFajCasopis>(entity =>
             {
@@ -486,9 +491,6 @@ namespace AdminPanel.Data
                    .WithMany(p => p.PdfFajCasopis)
                    .HasForeignKey(d => d.IdCasopis)
                    .HasConstraintName("FK_PdfFajl_ProsvetniPropis");
-
-
-
             });
             modelBuilder.Entity<PodnaslovPP>(entity =>
             {

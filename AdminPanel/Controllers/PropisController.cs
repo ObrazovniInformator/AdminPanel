@@ -39,7 +39,6 @@ namespace AdminPanel.Controllers
                 return RedirectPermanent("~/Identity/Account/Login");
             }
         }
-
         public IActionResult Search(IFormCollection collection)
         {
             string email = HttpContext.Session.GetString("UserEmail");
@@ -462,6 +461,7 @@ namespace AdminPanel.Controllers
             }
             return View();
         }
+
         [HttpPost]
         public IActionResult KreirajVezuPropisPropis(int id, IFormCollection fc)
         {
@@ -518,10 +518,6 @@ namespace AdminPanel.Controllers
             return Json(new SelectList(listaTacaka, "Id", "Naziv"));
         }
 
-
-      
-
-
         public IActionResult BrisiTekstNerazdeljen(int id)
         {
             Propis propis = (from p in _context.Propis
@@ -542,6 +538,72 @@ namespace AdminPanel.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult FileUpload(int id)
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<ActionResult> FileUpload(int id, IFormFile file)
+        {
+            await UploadFile(id, file);
+            TempData["msg"] = "Uspesno ubacen fajl !";
+            return View();
+        }
+
+        //Upload file on server
+
+        public async Task<bool> UploadFile(int id, IFormFile file)
+        {
+            string path = "";
+            bool iscopied = false;
+            try
+            {
+                if (file.Length > 0)
+                {
+                    string fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                    path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot", "UploadPdf"));
+                    using (var filestream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                    {
+                        await file.CopyToAsync(filestream);
+                    }
+                    PdfFajlPropis pdfFajl = new PdfFajlPropis();
+                    try
+                    {
+                        pdfFajl.NaslovPdf = file.FileName;
+                        pdfFajl.PdfPath = "wwwroot/UploadPdf/" + fileName;
+                        pdfFajl.IdPropis = id;
+                        _context.PdfFajlPropis.Add(pdfFajl);
+                        _context.SaveChanges();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                    iscopied = true;
+                }
+                else
+                {
+                    iscopied = false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return iscopied;
+        }
+
+        public IActionResult CitajPdf(int id)
+        {
+            PdfFajlPropis file = (from p in _context.PdfFajlPropis
+                                           where p.Id == id
+                                           select p).Single();
+            string path = file.PdfPath;
+            return File(System.IO.File.ReadAllBytes(path), "application/pdf");
+
+        }
     }
 }
