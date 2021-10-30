@@ -177,7 +177,7 @@
                 <span asp-validation-for="NapomeneGlasnika" class="text-danger"></span>
             </div>
             <label class="control-label">Текст</label>
-            <textarea name="TekstPropisa" style="width:700px; height:500px;"></textarea>
+            <textarea name="TekstPropisa" style="width:700px; height:500px;">@Model.TekstPropisa</textarea>
             <script>
                 tinymce.init({
                     selector: 'textarea',
