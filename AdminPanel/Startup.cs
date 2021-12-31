@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -42,19 +43,18 @@ namespace AdminPanel
             });
             services.AddAuthentication(sharedOptions =>
             sharedOptions.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme)
-          .AddCookie(options =>
-          {
+              .AddCookie(options =>
+              {
              
-              options.ExpireTimeSpan = TimeSpan.FromHours(4);
-            //  options.SlidingExpiration = true;
+                  options.ExpireTimeSpan = TimeSpan.FromHours(4);
+                //  options.SlidingExpiration = true;
 
-          }
-         );
-
-
-
-
-
+              }
+             );
+            services.Configure<FormOptions>(options =>
+            {
+                options.ValueLengthLimit = int.MaxValue;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

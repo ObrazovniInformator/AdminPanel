@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
@@ -77,16 +78,6 @@ namespace AdminPanel.Controllers
             if (email != null)
             {
                 ViewBag.IdPodrubrike = id;
-                //return View();
-               // List<Propis> propisi = (from p in _context.Propis
-                                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-              //                          select p).ToList();
-                //List<Clan> clanovi = (from cl in _context.Clan
-                //                      select cl).ToList();
-                //List<Stav> stavovi = (from stav in _context.Stav
-                //                      select stav).ToList();
-                //List<Tacka> tacke = (from ta in _context.Tacka
-                //                     select ta).ToList();
 
                 List<Rubrika> rubrike = new List<Rubrika>();
 
@@ -101,11 +92,6 @@ namespace AdminPanel.Controllers
 
                 rubrike.Insert(0, new Rubrika { ID = 0, NazivRubrike = "--Изабери РУБРИКУ--" });
 
-                //ViewBag.Propisi = propisi;
-                //ViewBag.Clanovi = clanovi;
-                //ViewBag.Stavovi = stavovi;
-                //ViewBag.Tacke = tacke;
-
                 return View();
             }
             else
@@ -117,6 +103,7 @@ namespace AdminPanel.Controllers
         [HttpPost]
         public IActionResult Create(Propis propis, IFormCollection fc)
         {
+
             List<Rubrika> rubrike = new List<Rubrika>();
             rubrike = (from r in _context.Rubrika
                        select r).ToList();
@@ -163,9 +150,6 @@ namespace AdminPanel.Controllers
 
             try
             {
-                //_context.Propis.Add(propis);
-                //_context.SaveChanges();
-                //return RedirectPermanent("~/Propis/Index/" + propis.IdPodrubrike);
                 Propis.DodajPropis(p);
                 ViewBag.Msg = "Успешно убачен пропис";
             }
@@ -174,31 +158,7 @@ namespace AdminPanel.Controllers
                 throw;
             }
 
-            //int propisId = (from prop in _context.Propis
-            //              select prop.Id).Max();
-
-            //PropisPropis pp = new PropisPropis();
-            //pp.IdPropis = propisId;
-            //pp.IdClan = Convert.ToInt32(fc["IdClan"]);
-            //pp.IdStav = Convert.ToInt32(fc["IdStav"]);
-            //pp.IdTacka = Convert.ToInt32(fc["IdTacka"]);
-            //pp.DatumUnosa = DateTime.Now;
-
-
-            //if (pp != null)
-            //{
-            //    try
-            //    {
-            //        PropisPropis.DodajVezuPropisPropis(pp);
-            //        ViewBag.Msg = "Успех";
-            //    }
-            //    catch
-            //    {
-            //        throw;
-            //    }
-            //}
             ViewBag.IdPodrubrike = p.IdPodrubrike;
-          //  List<Rubrika> rubrike = new List<Rubrika>();
 
             int idP = (from pr in _context.Propis
                        select pr.Id).Max();
