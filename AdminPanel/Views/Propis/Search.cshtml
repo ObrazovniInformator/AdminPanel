@@ -19,17 +19,18 @@
     }
 </style>
 <h1 style=" margin-left:38%;">Списак Прописа</h1>
-@*<div style="margin-left:10%">
-    <form asp-action="Search" method="get">
+<div style="margin-left:10%">
+    <form asp-action="Search">
         <div class="form-group">
             <label class="control-label">Наслов</label>
-            <input type="text" name="Naslov" value="@ViewData["CurrentFilter"]" />
-            </div>
-                <div class="form-group">
+            <input name="Naslov" class="form-control" />
+        </div>
+        <div class="form-group">
             <input type="submit" value="Тражи" class="btn btn-primary" />
         </div>
+
     </form>
-</div>*@
+</div>
 <table class="table">
     <thead>
         <tr>
