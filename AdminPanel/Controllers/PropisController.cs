@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using AdminPanel.Areas.Identity.Data;
@@ -9,19 +10,22 @@ using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdminPanel.Controllers
 {
     public class PropisController : Controller
     {
         private AdminPanelContext _context = new AdminPanelContext();
-        public IActionResult Index(int id,string idRubrika)
+        public IActionResult Index(int id, string idRubrika, string searchString)
         {
             string email = HttpContext.Session.GetString("UserEmail");
             ViewBag.Email = email;
 
             if (email != null)
             {
+                ViewData["CurrentFilter"] = searchString;
+
                 int idR = Convert.ToInt32(idRubrika);
                 List<Propis> propisi = (from p in _context.Propis
                                         where p.IdPodrubrike == id && p.IdRubrike == idR
@@ -33,6 +37,14 @@ namespace AdminPanel.Controllers
                 ViewBag.IdPodrubrike = id;
                 ViewBag.Podnaslovi = podnaslovi;
                 ViewBag.Clanovi = clanovi;
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    propisi = (from e in _context.Propis
+                                where EF.Functions.Like(e.Naslov, "%[searchString]%") && e.IdPodrubrike == id && e.IdRubrike == idR
+                               select e).ToList();
+                }
+
                 return View(propisi);
             }
             else
@@ -40,33 +52,40 @@ namespace AdminPanel.Controllers
                 return RedirectPermanent("~/Identity/Account/Login");
             }
         }
-        public IActionResult Search(IFormCollection collection)
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchString)
         {
             string email = HttpContext.Session.GetString("UserEmail");
             ViewBag.Email = email;
 
-            if (email != null) { 
-                string trazeniPropis = collection["Naslov"];
-            var propisi = from m in _context.Propis
-                         select m;
-            List<Podnaslov> podnaslovi = (from pod in _context.Podnaslov
-                                          select pod).ToList();
-            List<Clan> clanovi = (from pod in _context.Clan
-                                  select pod).ToList();
-            
-            ViewBag.Podnaslovi = podnaslovi;
-            ViewBag.Clanovi = clanovi;
-
-            if (!String.IsNullOrEmpty(trazeniPropis))
+            if (email != null)
             {
-                propisi = propisi.Where(s => s.Naslov.Contains(trazeniPropis));
-            }
-            return View(propisi);
+                //    //string trazeniPropis = collection["Naslov"];
+                ViewData["CurrentFilter"] = searchString;
+                var propisi = from m in _context.Propis
+                             select m;
+                List<Podnaslov> podnaslovi = (from pod in _context.Podnaslov
+                                              select pod).ToList();
+                List<Clan> clanovi = (from pod in _context.Clan
+                                      select pod).ToList();
+            
+                ViewBag.Podnaslovi = podnaslovi;
+                ViewBag.Clanovi = clanovi;
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    propisi = propisi.Where(s => s.Naslov.Contains(searchString));
+                }
+
+                return View(await propisi.AsNoTracking().ToListAsync());
+
             }
             else
             {
                 return RedirectPermanent("~/Identity/Account/Login");
             }
+
         }
 
         [HttpGet]
