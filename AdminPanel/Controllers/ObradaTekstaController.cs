@@ -786,7 +786,7 @@ namespace AdminPanel.Controllers
             {
                 Propis propis = (from p in _context.Propis
                                  where p.Id == id
-                                 select p).Single();
+                                 select p).SingleOrDefault();
                 List<Podnaslov> podnaslovi = (from pod in _context.Podnaslov
                                               where pod.IdPropis == id
                                               select pod).ToList();
