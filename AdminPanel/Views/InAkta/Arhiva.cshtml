@@ -11,7 +11,7 @@
 }
 
 <h4>
-    МОДЕЛИ ОПШТИХ И ПОЈЕДИНАЧНИХ АКАТА, ДОКУМЕНАТА И УГОВОРА
+    Архивирана Ин Акта
 </h4>
 
 <div style="margin-left:5%; margin-bottom:50px;">
@@ -27,7 +27,7 @@
                 @foreach (var i in inAkta)
                 {
                 <li>
-                    <a href="~/InAkta/Details/@i.Key">@i.Value</a> | <a href="~/InAkta/Delete/@i.Key" onclick="return confirm('Да ли сте сигурни да желите да избришете Ин Акта - @i.Value ?')"><span style="color:red;">Избриши</span></a>
+                    <a href="~/InAkta/Details/@i.Key">@i.Value</a>| <a href="~/InAkta/Delete/@i.Key" onclick="return confirm('Да ли сте сигурни да желите да избришете Ин Акта - @i.Value ?')"><span style="color:red;">Избриши</span></a>
                 </li>
                 }
             </ul>

@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using AdminPanel.Models;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
-using AdminPanel.Areas.Identity.Data;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdminPanel.Controllers
 {
@@ -26,7 +20,7 @@ namespace AdminPanel.Controllers
             return View();
         }
 
-        public IActionResult Prosveta()
+        public IActionResult ProsvetaInAkta()
         {
             string email = HttpContext.Session.GetString("UserEmail");
 
@@ -34,24 +28,17 @@ namespace AdminPanel.Controllers
             {
                 InAktaPodvrsta podvrsteInAkta = (from pi in _context.InAktaPodvrsta
                                                  where pi.Id == 1
-                                                 select pi).Single();
+                                                 select pi).SingleOrDefault();
 
 
-                //IEnumerable<RubrikaInAkta> rubrikeInAkta = (from ri in _context.RubrikaInAkta
-                //                                     where ri.IdPodvrsta == 1
-                //                                     select ri).ToArray();
+                IEnumerable<RubrikaInAkta> rubrikeInAkta = (from ri in _context.RubrikaInAkta
+                                                            where ri.IdPodvrsta == 1
+                                                            select ri).ToArray();
 
-                //IEnumerable<InAkta> inAkta = (from ia in _context.InAkta
-                //                              where ia.IdPodvrsta == 1
-                //                              select ia);
-
-                Dictionary<int, string> inAkta = _context.InAkta
-                   .Where(x => x.IdPodvrsta == 1)
-   .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
-   .ToDictionary(x => x.Key, x => x.Value);
+                Dictionary<int, string> inAkta = _context.InAkta.Where(x => x.IdPodvrsta == 1).Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov)).ToDictionary(x => x.Key, x => x.Value);
 
                 ViewData["PodvrsteInAkta"] = podvrsteInAkta;
-                //  ViewData["RubrikeInAkta"] = rubrikeInAkta;
+                ViewData["RubrikeInAkta"] = rubrikeInAkta;
                 ViewData["InAkta"] = inAkta;
                 ViewBag.Email = email;
 
@@ -71,50 +58,49 @@ namespace AdminPanel.Controllers
             {
                 InAktaPodvrsta podvrsteInAkta = (from p in _context.InAktaPodvrsta
                                                  where p.Id == 2
-                                                 select p).Single();
+                                                 select p).SingleOrDefault();
+
                 IEnumerable<RubrikaInAkta> rubrikeInAkta = (from rub in _context.RubrikaInAkta
                                                             where rub.IdPodvrsta == 2
                                                             select rub).ToArray();
-                //List<int> idRubrike = (from rub in _context.RubrikaInAkta
-                //                       where rub.IdPodvrsta == 2
-                //                       select rub.Id).ToList();
 
-                //List<PodrubrikaInAkta> podrubrikeInAkta = (from pi in _context.PodrubrikaInAkta
-                //                                           where idRubrike.Contains((int)pi.IdRubrika)
-                //                                           select pi).ToList();
-                //List<int> idPodrubrike = (from pi in _context.PodrubrikaInAkta
-                //                          where idRubrike.Contains((int)pi.IdRubrika)
-                //                          select pi.Id).ToList();
-
-                //List<PodpodrubrikaInAkta> podpodrubrikeInAkta = (from ppi in _context.PodpodrubrikaInAkta
-                //                                                 where idPodrubrike.Contains((int)ppi.IdPodrubrika)
-                //                                                 select ppi).ToList();
-                //List<int> idPodpodrubrikeInAkta = (from ppi in _context.PodpodrubrikaInAkta
-                //                                   where idPodrubrike.Contains((int)ppi.IdPodrubrika)
-                //                                   select ppi.Id).ToList();
-                //List<PodpodpodrubrikaInAkta> podpodpodrubrikeInAkta  = (from ppi in _context.PodpodpodrubrikaInAkta
-                //                                                        where idPodpodrubrikeInAkta.Contains((int)ppi.IdPodpodrubrika)
-                //                                                         select ppi).ToList();
-                //List<int> idPodpodpodrubrikeInAkta = (from ppi in _context.PodpodpodrubrikaInAkta
-                //                                      where idPodpodrubrikeInAkta.Contains((int)ppi.IdPodpodrubrika)
-                //                                      select ppi.Id).ToList();
-
-                //List<PodpodpodpodrubrikaInAkta> podpodpodpodrubrikeInAkta = (from ppi in _context.PodpodpodpodrubrikaInAkta
-                //                                                             where idPodpodpodrubrikeInAkta.Contains((int)ppi.IdPodpodpodrubrika)
-                //                                                             select ppi).ToList();
-                Dictionary<int, string> inAkta = _context.InAkta
-                   .Where(x => x.IdPodvrsta == 2)
-   .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
-   .ToDictionary(x => x.Key, x => x.Value);
+                Dictionary<int, string> inAkta = _context.InAkta.Where(x => x.IdPodvrsta == 2).Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov)).ToDictionary(x => x.Key, x => x.Value);
 
                 ViewData["PodvrsteInAkta"] = podvrsteInAkta;
                 ViewData["RubrikeInAkta"] = rubrikeInAkta;
-                //ViewBag.PodrubrikeInAkta = podrubrikeInAkta;
-                //ViewBag.PodpodrubrikeInAkta = podpodrubrikeInAkta;
-                //ViewBag.PodpodpodrubrikeInAkta = podpodpodrubrikeInAkta;
-                //ViewBag.PodpodpodpodrubrikeInAkta = podpodpodpodrubrikeInAkta;
                 ViewData["InAkta"] = inAkta;
                 ViewBag.Email = email;
+
+                return View();
+            }
+            else
+            {
+                return RedirectPermanent("~/Identity/Account/Login");
+            }
+        }
+
+        public IActionResult Arhiva()
+        {
+            string email = HttpContext.Session.GetString("UserEmail");
+
+            if (email != null)
+            {
+                InAktaPodvrsta podvrsteInAkta = (from pi in _context.InAktaPodvrsta
+                                                 where pi.Id == 3
+                                                 select pi).SingleOrDefault();
+
+
+                IEnumerable<RubrikaInAkta> rubrikeInAkta = (from ri in _context.RubrikaInAkta
+                                                            where ri.IdPodvrsta == 3
+                                                            select ri).ToArray();
+
+                Dictionary<int, string> inAkta = _context.InAkta.Where(x => x.IdPodvrsta == 3).Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov)).ToDictionary(x => x.Key, x => x.Value);
+
+                ViewData["PodvrsteInAkta"] = podvrsteInAkta;
+                ViewData["RubrikeInAkta"] = rubrikeInAkta;
+                ViewData["InAkta"] = inAkta;
+                ViewBag.Email = email;
+
                 return View();
             }
             else
@@ -312,102 +298,17 @@ namespace AdminPanel.Controllers
             List<InAkta> iAkta = (from iak in _context.InAkta
                                   where iak.Id == id
                                   select iak).ToList();
-          
 
             ViewBag.InAkti = iAkta;
             
-
-            //List<Propis> propisi = (from p in _context.Propis
-                                       
-            //                        select p).ToList();
             List<RubrikaInAkta> rubrikeInAkta = (from r in _context.RubrikaInAkta
                                                  select r).ToList();
 
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from sta in _context.Stav
-            //                      select sta).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
-
-            //ViewBag.Propisi = propisi;
             ViewBag.Rubrike = rubrikeInAkta;
-            //ViewBag.Clanovi = clanovi;
-            //ViewBag.Stavovi = stavovi;
-            //ViewBag.Tacke = tacke;
-
-            //List<ProsvetniPropis> propisiPP = (from p in _context.ProsvetnIPropis
-                                                   
-            //                                   select p).ToList();
-
-            //List<ClanPP> clanoviPP = (from cl in _context.ClanPP
-            //                          select cl).ToList();
-            //List<StavPP> stavoviPP = (from sta in _context.StavPP
-            //                          select sta).ToList();
-            //List<TackaPP> tackePP = (from ta in _context.TackaPP
-            //                         select ta).ToList();
-
-            //ViewBag.ProsvetniPropisi = propisiPP;
-            //ViewBag.Clanovipp = clanoviPP;
-            //ViewBag.StavoviPP = stavoviPP;
-            //ViewBag.TackePP = tackePP;
 
             InAkta ia = (from iak in _context.InAkta
                          where iak.Id == id
                          select iak).Single();
-            //PropisInAkta piakta = (from piak in _context.PropisInAkta
-            //                       where piak.IdInAkta == ia.Id
-            //                       select piak).SingleOrDefault();
-            //ProsvetniPropisInAkta ppiakta = (from ppiak in _context.ProsvetniPropisInAkta
-            //                                 where ppiak.IdInAkta == ia.Id
-            //                                 select ppiak).FirstOrDefault();
-
-            //if (piakta != null)
-            //{
-            //    Propis propis = (from p in _context.Propis
-            //                     where p.Id == piakta.IdPropis
-            //                     select p).SingleOrDefault();
-
-            //    Clan clan = (from cl in _context.Clan
-            //                 where cl.Id == piakta.IdClan
-            //                 select cl).SingleOrDefault();
-
-            //    Stav stav = (from st in _context.Stav
-            //                 where st.Id == piakta.IdStav
-            //                 select st).SingleOrDefault();
-            //    Tacka tacka = (from p in _context.Tacka
-            //                   where p.Id == piakta.IdTacka
-            //                   select p).SingleOrDefault();
-
-            //    ViewBag.Propis = propis;
-            //    ViewBag.Clan = clan;
-            //    ViewBag.Stav = stav;
-            //    ViewBag.Tacka = tacka;
-            //}
-
-            //if (ppiakta != null)
-            //{
-            //    if (ppiakta.IdProsvetniPropis != null)
-            //    {
-            //        ProsvetniPropis prosvetniPropis = (from p in _context.ProsvetnIPropis
-            //                                           where p.Id == ppiakta.IdProsvetniPropis
-            //                                           select p).SingleOrDefault();
-            //    }
-
-            //    if (ppiakta.IdClanPP != null)
-            //    {
-            //        ClanPP clanPP = (from cl in _context.ClanPP
-            //                         where cl.Id == ppiakta.IdClanPP
-            //                         select cl).SingleOrDefault();
-            //    }
-
-            //    if (ppiakta.IdStavPP != null)
-            //    {
-            //        StavPP stavPP = (from st in _context.StavPP
-            //                         where st.Id == ppiakta.IdStavPP
-            //                         select st).SingleOrDefault();
-            //    }
-            //}
 
             InAktaPodvrsta iap = (from iapod in _context.InAktaPodvrsta
                                   where iapod.Id == ia.IdPodvrsta
@@ -468,8 +369,6 @@ namespace AdminPanel.Controllers
 
             InAktaViewModel model = new InAktaViewModel();
             model.InAkta = ia;
-            //model.PropisInAkta = piakta;
-            //model.ProsvetniPropisInAkta = ppiakta;
 
             if (email != null)
             {
@@ -481,43 +380,11 @@ namespace AdminPanel.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Edit(int id, InAkta inAkta, IFormCollection fcia)
+        public IActionResult Edit(int id, InAktaViewModel inAkta, IFormCollection fcia)
         {
             InAkta ia = (from iak in _context.InAkta
                          where iak.Id == id
                          select iak).Single();
-
-            //PropisInAkta pia = (from piak in _context.PropisInAkta
-            //                    where piak.IdInAkta == ia.Id
-            //                    select piak).FirstOrDefault();
-
-            //ProsvetniPropisInAkta ppia = (from ppiak in _context.ProsvetniPropisInAkta
-            //                              where ppiak.IdInAkta == ia.Id
-            //                              select ppiak).SingleOrDefault();
-
-            //if (pia != null)
-            //{
-            //    if (pia.IdPropis != null)
-            //    {
-            //        Propis propis = (from p in _context.Propis
-            //                         where p.Id == pia.IdPropis
-            //                         select p).SingleOrDefault();
-            //    }
-
-            //    if (pia.IdClan != null)
-            //    {
-            //        Clan clan = (from cl in _context.Clan
-            //                     where cl.Id == pia.IdClan
-            //                     select cl).SingleOrDefault();
-            //    }
-
-            //    if (pia.IdStav != null)
-            //    {
-            //        Stav stav = (from st in _context.Stav
-            //                     where st.Id == pia.IdStav
-            //                     select st).SingleOrDefault();
-            //    }
-            //}
 
             InAktaPodvrsta iap = (from iapod in _context.InAktaPodvrsta
                                   where iapod.Id == ia.IdPodvrsta
@@ -543,30 +410,6 @@ namespace AdminPanel.Controllers
                                                  where ppppriak.Id == ia.IdPodpodpodpodrubrika
                                                  select ppppriak).SingleOrDefault();
 
-            //if (ppia != null)
-            //{
-            //    if (ppia.IdProsvetniPropis != null)
-            //    {
-            //        ProsvetniPropis prosvetniPropis = (from p in _context.ProsvetnIPropis
-            //                                           where p.Id == ppia.IdProsvetniPropis
-            //                                           select p).SingleOrDefault();
-            //    }
-
-            //    if (ppia.IdClanPP != null)
-            //    {
-            //        ClanPP clanPP = (from cl in _context.ClanPP
-            //                         where cl.Id == ppia.IdClanPP
-            //                         select cl).SingleOrDefault();
-            //    }
-
-            //    if (ppia.IdStavPP != null)
-            //    {
-            //        StavPP stavPP = (from st in _context.StavPP
-            //                         where st.Id == ppia.IdStavPP
-            //                         select st).SingleOrDefault();
-            //    }
-            //}
-
             ViewBag.Podvrsta = iap;
             ViewBag.Rubrika = ria;
             ViewBag.Podrubrika = pria;
@@ -574,11 +417,11 @@ namespace AdminPanel.Controllers
             ViewBag.Podpodpodrubrika = pppria;
             ViewBag.Podpodpodpodrubrika = ppppria;
 
-            ia.Naslov = inAkta.Naslov;
+            ia.Naslov = inAkta.InAkta.Naslov;
             ia.Tekst = fcia["Tekst"];
-            ia.Autor = inAkta.Autor;
-            ia.DatumObjavljivanja = inAkta.DatumObjavljivanja;
-            ia.Napomena = inAkta.Napomena;
+            ia.Autor = inAkta.InAkta.Autor;
+            ia.DatumObjavljivanja = inAkta.InAkta.DatumObjavljivanja;
+            ia.Napomena = inAkta.InAkta.Napomena;
             if (!string.IsNullOrEmpty(fcia["IdPodvrsta"]))
             {
                 ia.IdPodvrsta = Convert.ToInt32(fcia["IdPodvrsta"]);
@@ -603,50 +446,10 @@ namespace AdminPanel.Controllers
             {
                 ia.IdPodpodpodpodrubrika = Convert.ToInt32(fcia["IdPodpodpodpodrubrika"]);
             }
-            //if (!string.IsNullOrEmpty(fcia["ListaPropisa"]))
-            //{
-            //    pia.IdPropis = Convert.ToInt32(fcia["ListaPropisa"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcia["IdClan"]))
-            //{
-            //    pia.IdClan = Convert.ToInt32(fcia["IdClan"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcia["IdStav"]))
-            //{
-            //    pia.IdStav = Convert.ToInt32(fcia["IdStav"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcia["IdTacka"]))
-            //{
-            //    pia.IdTacka = Convert.ToInt32(fcia["IdTacka"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcia["IdProsvetniPropis"]))
-            //{
-            //    ppia.IdProsvetniPropis = Convert.ToInt32(fcia["IdProsvetniPropis"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcia["IdClanPP"]))
-            //{
-            //    ppia.IdClanPP = Convert.ToInt32(fcia["IdClanPP"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcia["IdStavPP"]))
-            //{
-            //    ppia.IdStavPP = Convert.ToInt32(fcia["IdStavPP"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcia["IdTackaPP"]))
-            //{
-            //    ppia.IdTackaPP = Convert.ToInt32(fcia["IdTackaPP"]);
-            //}
 
             try
             {
                 _context.InAkta.Update(ia);
-                //if (pia != null)
-                //{
-                //    _context.PropisInAkta.Update(pia);
-                //}
-                //if (ppia != null)
-                //{
-                //    _context.ProsvetniPropisInAkta.Update(ppia);
-                //}
                 _context.SaveChanges();
                 return RedirectPermanent("~/InAkta/Index/" + ia.IdRubrika);
             }
@@ -762,70 +565,25 @@ namespace AdminPanel.Controllers
                 return RedirectPermanent("~/Identity/Account/Login");
             }
         }
-        //[HttpPost]
-        //public IActionResult Details(InAkta inAkta)
-        //{
-        //    InAkta ia = (from sr in _context.InAkta
-        //                 where sr.Id == inAkta.Id
-        //                 select sr).SingleOrDefault();
-        //    PropisInAkta pia = (from ps in _context.PropisInAkta
-        //                        where ps.IdInAkta == ia.Id
-        //                        select ps).SingleOrDefault();
-        //    Propis propis = (from p in _context.Propis
-        //                     where p.Id == pia.IdPropis
-        //                     select p).SingleOrDefault();
-        //    Clan clan = (from p in _context.Clan
-        //                 where p.Id == pia.IdClan
-        //                 select p).SingleOrDefault();
-        //    Stav stav = (from p in _context.Stav
-        //                 where p.Id == pia.IdStav
-        //                 select p).SingleOrDefault();
-        //    Tacka tacka = (from p in _context.Tacka
-        //                   where p.Id == pia.IdTacka
-        //                   select p).SingleOrDefault();
-        //    InAktaPodvrsta podvrstaInAkta = (from p in _context.InAktaPodvrsta
-        //                                     where p.Id == inAkta.IdPodvrsta
-        //                                     select p).SingleOrDefault();
-        //    RubrikaInAkta rubrikaInAkta = (from p in _context.RubrikaInAkta
-        //                                   where p.Id == inAkta.IdRubrika
-        //                                   select p).SingleOrDefault();
-        //    PodrubrikaInAkta podrubrikaInAkta = (from p in _context.PodrubrikaInAkta
-        //                                         where p.Id == inAkta.IdPodrubrika
-        //                                         select p).SingleOrDefault();
-        //    PodpodrubrikaInAkta podpodrubrikaInAkta = (from p in _context.PodpodrubrikaInAkta
-        //                                               where p.Id == inAkta.IdPodpodrubrika
-        //                                               select p).SingleOrDefault();
-        //    PodpodpodrubrikaInAkta podpodpodrubrikaInAkta = (from p in _context.PodpodpodrubrikaInAkta
-        //                                                     where p.Id == inAkta.IdPodpodpodrubrika
-        //                                                     select p).SingleOrDefault();
-        //    PodpodpodpodrubrikaInAkta podpodpodpodrubrikaInAkta = (from p in _context.PodpodpodpodrubrikaInAkta
-        //                                                           where p.Id == inAkta.IdPodpodpodpodrubrika
-        //                                                           select p).SingleOrDefault();
 
-        //    ViewBag.Propis = propis;
-        //    ViewBag.Clan = clan;
-        //    ViewBag.Stav = stav;
-        //    ViewBag.Tacka = tacka;
-        //    ViewBag.PodvrstaInAkta = podvrstaInAkta;
-        //    ViewBag.RubrikaInAkta = rubrikaInAkta;
-        //    ViewBag.PodrubrikaInAkta = podrubrikaInAkta;
-        //    ViewBag.PodpodrubrikaInAkta = podpodrubrikaInAkta;
-        //    ViewBag.PodpodpodrubrikaInAkta = podpodpodrubrikaInAkta;
-        //    ViewBag.PodpodpodpodrubrikaInAkta = podpodpodpodrubrikaInAkta;
+        public IActionResult Delete(int id)
+        {
+            InAkta inAkta = (from p in _context.InAkta
+                                         where p.Id == id
+                                         select p).Single();
 
-        //    ia.Tekst = inAkta.Tekst;
-
-        //    try
-        //    {
-        //        _context.SaveChanges();
-        //        ViewBag.Msg = "Успех";
-        //        return View(inAkta);
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //}
+            try
+            {
+                _context.InAkta.Remove(inAkta);
+                //_context.PropisSudskaPraksa.RemoveRange(propisSudskaPraksa);
+                _context.SaveChanges();
+                return RedirectPermanent("~/InAkta/Index/" + inAkta.IdPodrubrika);
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         [HttpGet]
         public IActionResult CreatePodvrsta()

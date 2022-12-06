@@ -7,7 +7,7 @@
 @{
     Dictionary<int, string> inAkta = (Dictionary<int, string>)ViewData["InAkta"];
     InAktaPodvrsta podvrsteInAkta = (InAktaPodvrsta)ViewData["PodvrsteInAkta"];
-    @*IEnumerable<RubrikaInAkta> rubrikeInAkta = (IEnumerable<RubrikaInAkta>)ViewData["RubrikeInAkta"];*@
+    IEnumerable<RubrikaInAkta> rubrikeInAkta = (IEnumerable<RubrikaInAkta>)ViewData["RubrikeInAkta"];
 }
 
 <h4>
@@ -18,14 +18,19 @@
     @*@Html.ActionLink("Измени", "Edit", new { id = Model.SudskaPraksa.Id }) |*@
     <a asp-action="Index">Врати се на листу ин акта</a>
 </div>
-
-
-
 <ul>
-    @foreach (var i in inAkta)
+    @foreach (RubrikaInAkta r in rubrikeInAkta)
     {
         <li>
-            <a href="~/InAkta/Details/@i.Key">@i.Value</a><br /><br>
+            <p>@r.Naziv</p>
+            <ul>
+                @foreach (var i in inAkta)
+                {
+                    <li>
+                        <a href="~/InAkta/Details/@i.Key">@i.Value</a> | <a href="~/InAkta/Delete/@i.Key" onclick="return confirm('Да ли сте сигурни да желите да избришете Ин Акта - @i.Value ?')"><span style="color:red;">Избриши</span></a>
+                    </li>
+                }
+            </ul>
         </li>
     }
 </ul>
