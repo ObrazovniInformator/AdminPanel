@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdminPanel.Controllers
 {
@@ -350,6 +348,12 @@ namespace AdminPanel.Controllers
             ViewBag.Email = email;
 
             //List<Propis> propisi = _context.Propis.ToList();
+            List<SudskaPraksa> sudskaPraksa = (from spe in _context.SudskaPraksa
+                                               where spe.Id == id
+                                  select spe).ToList();
+
+            ViewBag.SudskePrakse = sudskaPraksa;
+
             List<RubrikaSP> rubrikeSP = (from r in _context.RubrikaSP
                                          select r).ToList();
             List<PodrubrikaSP> podrubrikeSP = (from pod in _context.PodrubrikaSP
@@ -425,7 +429,7 @@ namespace AdminPanel.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Edit(int id, SudskaPraksaViewModel sp, IFormCollection fcsp)
+        public IActionResult Edit(int id, SudskaPraksa sp, IFormCollection fcsp)
         {
             SudskaPraksa s = (from sr in _context.SudskaPraksa
                               where sr.Id == id
@@ -472,11 +476,11 @@ namespace AdminPanel.Controllers
             ViewBag.PodrubrikaSP = prsp;
             ViewBag.Donosilac = donosilac;
 
-            s.Naslov = sp.SudskaPraksa.Naslov;
-            s.Podnaslov = sp.SudskaPraksa.Podnaslov;
-            s.Broj = sp.SudskaPraksa.Broj;
-            s.Datum = sp.SudskaPraksa.Datum;
-            s.Napomena = sp.SudskaPraksa.Napomena;
+            s.Naslov = fcsp["Naslov"];
+            s.Podnaslov = fcsp["Podnaslov"];
+            s.Broj = fcsp["Broj"];
+            s.Datum = fcsp["Datum"];
+            s.Napomena = fcsp["Napomena"];
             s.Tekst = fcsp["Tekst"];
             //if (!string.IsNullOrEmpty(fcsp["ListaPropisa"]))
             //{

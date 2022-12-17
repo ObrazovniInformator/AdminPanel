@@ -827,17 +827,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Наслов</label>
-                <input asp-for="PrimeriKnjizenja.Naslov" name="Naslov" class="form-control" />
-                <span asp-validation-for="PrimeriKnjizenja.Naslov" class="text-danger"></span>
+                <input asp-for="@Model.PrimeriKnjizenja.Naslov" name="Naslov" class="form-control" />
+                <span asp-validation-for="@Model.PrimeriKnjizenja.Naslov" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Поднаслов</label>
-                <input asp-for="PrimeriKnjizenja.Podnaslov" name="Podnaslov" class="form-control" />
-                <span asp-validation-for="PrimeriKnjizenja.Podnaslov" class="text-danger"></span>
+                <input asp-for="@Model.PrimeriKnjizenja.Podnaslov" name="Podnaslov" class="form-control" />
+                <span asp-validation-for="@Model.PrimeriKnjizenja.Podnaslov" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Напомена</label>
-                <input asp-for="PrimeriKnjizenja.Napomena" name="Napomena" class="form-control" />
+                <input asp-for="@Model.PrimeriKnjizenja.Napomena" name="Napomena" class="form-control" />
                 <span asp-validation-for="PrimeriKnjizenja.Napomena" class="text-danger"></span>
             </div>
             <div class="form-group">

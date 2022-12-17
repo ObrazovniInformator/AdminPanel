@@ -380,7 +380,7 @@ namespace AdminPanel.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Edit(int id, InAktaViewModel inAkta, IFormCollection fcia)
+        public IActionResult Edit(int id, InAkta inAkta, IFormCollection fcia)
         {
             InAkta ia = (from iak in _context.InAkta
                          where iak.Id == id
@@ -417,11 +417,19 @@ namespace AdminPanel.Controllers
             ViewBag.Podpodpodrubrika = pppria;
             ViewBag.Podpodpodpodrubrika = ppppria;
 
-            ia.Naslov = inAkta.InAkta.Naslov;
+            //ia.Naslov = inAkta.InAkta.Naslov;
+            //ia.Tekst = fcia["Tekst"];
+            //ia.Autor = inAkta.InAkta.Autor;
+            //ia.DatumObjavljivanja = inAkta.InAkta.DatumObjavljivanja;
+            //ia.Napomena = inAkta.InAkta.Napomena;
+
+            ia.Naslov = inAkta.Naslov;
             ia.Tekst = fcia["Tekst"];
-            ia.Autor = inAkta.InAkta.Autor;
-            ia.DatumObjavljivanja = inAkta.InAkta.DatumObjavljivanja;
-            ia.Napomena = inAkta.InAkta.Napomena;
+            ia.Autor = inAkta.Autor;
+            ia.DatumObjavljivanja = inAkta.DatumObjavljivanja;
+            ia.Napomena = inAkta.Napomena;
+
+
             if (!string.IsNullOrEmpty(fcia["IdPodvrsta"]))
             {
                 ia.IdPodvrsta = Convert.ToInt32(fcia["IdPodvrsta"]);

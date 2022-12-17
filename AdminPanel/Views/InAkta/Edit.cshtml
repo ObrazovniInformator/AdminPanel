@@ -900,7 +900,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Наслов</label>
-                <input asp-for="InAkta.Naslov" class="form-control" />
+                <input asp-for="@Model.InAkta.Naslov" class="form-control" />
                 <span asp-validation-for="InAkta.Naslov" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -919,17 +919,17 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Аутор</label>
-                <input asp-for="InAkta.Autor" class="form-control" />
+                <input asp-for="@Model.InAkta.Autor" class="form-control" />
                 <span asp-validation-for="InAkta.Autor" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Датум објављивања</label>
-                <input asp-for="InAkta.DatumObjavljivanja" class="form-control" />
+                <input asp-for="@Model.InAkta.DatumObjavljivanja" class="form-control" />
                 <span asp-validation-for="InAkta.DatumObjavljivanja" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Напомена</label>
-                <input asp-for="InAkta.Napomena" class="form-control" />
+                <input asp-for="@Model.InAkta.Napomena" class="form-control" />
                 <span asp-validation-for="InAkta.Napomena" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -998,7 +998,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Рубрика</label>
-                <select asp-for="InAkta.IdRubrika" name="IdRubrika" id="IdRubrika" class="form-control">
+                <select asp-for="@Model.InAkta.IdRubrika" name="IdRubrika" id="IdRubrika" class="form-control">
                     @if (rubrika != null)
                     {
                         @foreach (RubrikaInAkta ria in rubrike)
@@ -1013,7 +1013,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Подрубрика</label>
-                <select asp-for="InAkta.IdPodrubrika" name="IdPodrubrika" id="IdPodrubrika" class="form-control">
+                <select asp-for="@Model.InAkta.IdPodrubrika" name="IdPodrubrika" id="IdPodrubrika" class="form-control">
                     @if (podrubrika != null)
                     {
                         @foreach (PodrubrikaInAkta pria in podrubrike)
@@ -1028,7 +1028,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Подподрубрика</label>
-                <select asp-for="InAkta.IdPodpodrubrika" name="IdPodpodrubrika" id="IdPodpodrubrika" class="form-control">
+                <select asp-for="@Model.InAkta.IdPodpodrubrika" name="IdPodpodrubrika" id="IdPodpodrubrika" class="form-control">
                     @if (podpodrubrika != null)
                     {
                         @foreach (PodpodrubrikaInAkta ppria in podpodrubrike)
@@ -1043,7 +1043,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Подподподрубрика</label>
-                <select asp-for="InAkta.IdPodpodpodrubrika" name="IdPodpodpodrubrika" id="IdPodpodpodrubrika" class="form-control">
+                <select asp-for="@Model.InAkta.IdPodpodpodrubrika" name="IdPodpodpodrubrika" id="IdPodpodpodrubrika" class="form-control">
                     @if (podpodpodrubrika != null)
                     {
                         @foreach (PodpodpodrubrikaInAkta pppria in podpodpodrubrike)
