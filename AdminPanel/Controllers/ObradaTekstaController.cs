@@ -224,8 +224,6 @@ namespace AdminPanel.Controllers
             NivoPodnaslova nivo2 = _context.NivoPodnaslova.Find(2);
             NivoPodnaslova nivo3 = _context.NivoPodnaslova.Find(3);
             NivoPodnaslova nivo4 = _context.NivoPodnaslova.Find(4);
-           
-            int idPodnaslova = 0;
 
             List<Podnaslov> podnaslovi = (from pod in _context.Podnaslov
                                           select pod).ToList();

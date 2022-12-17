@@ -26,7 +26,7 @@ namespace AdminPanel.Controllers
         }
 
 
-        public IActionResult Index(int id, string? idBroj)
+        public IActionResult Index(int id, string idBroj)
         {
             //int brojId = Convert.ToInt32(idBroj);
             string email = HttpContext.Session.GetString("UserEmail");

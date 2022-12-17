@@ -26,8 +26,8 @@ namespace AdminPanel.Controllers
                     int idD = Convert.ToInt32(idDonosilac);
                   
                     Dictionary<int, string> sudskaPraksa = _context.SudskaPraksa
-   .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
-   .ToDictionary(x => x.Key, x => x.Value);
+                                                                   .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
+                                                                   .ToDictionary(x => x.Key, x => x.Value);
 
                     ViewBag.SudskaPraksa = sudskaPraksa;
                     //List<Propis> propisi = (from p in _context2.Propis
