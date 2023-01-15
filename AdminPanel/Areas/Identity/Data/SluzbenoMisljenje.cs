@@ -1,6 +1,7 @@
 ﻿using AdminPanel.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace AdminPanel.Areas.Identity.Data
         }
 
         public int Id { get; set; }
+        [Required(ErrorMessage = "Наслов је обавезан податак.")]
         public string Naslov { get; set; }
         public string Podnaslov { get; set; }
         public string Broj { get; set; }

@@ -131,10 +131,14 @@ namespace AdminPanel.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception exc)
+            catch (Exception e)
             {
-                ViewBag.Msg = "Doslo je do greske "+exc;
-                return View();
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
+                throw;
             }
         }
 
@@ -168,15 +172,16 @@ namespace AdminPanel.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception exc)
+            catch (Exception e)
             {
-                ViewBag.Msg = "Doslo je do greske " + exc.Message;
-                return View();
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
+                throw;
             }
         }
-
-  
-
 
         public ActionResult Delete(int id)
         {

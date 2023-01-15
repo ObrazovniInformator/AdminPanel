@@ -58,20 +58,14 @@ namespace AdminPanel.Controllers
                 List<PodrubrikaCasopis> podrubrike = _context.PodrubrikaCasopis.ToList();
                 List<CasopisGodina> casopisGodine = _context.CasopisGodina.ToList();
                 List<CasopisBroj> casopisBrojevi = _context.CasopisBroj.ToList();
-                // List<CasopisNaslov> casopisNaslovi = _context.CasopisNaslov.ToList();
-               
-                //var result = (from cp in _context.CasopisNaslov
-                //              join po in _context.PodrubrikaCasopis on cp.IdPodrubrika equals po.Id
-                //               select po).Distinct().ToList();
 
                 ViewBag.GlavneOblastiCasopis = glavneOblastiCasopis;
                 ViewBag.CasopisRubrike = casopisRubrike;
                 ViewBag.Podrubrike = podrubrike;
                 ViewBag.CasopisGodine = casopisGodine;
                 ViewBag.CasopisBrojevi = casopisBrojevi;
-               // ViewBag.CasopisNaslovi = casopisNaslovi;
                 ViewBag.Email = email;
-              //  ViewBag.Result = result;
+
                 return View();
             }
             else
@@ -139,8 +133,13 @@ namespace AdminPanel.Controllers
                     ViewBag.Msg = "Успешно сте додали рубрику";
                     return View();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -185,8 +184,13 @@ namespace AdminPanel.Controllers
                     ViewBag.Msg = "Подрубрика је успешно убачена";
                     return View();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -229,8 +233,13 @@ namespace AdminPanel.Controllers
                     ViewBag.Msg = "Успешно сте додали рубрику";
                     return View();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -275,8 +284,13 @@ namespace AdminPanel.Controllers
                     ViewBag.Msg = "Подрубрика је успешно убачена";
                     return View();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }

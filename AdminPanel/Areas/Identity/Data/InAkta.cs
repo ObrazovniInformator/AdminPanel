@@ -1,8 +1,6 @@
 ﻿using AdminPanel.Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace AdminPanel.Areas.Identity.Data
 {
@@ -14,6 +12,7 @@ namespace AdminPanel.Areas.Identity.Data
             ProsvetniPropisInAkta = new HashSet<ProsvetniPropisInAkta>();
         }
         public int Id { get; set; }
+        [Required(ErrorMessage = "Наслов је обавезан податак.")]
         public string Naslov { get; set; }
         public string Tekst { get; set; }
         public string Autor { get; set; }

@@ -59,19 +59,6 @@ namespace AdminPanel.Controllers
 
             if (email != null)
             {
-                //List<Propis> propisi = (from p in _context.Propis
-                                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-                //                        select p).ToList();
-                //List<Clan> clanovi = (from cl in _context.Clan
-                //                      select cl).ToList();
-                //List<Stav> stavovi = (from stav in _context.Stav
-                //                      select stav).ToList();
-                //List<Tacka> tacke = (from ta in _context.Tacka
-                //                     select ta).ToList();
-
-                //List<RubrikaVesti> rubrike = _context.RubrikaVesti.ToList();
-                //ViewBag.Rubrike = rubrike;
-
                 List<RubrikaVesti> rubrikeV = new List<RubrikaVesti>();
 
                 int idV = (from v in _context.Vest
@@ -88,11 +75,6 @@ namespace AdminPanel.Controllers
 
                 List<VestiKategorija> kategorije = _context.VestiKategorija.ToList();
                 ViewBag.Kategorije = kategorije;
-
-                //ViewBag.Propisi = propisi;
-                //ViewBag.Clanovi = clanovi;
-                //ViewBag.Stavovi = stavovi;
-                //ViewBag.Tacke = tacke;
 
                 return View();
             }
@@ -114,20 +96,6 @@ namespace AdminPanel.Controllers
 
             List<VestiKategorija> kategorije = _context.VestiKategorija.ToList();
             ViewBag.Kategorije = kategorije;
-            //List<Propis> propisi = (from p in _context.Propis
-            //where p.IdPodrubrike == id && p.IdRubrike == idR
-            //                        select p).ToList();
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from stav in _context.Stav
-            //                      select stav).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
-
-            //ViewBag.Propisi = propisi;
-            //ViewBag.Clanovi = clanovi;
-            //ViewBag.Stavovi = stavovi;
-            //ViewBag.Tacke = tacke;
 
             Vest v = new Vest();
             v.Naslov = fc["Naslov"];
@@ -141,43 +109,18 @@ namespace AdminPanel.Controllers
             v.IdKategorija = Convert.ToInt32(fc["IdKategorija"]);
             try
             {
-                //List<RubrikaVesti> rubrike = _context.RubrikaVesti.ToList();
-                //ViewBag.Rubrike = rubrike;
-                //_context.Vest.Add(v);
-                //_context.SaveChanges();
                 Vest.DodajVest(v);
-                ViewBag.Msg = "Успешно убачена вест";
-                //return View();
+                ViewBag.Msg = "Успешно убачена вест.";
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
-
-            //int vestId = (from ve in _context.Vest
-            //                         select ve.Id).Max();
-
-            //PropisVest pv = new PropisVest();
-            //pv.IdPropis = v.IdPropis;
-            //pv.IdVest = vestId;
-            //pv.IdClan = v.IdClan;
-            //pv.IdStav = v.IdStav;
-            //pv.IdTacka = v.IdTacka;
-            //pv.DatumUnosa = DateTime.Now;
-
-
-            //if (pv != null)
-            //{
-            //    try
-            //    {
-            //        PropisVest.DodajPropisVest(pv);
-            //        ViewBag.Msg = "Успех";
-            //    }
-            //    catch
-            //    {
-            //        throw;
-            //    }
-            //}
 
             return RedirectToAction("Create", "Vesti");
         }
@@ -191,8 +134,13 @@ namespace AdminPanel.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }
@@ -233,11 +181,15 @@ namespace AdminPanel.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
-
         }
 
         [HttpGet]
@@ -297,8 +249,13 @@ namespace AdminPanel.Controllers
                 string poruka = "1";
                 return RedirectPermanent("~/Vesti/KreirajVezuPropisVest/" + vest.Id + "/" + poruka);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }

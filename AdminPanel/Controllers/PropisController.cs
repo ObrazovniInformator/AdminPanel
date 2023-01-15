@@ -150,11 +150,23 @@ namespace AdminPanel.Controllers
 
             try
             {
-                Propis.DodajPropis(p);
-                ViewBag.Msg = "Успешно убачен пропис";
+                if(ModelState.IsValid)
+                { 
+                    Propis.DodajPropis(p);
+                    ViewBag.Msg = "Успешно убачен пропис.";
+                }
+                else
+                {
+                    ViewBag.Msg = "Догодила се грешка код чувања прописа у базу. Проверите унете податке и покушајте поново.";
+                }
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
 
@@ -214,7 +226,7 @@ namespace AdminPanel.Controllers
         {
             string p = (from pr in _context.Propis
                         where pr.Id == propis.Id
-                        select pr.TekstPropisa).Single();
+                        select pr.TekstPropisa).SingleOrDefault();
             if (!string.IsNullOrEmpty(fcc["IdRubrika"]))
             {
                 propis.IdRubrike = Convert.ToInt32(fcc["IdRubrika"]);
@@ -234,12 +246,20 @@ namespace AdminPanel.Controllers
 
             try
             {
-                _context.Propis.Update(propis);
-                _context.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    _context.Propis.Update(propis);
+                    _context.SaveChanges();
+                }
                 return RedirectPermanent("~/Propis/Index/" + propis.IdPodrubrike);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }
@@ -351,7 +371,6 @@ namespace AdminPanel.Controllers
             rubrike.Insert(0, new Rubrika { ID = 0, NazivRubrike = "Изаберите рубрику" });
             return Json(new SelectList(rubrike, "ID", "NazivRubrike"));
         }
-
 
         [HttpGet]
         public IActionResult Hijararhija(int id)

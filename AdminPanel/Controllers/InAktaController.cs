@@ -30,7 +30,6 @@ namespace AdminPanel.Controllers
                                                  where pi.Id == 1
                                                  select pi).SingleOrDefault();
 
-
                 IEnumerable<RubrikaInAkta> rubrikeInAkta = (from ri in _context.RubrikaInAkta
                                                             where ri.IdPodvrsta == 1
                                                             select ri).ToArray();
@@ -244,16 +243,27 @@ namespace AdminPanel.Controllers
             i.IdPodpodrubrika = Convert.ToInt32(ia["IdPodpodrubrika"]);
             i.IdPodpodpodrubrika = Convert.ToInt32(ia["IdPodpodpodrubrika"]);
             // i.IdPodpodpodpodrubrika = Convert.ToInt32(ia["IdPodpodpodpodrubrika"]);
-            i.IdPodpodpodpodrubrika = null;
+            i.IdPodpodpodpodrubrika = null;            
 
             try
             {
-                InAkta.DodajInAkta(i);
-                _context.SaveChanges();
-                ViewBag.msg = "Успешно додата Ин Акта";
+                if (ModelState.IsValid)
+                {
+                    InAkta.DodajInAkta(i);
+                    ViewBag.msg = "Успешно додата Ин Акта.";
+                }
+                else
+                {
+                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново.";
+                }
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
 
@@ -417,12 +427,6 @@ namespace AdminPanel.Controllers
             ViewBag.Podpodpodrubrika = pppria;
             ViewBag.Podpodpodpodrubrika = ppppria;
 
-            //ia.Naslov = inAkta.InAkta.Naslov;
-            //ia.Tekst = fcia["Tekst"];
-            //ia.Autor = inAkta.InAkta.Autor;
-            //ia.DatumObjavljivanja = inAkta.InAkta.DatumObjavljivanja;
-            //ia.Napomena = inAkta.InAkta.Napomena;
-
             ia.Naslov = inAkta.Naslov;
             ia.Tekst = fcia["Tekst"];
             ia.Autor = inAkta.Autor;
@@ -457,12 +461,20 @@ namespace AdminPanel.Controllers
 
             try
             {
-                _context.InAkta.Update(ia);
-                _context.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    _context.InAkta.Update(ia);
+                    _context.SaveChanges();
+                }
                 return RedirectPermanent("~/InAkta/Index/" + ia.IdRubrika);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }
@@ -583,7 +595,6 @@ namespace AdminPanel.Controllers
             try
             {
                 _context.InAkta.Remove(inAkta);
-                //_context.PropisSudskaPraksa.RemoveRange(propisSudskaPraksa);
                 _context.SaveChanges();
                 return RedirectPermanent("~/InAkta/Index/" + inAkta.IdPodrubrika);
             }

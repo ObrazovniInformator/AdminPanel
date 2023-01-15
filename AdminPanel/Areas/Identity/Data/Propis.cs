@@ -1,6 +1,7 @@
 ﻿using AdminPanel.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,12 +24,17 @@ namespace AdminPanel.Areas.Identity.Data
         }
         
         public int Id { get; set; }
+        [Required(ErrorMessage = "Наслов је обавезан податак.")]
         public string Naslov { get; set; }
         public int? IdRubrike { get; set; }
         public int? IdPodrubrike { get; set; }
+        //[Required(ErrorMessage = "Гласило и датум ибјављивања обавезан податак.")]
         public string GlasiloIDatumObjavljivanja { get; set; }
+        //[Required(ErrorMessage = "Врста прописа је обавезан податак.")]
         public string VrstaPropisa { get; set; }
+        //[Required(ErrorMessage = "Доносилац је обавезан податак.")]
         public string Donosilac { get; set; }
+        //[Required(ErrorMessage = "Ниво важења је обавезан податак.")]
         public string NivoVazenja { get; set;}
         public DateTime? DatumStupanjaNaSnaguVerzijePropisa { get; set; }
         public DateTime? DatumPrestankaVerzije { get; set; }
@@ -42,7 +48,7 @@ namespace AdminPanel.Areas.Identity.Data
         public string NormaOsnovaZaDonosenje { get; set; }
         public string PropisKojiJePrestaoDaVazi { get; set; }
         public string NormaOsnovaZaPrestanakVazenja { get; set; }
-      //  public string NormaOsnovaZaPrestanakVazenjaPrethodnika { get; set; }
+        //public string NormaOsnovaZaPrestanakVazenjaPrethodnika { get; set; }
         public string DatumPrestankaVazenjaPravnogPrethodnika { get; set; }
         public string IstorijskaVerzijaPropisa { get; set; }
         public string Napomena { get; set; }
@@ -54,14 +60,6 @@ namespace AdminPanel.Areas.Identity.Data
 
         public Podrubrika IdPodrubrikaNavigation { get; set; }
         public Rubrika IdRubrikaNavigation { get; set; }
-        //public int? IdPropis { get; set; }
-        //public Propis IdPropisNavigation { get; set; }
-        //public int? IdClan { get; set; }
-        //public Clan IdClanNavigation { get; set; }
-        //public int? IdStav { get; set; }
-        //public Stav IdStavNavigation { get; set; }
-        //public int? IdTacka { get; set; }
-        //public Tacka IdTackaNavigation { get; set; }
         public ICollection<Clan> Clan { get; set; }
         public ICollection<Podnaslov> Podnaslov { get; set; }
         public ICollection<SudskaPraksa> SudskaPraksa { get; set; }

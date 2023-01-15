@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AdminPanel.Controllers
 {
@@ -110,19 +110,32 @@ namespace AdminPanel.Controllers
             int idPropis = (from pr in _context.ProsvetnIPropis
                             select pr.Id).Max();
             propis.Id = idPropis + 1;
-            propis.IdRubrike = idRubrike;
+            propis.IdRubrike = idRubrike;      
 
             try
             {
-                if (propis != null)
+                if (ModelState.IsValid)
+                {
                     _context.ProsvetnIPropis.Add(propis);
-                _context.SaveChanges();
-                return RedirectPermanent("~/ProsvetniPropisi/Index/" + propis.IdPodrubrike);
+                    _context.SaveChanges();
+                    ViewBag.msg = "Успешно додат Просветни Пропис.";
+                }
+                else
+                {
+                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново.";
+                }
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
+
+            return RedirectPermanent("~/ProsvetniPropisi/Index/" + propis.IdPodrubrike);
         }
 
         //public IActionResult SpisakPropisa(int id)
@@ -176,8 +189,6 @@ namespace AdminPanel.Controllers
             ProsvetniPropis propis =(from pr in _context.ProsvetnIPropis
                                      where pr.Id == id
                                      select pr).Single();
-           
-           
 
             propis.Naslov = fcc["Naslov"];
             propis.IdPodrubrike = Convert.ToInt32(fcc["IdPodrubrike"]);
@@ -221,7 +232,7 @@ namespace AdminPanel.Controllers
             }
             string p = (from pr in _context.ProsvetnIPropis
                         where pr.Id == id
-                        select pr.TekstPropisa).Single();
+                        select pr.TekstPropisa).SingleOrDefault();
             //doovde
             propis.PravniOsnovZaDonosenjaPropisa = fcc["PravniOsnovZaDonosenjaPropisa"];
             propis.NormaOsnovaZaDonosenje = fcc["NormaOsnovaZaDonosenje"];
@@ -235,37 +246,30 @@ namespace AdminPanel.Controllers
             try
             {
                 propis.TekstPropisa = p + fcc["TekstPropisa"];
-            }catch(Exception e)
+            }
+            catch(Exception e)
             {
                 PracenjeGresaka pg = new PracenjeGresaka();
-                pg.Greska = e.Message;
+                pg.Greska = e.InnerException.Message;
                 pg.Datum = DateTime.Now;
                 throw;
             }
             propis.Preambula = fcc["Preambula"];
 
-
-
-            // if (!string.IsNullOrEmpty(fcc["IdRubrika"]))
-            //{
-            //    propis.IdRubrike = Convert.ToInt32(fcc["IdRubrika"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcc["IdPodrubrika"]))
-            //{
-            //    propis.IdPodrubrike = Convert.ToInt32(fcc["IdPodrubrika"]);
-            //}
-
             try
             {
-               
-                _context.ProsvetnIPropis.Update(propis);
-                _context.SaveChanges();
+
+                if (ModelState.IsValid)
+                {
+                    _context.ProsvetnIPropis.Update(propis);
+                    _context.SaveChanges();
+                }
                 return RedirectPermanent("~/ProsvetniPropisi/Index/" + propis.IdPodrubrike);
             }
             catch(Exception e)
             {
                 PracenjeGresaka pg = new PracenjeGresaka();
-                pg.Greska = e.Message;
+                pg.Greska = e.InnerException.Message;
                 pg.Datum = DateTime.Now;
                 _context.PracenjeGresaka.Add(pg);
                 _context.SaveChanges();
@@ -502,7 +506,5 @@ namespace AdminPanel.Controllers
             return File(System.IO.File.ReadAllBytes(path), "application/pdf");
 
         }
-
-
     }
 }

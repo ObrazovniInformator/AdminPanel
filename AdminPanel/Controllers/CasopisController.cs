@@ -18,17 +18,15 @@ namespace AdminPanel.Controllers
         public IActionResult IspisListe(int id)
         {
             Dictionary<int, string> casopisNaslovi = _context.CasopisNaslov
-                .Where(x => x.IdRubrika == id)
-    .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
-    .ToDictionary(x => x.Key, x => x.Value);
+                                    .Where(x => x.IdRubrika == id)
+                                    .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
+                                    .ToDictionary(x => x.Key, x => x.Value);
             ViewBag.CasopisNaslovi = casopisNaslovi;
             return View();
         }
 
-
         public IActionResult Index(int id, string idBroj)
         {
-            //int brojId = Convert.ToInt32(idBroj);
             string email = HttpContext.Session.GetString("UserEmail");
             ViewBag.Email = email;
 
@@ -105,12 +103,8 @@ namespace AdminPanel.Controllers
 
             if (email != null)
             {
-                // // List<CasopisNaslov> casopisNaslovi = (from cn in _context.CasopisNaslov
-                //                                        //select cn).ToList();
                 List<CasopisOznaka> casopisOznake = (from co in _context.CasopisOznaka
                                                      select co).ToList();
-                //List<CasopisGodina> casopisGodine = (from cg in _context.CasopisGodina
-                //                                     select cg).ToList();
                 List<CasopisBroj> casopisBrojevi = (from cb in _context.CasopisBroj
                                                     select cb).ToList();
                 List<RubrikaCasopis> rubrike = (from r in _context.RubrikaCasopis
@@ -118,14 +112,6 @@ namespace AdminPanel.Controllers
 
                 List<GlavneOblastiCasopis> glavneOblastiCasopis = (from goc in _context.GlavneOblastiCasopis
                                                                    select goc).ToList();
-                //List<Propis> propisi = (from p in _context.Propis
-                //                        select p).ToList();
-                //List<Clan> clanovi = (from cl in _context.Clan
-                //                      select cl).ToList();
-                //List<Stav> stavovi = (from stav in _context.Stav
-                //                      select stav).ToList();
-                //List<Tacka> tacke = (from ta in _context.Tacka
-                //                     select ta).ToList();
 
                 List<CasopisGodina> casopisGodine = new List<CasopisGodina>();
                 casopisGodine = (from cg in _context.CasopisGodina
@@ -134,16 +120,10 @@ namespace AdminPanel.Controllers
 
                 casopisGodine.Insert(0, new CasopisGodina { Id = 0, Naziv = "--Изабери ГОДИНУ--" });
 
-
-                //ViewBag.CasopisNaslovi = casopisNaslovi;
                 ViewBag.CasopisOznake = casopisOznake;
                 ViewBag.CasopisBrojevi = casopisBrojevi;
                 ViewBag.Rubrike = rubrike;
                 ViewBag.GlavneOblastiCasopis = glavneOblastiCasopis;
-                //ViewBag.Propisi = propisi;
-                //ViewBag.Clanovi = clanovi;
-                //ViewBag.Stavovi = stavovi;
-                //ViewBag.Tacke = tacke;
                 ViewBag.Email = email;
 
                 return View();
@@ -166,8 +146,6 @@ namespace AdminPanel.Controllers
 
             casopisGodine.Insert(0, new CasopisGodina { Id = 0, Naziv = "--Изабери ГОДИНУ--" });
 
-            //List<CasopisNaslov> casopisNaslovi = (from cna in _context.CasopisNaslov
-            //                                      select cna).ToList();
             List<CasopisOznaka> casopisOznake = (from co in _context.CasopisOznaka
                                                  select co).ToList();
             List<CasopisBroj> casopisBrojevi = (from cb in _context.CasopisBroj
@@ -176,24 +154,11 @@ namespace AdminPanel.Controllers
                                             select r).ToList();
             List<GlavneOblastiCasopis> glavneOblastiCasopis = (from goc in _context.GlavneOblastiCasopis
                                                                select goc).ToList();
-            //List<Propis> propisi = (from p in _context.Propis
-            //                        select p).ToList();
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from stav in _context.Stav
-            //                      select stav).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
 
-            //ViewBag.CasopisNaslovi = casopisNaslovi;
             ViewBag.CasopisOznake = casopisOznake;
             ViewBag.CasopisBrojevi = casopisBrojevi;
             ViewBag.Rubrike = rubrike;
             ViewBag.GlavneOblastiCasopis = glavneOblastiCasopis;
-            //ViewBag.Propisi = propisi;
-            //ViewBag.Clanovi = clanovi;
-            //ViewBag.Stavovi = stavovi;
-            //ViewBag.Tacke = tacke;
 
             CasopisNaslov casopis = new CasopisNaslov();
 
@@ -210,38 +175,26 @@ namespace AdminPanel.Controllers
 
             try
             {
-                CasopisNaslov.DodajCasopis(casopis);
-                _context.SaveChanges();
-                ViewBag.msg = "Успешно додат Часопис";
+                if (ModelState.IsValid)
+                {
+                    CasopisNaslov.DodajCasopis(casopis);
+                    ViewBag.msg = "Успешно додат Часопис.";
+                }
+                else
+                {
+                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново.";
+                }
                 return RedirectPermanent("~/Casopis/IspisListe/" + casopis.IdRubrika);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
-
-            //int casopisNaslovId = casopis.Id;
-
-            //PropisCasopis pc = new PropisCasopis();
-            //pc.IdPropis = propCas.IdPropis;
-            //pc.IdCasopis = casopisNaslovId;
-            //pc.IdClan = Convert.ToInt32(cn["IdClan"]);
-            //pc.IdStav = Convert.ToInt32(cn["IdStav"]);
-            //pc.IdTacka = Convert.ToInt32(cn["IdTacka"]);
-
-            //pc.DatumUnosa = DateTime.Now;
-
-            //try
-            //{
-            //    PropisCasopis.DodajVezuPropisCasopis(pc);
-            //    _context.SaveChanges();
-            //    ViewBag.Msg = "Успех";
-            //    return RedirectPermanent("~/Home/Index2");
-            //}
-            //catch
-            //{
-            //    throw;
-            //}
         }
 
         [HttpGet]
@@ -250,57 +203,18 @@ namespace AdminPanel.Controllers
             string email = HttpContext.Session.GetString("UserEmail");
             ViewBag.Email = email;
 
-           // List<Propis> propisi = (from p in _context.Propis
-                                        //where p.IdPodrubrike == id && p.IdRubrike == idR
-             //                       select p).ToList();
             List<RubrikaCasopis> rubrikeCasopis = (from r in _context.RubrikaCasopis
                                                    select r).ToList();
             List<PodrubrikaCasopis> podrubrike = (from p in _context.PodrubrikaCasopis
                                                   select p).ToList();
 
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from sta in _context.Stav
-            //                      select sta).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
-
-          //  ViewBag.Propisi = propisi;
             ViewBag.RubrikeCasopis = rubrikeCasopis;
             ViewBag.PodrubrikeCasopis = podrubrike;
-            //ViewBag.Clanovi = clanovi;
-            //ViewBag.Stavovi = stavovi;
-            //ViewBag.Tacke = tacke;
+
 
             CasopisNaslov cn = (from s in _context.CasopisNaslov
                                 where s.Id == id
                                 select s).Single();
-            //PropisCasopis pc = (from ps in _context.PropisCasopis
-            //                    where ps.IdCasopis == cn.Id
-            //                    select ps).SingleOrDefault();
-
-            //if (pc != null)
-            //{
-            //    Propis propis = (from p in _context.Propis
-            //                     where p.Id == pc.IdPropis
-            //                     select p).SingleOrDefault();
-
-            //    Clan clan = (from cl in _context.Clan
-            //                 where cl.Id == pc.IdClan
-            //                 select cl).SingleOrDefault();
-
-            //    Stav stav = (from st in _context.Stav
-            //                 where st.Id == pc.IdStav
-            //                 select st).SingleOrDefault();
-            //    Tacka tacka = (from p in _context.Tacka
-            //                   where p.Id == pc.IdTacka
-            //                   select p).SingleOrDefault();
-
-            //    ViewBag.Propis = propis;
-            //    ViewBag.Clan = clan;
-            //    ViewBag.Stav = stav;
-            //    ViewBag.Tacka = tacka;
-            //}
 
             RubrikaCasopis rc = (from r in _context.RubrikaCasopis
                                  where r.ID == cn.IdRubrika
@@ -353,7 +267,6 @@ namespace AdminPanel.Controllers
 
             CasopisViewModel model = new CasopisViewModel();
             model.CasopisNaslov = cn;
-           // model.PropisCasopis = pc;
 
             if (email != null)
             {
@@ -369,59 +282,7 @@ namespace AdminPanel.Controllers
         {
             CasopisNaslov cn = (from c in _context.CasopisNaslov
                                 where c.Id == id
-                                select c).Single();
-
-            //PropisCasopis propCasopis = (from ps in _context.PropisCasopis
-            //                             where ps.IdCasopis == cn.Id
-            //                             select ps).SingleOrDefault();
-
-            //if (propCasopis.IdPropis != null)
-            //{
-            //    Propis propis = (from p in _context.Propis
-            //                     where p.Id == propCasopis.IdPropis
-            //                     select p).SingleOrDefault();
-            //}
-            //else
-            //{
-            //    return null;
-            //}
-
-            //if (propCasopis.IdClan != null)
-            //{
-            //    Clan clan = (from cl in _context.Clan
-            //                 where cl.Id == propCasopis.IdClan
-            //                 select cl).SingleOrDefault();
-            //}
-
-            //if (propCasopis.IdStav != null)
-            //{
-            //    Stav stav = (from st in _context.Stav
-            //                 where st.Id == propCasopis.IdStav
-            //                 select st).SingleOrDefault();
-            //}
-
-            //if (propCasopis != null)
-            //{
-            //    Propis propis = (from p in _context.Propis
-            //                     where p.Id == propCasopis.IdPropis
-            //                     select p).SingleOrDefault();
-
-            //    Clan clan = (from cl in _context.Clan
-            //                 where cl.Id == propCasopis.IdClan
-            //                 select cl).SingleOrDefault();
-
-            //    Stav stav = (from st in _context.Stav
-            //                 where st.Id == propCasopis.IdStav
-            //                 select st).SingleOrDefault();
-            //    Tacka tacka = (from p in _context.Tacka
-            //                   where p.Id == propCasopis.IdTacka
-            //                   select p).SingleOrDefault();
-
-            //    ViewBag.Propis = propis;
-            //    ViewBag.Clan = clan;
-            //    ViewBag.Stav = stav;
-            //    ViewBag.Tacka = tacka;
-            //}
+                                select c).SingleOrDefault();
 
             RubrikaCasopis rc = (from r in _context.RubrikaCasopis
                                  where r.ID == cn.IdRubrika
@@ -453,6 +314,7 @@ namespace AdminPanel.Controllers
             cn.Tekst = fcc["Tekst"];
             cn.DatumObjavljivanja = casopisNaslov.DatumObjavljivanja;
             cn.Autor = casopisNaslov.Autor;
+
             if (!string.IsNullOrEmpty(fcc["IdOznaka"]))
             {
                 cn.IdOznaka = Convert.ToInt32(fcc["IdOznaka"]);
@@ -476,39 +338,24 @@ namespace AdminPanel.Controllers
             if (!string.IsNullOrEmpty(fcc["IdOblast"]))
             {
                 cn.IdOblast = Convert.ToInt32(fcc["IdOblast"]);
-            }
-            //if (!string.IsNullOrEmpty(fcc["IdPropis"]))
-            //{ 
-            //    propCasopis.IdPropis = Convert.ToInt32(fcc["IdPropis"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcc["IdClan"]))
-            //{
-            //    propCasopis.IdClan = Convert.ToInt32(fcc["IdClan"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcc["IdStav"]))
-            //{
-            //    propCasopis.IdStav = Convert.ToInt32(fcc["IdStav"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcc["IdTacka"]))
-            //{
-            //    propCasopis.IdTacka = Convert.ToInt32(fcc["IdTacka"]);
-            //}
+            }           
 
             try
             {
-                if (cn != null)
+                if (ModelState.IsValid)
                 {
                     _context.CasopisNaslov.Update(cn);
+                    _context.SaveChanges();
                 }
-                //if (propCasopis != null)
-                //{
-                //    _context.PropisCasopis.Update(propCasopis);
-                //}
-                _context.SaveChanges();
                 return RedirectPermanent("~/Casopis/Index/" + cn.IdRubrika);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }
@@ -757,18 +604,6 @@ namespace AdminPanel.Controllers
                 ViewBag.GlavneOblastiCasopis = glavneOblastiCasopis;
                 List<CasopisBroj> casopisBrojevi = _context.CasopisBroj.ToList();
                 ViewBag.CasopisBrojevi = casopisBrojevi;
-                //List<RubrikaCasopis> rubrike = _context.RubrikaCasopis.ToList();
-
-                //if (rubrike == null)
-                //{
-                //    rubrikaCasopis.ID = 1;
-                //}
-                //else
-                //{
-                //    int maxId = (from rub in _context.RubrikaCasopis
-                //                 select rub.ID).Max();
-                //    rubrikaCasopis.ID = maxId + 1;
-                //}
 
                 try
                 {
@@ -798,8 +633,6 @@ namespace AdminPanel.Controllers
             {
                 List<GlavneOblastiCasopis> glavneOblastiCasopis = _context.GlavneOblastiCasopis.ToList();
                 ViewBag.GlavneOblastiCasopis = glavneOblastiCasopis;
-                //List<CasopisBroj> casopisBroj = _context.CasopisBroj.ToList();
-                //ViewBag.CasopisBrojevi = casopisBroj;
                 List<RubrikaCasopis> rubrikeCasopis = _context.RubrikaCasopis.ToList();
                 ViewBag.RubrikeCasopis = rubrikeCasopis;
 
@@ -820,8 +653,6 @@ namespace AdminPanel.Controllers
             {
                 List<GlavneOblastiCasopis> glavneOblastiCasopis = _context.GlavneOblastiCasopis.ToList();
                 ViewBag.GlavneOblastiCasopis = glavneOblastiCasopis;
-                //List<CasopisBroj> casopisBroj = _context.CasopisBroj.ToList();
-                //ViewBag.CasopisBrojevi = casopisBroj;
                 List<RubrikaCasopis> rubrikeCasopis = _context.RubrikaCasopis.ToList();
                 ViewBag.RubrikeCasopis = rubrikeCasopis;
 
@@ -970,7 +801,6 @@ namespace AdminPanel.Controllers
 
             List<GlavneOblastiCasopis> glavneOblastiCasopis = _context.GlavneOblastiCasopis.ToList();
             List<RubrikaCasopis> rubrike = _context.RubrikaCasopis.ToList();
-            //List<PodrubrikaCasopis> podrubrike = _context.PodrubrikaCasopis.ToList();
             List<CasopisNaslov> casopisNaslovi = (from cn in _context.CasopisNaslov
                                                   where cn.Id == id
                                                   select cn).ToList();
@@ -1009,7 +839,6 @@ namespace AdminPanel.Controllers
             {
                 throw;
             }
-
         }
 
         public IActionResult IzmeniCasopis()
@@ -1020,8 +849,8 @@ namespace AdminPanel.Controllers
             if (email != null)
             {
                 Dictionary<int, string> casopisNaslov = _context.CasopisNaslov
-   .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
-   .ToDictionary(x => x.Key, x => x.Value);
+                                                                    .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
+                                                                    .ToDictionary(x => x.Key, x => x.Value);
                 List<GlavneOblastiCasopis> glavneOblastiCasopis = _context.GlavneOblastiCasopis.ToList();
                 List<RubrikaCasopis> casopisRubrike = _context.RubrikaCasopis.ToList();
                 List<PodrubrikaCasopis> podrubrike = _context.PodrubrikaCasopis.ToList();
@@ -1058,7 +887,6 @@ namespace AdminPanel.Controllers
         }
 
         //Upload file on server
-
         public async Task<bool> UploadFile(int id, IFormFile file)
         {
             string path = "";
@@ -1105,11 +933,10 @@ namespace AdminPanel.Controllers
         {
             PdfFajCasopis file = (from p in _context.PdfFajlCasopis
                                            where p.Id == id
-                                           select p).Single();
+                                           select p).SingleOrDefault();
             string path = file.PdfPath;
             return File(System.IO.File.ReadAllBytes(path), "application/pdf");
 
         }
-
     }
 }

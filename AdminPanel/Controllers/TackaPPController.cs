@@ -39,19 +39,6 @@ namespace AdminPanel.Controllers
                                       select cl).ToList();
                 ViewBag.Clanovi = clanovi;
 
-                //Clan clan = (from cl in _context.Clan
-                //    where cl.IdPropis == id 
-                //    select cl).Single();
-
-                //Clan clan = (from cla in _context.Clan
-                //    where cla.Id == idC
-                //             select cla).SingleOrDefault();
-                //ViewBag.Clan = clan;
-
-                //List<Stav> stavovi = (from s in _context.Stav
-                //                         // where s.IdClan == 24714
-                //                      select s).ToList();
-
                 var result = from clan in _context.ClanPP
                              where clan.IdPropis == id
                              select clan.Id;
@@ -59,7 +46,6 @@ namespace AdminPanel.Controllers
                 List<StavPP> stavovi = (from s in _context.StavPP
                                       where s.IdClan == result.First()
                                       select s).ToList();
-                //return (IActionResult)result.ToList();
 
                 ViewBag.Stavovi = stavovi;
 
@@ -115,9 +101,13 @@ namespace AdminPanel.Controllers
                     ViewBag.Msg = "Тачка је успешно убачена";
                     return RedirectPermanent("~/TackaPP/DodajTacku/" + t.IdStav);
                 }
-                catch
+                catch (Exception e)
                 {
-
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -143,8 +133,13 @@ namespace AdminPanel.Controllers
                 _context.SaveChanges();
                 return RedirectPermanent("~/ObradaTekstaPP/Index/" + c.IdPropis);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }
@@ -187,8 +182,13 @@ namespace AdminPanel.Controllers
                     _context.SaveChanges();
                     return RedirectPermanent("~/ObradaTekstaPP/Index/" + c.IdPropis);
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }

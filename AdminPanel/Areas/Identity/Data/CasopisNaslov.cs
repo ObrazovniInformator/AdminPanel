@@ -1,9 +1,6 @@
 ﻿using AdminPanel.Data;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace AdminPanel.Areas.Identity.Data
 {
@@ -16,6 +13,7 @@ namespace AdminPanel.Areas.Identity.Data
         }
 
         public int Id { get; set; }
+        [Required(ErrorMessage = "Наслов је обавезан податак.")]
         public string Naslov { get; set; }
         public string Tekst { get; set; }
         public string DatumObjavljivanja { get; set; }

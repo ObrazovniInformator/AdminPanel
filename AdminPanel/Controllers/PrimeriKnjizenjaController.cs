@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdminPanel.Controllers
 {
@@ -26,23 +25,11 @@ namespace AdminPanel.Controllers
                     int idR = Convert.ToInt32(idRubrika);
                     List<PrimeriKnjizenja> primeriKnjizenja = (from pk in _context2.PrimeriKnjizenja
                                                                select pk).ToList();
-                    //List<Propis> propisi = (from p in _context.Propis
-                    //                        select p).ToList();
                     List<RubrikaPK> rubrikePK = (from rpk in _context2.RubrikaPK
                                                  select rpk).ToList();
-                    //List<Clan> clanovi = (from cl in _context.Clan
-                    //                      select cl).ToList();
-                    //List<Stav> stavovi = (from stav in _context.Stav
-                    //                      select stav).ToList();
-                    //List<Tacka> tacke = (from ta in _context.Tacka
-                    //                     select ta).ToList();
 
                     ViewBag.IdRubrika = idR;
                     ViewBag.Rubrike = rubrikePK;
-                    //ViewBag.Propisi = propisi;
-                    //ViewBag.Clanovi = clanovi;
-                    //ViewBag.Stavovi = stavovi;
-                    //ViewBag.Tacke = tacke;
 
                     var model = new PrimeriKnjizenjaViewModel();
                     model.PrimeriKnjizenjaList = _context2.PrimeriKnjizenja.ToList();
@@ -65,17 +52,6 @@ namespace AdminPanel.Controllers
 
             if (email != null)
             {
-                //List<Propis> propisi = (from p in _context.Propis
-                //                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-                //                        select p).ToList();
-                //List<Clan> clanovi = (from cl in _context.Clan
-                //                      select cl).ToList();
-                //List<Stav> stavovi = (from stav in _context.Stav
-                //                      select stav).ToList();
-                //List<Tacka> tacke = (from ta in _context.Tacka
-                //                     select ta).ToList();
-
-                
                 List<RubrikaPK> rubrikePK = new List<RubrikaPK>();
 
                 int idPK = (from pk in _context.PrimeriKnjizenja
@@ -88,11 +64,6 @@ namespace AdminPanel.Controllers
                 ViewBag.ListaRubrikePK = rubrikePK;
 
                 rubrikePK.Insert(0, new RubrikaPK { Id = 0, Naziv = "--Изабери РУБРИКУ--" });
-
-                //ViewBag.Propisi = propisi;
-                //ViewBag.Clanovi = clanovi;
-                //ViewBag.Stavovi = stavovi;
-                //ViewBag.Tacke = tacke;
 
                 return View();
             }
@@ -111,69 +82,35 @@ namespace AdminPanel.Controllers
 
             rubrikePK.Insert(0, new RubrikaPK { Id = 0, Naziv = "--Изабери РУБРИКУ--" });
 
-
-            //List<Propis> propisi = (from p in _context.Propis
-            //                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-            //                        select p).ToList();
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from stav in _context.Stav
-            //                      select stav).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
-
-            //ViewBag.Propisi = propisi;
-            //ViewBag.Clanovi = clanovi;
-            //ViewBag.Stavovi = stavovi;
-            //ViewBag.Tacke = tacke;
-
             PrimeriKnjizenja primeriKnjizenja = new PrimeriKnjizenja();
             primeriKnjizenja.Naslov = pk.Naslov;
             primeriKnjizenja.Podnaslov = pk.Podnaslov;
             primeriKnjizenja.Napomena = pk.Napomena;
             primeriKnjizenja.Tekst = pk.Tekst;
-            //primeriKnjizenja.IdPropis = pk.IdPropis;
-            //primeriKnjizenja.IdClan = pk.IdClan;
-            //primeriKnjizenja.IdStav = pk.IdStav;
-            //primeriKnjizenja.IdTacka = pk.IdTacka;
-            primeriKnjizenja.IdRubrikaPK = pk.IdRubrikaPK;
+            primeriKnjizenja.IdRubrikaPK = pk.IdRubrikaPK;           
 
             try
             {
-                PrimeriKnjizenja.DodajPrimerKnjizenja(primeriKnjizenja);
-                ViewBag.msg = "Успешно додат Пример књижења";
+                if (ModelState.IsValid)
+                {
+                    PrimeriKnjizenja.DodajPrimerKnjizenja(primeriKnjizenja);
+                    ViewBag.msg = "Успешно додат Пример књижења.";
+                }
+                else
+                {
+                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново.";
+                }
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
 
-            //int primerKnjizenjaId = (from prk in _context.PrimeriKnjizenja
-            //                           select prk.Id).Max();
-
-            //PropisPrimeriKnjizenja ppk = new PropisPrimeriKnjizenja();
-            //ppk.IdPropis = primeriKnjizenja.IdPropis;
-            //ppk.IdPrimeriKnjizenja = primerKnjizenjaId;
-            //ppk.IdClan = primeriKnjizenja.IdClan;
-            //ppk.IdStav = primeriKnjizenja.IdStav;
-            //ppk.IdTacka = primeriKnjizenja.IdTacka;
-            //ppk.DatumUnosa = DateTime.Now;
-
-
-            //if (ppk != null)
-            //{
-            //    try
-            //    {
-            //        PropisPrimeriKnjizenja.DodajPropisPrimeriKnjizenja(ppk);
-            //        ViewBag.Msg = "Успех";
-            //    }
-            //    catch
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //return RedirectPermanent("~/SluzbenoMisljenje/Index/" + sm.IdPodrubrikaSM);
             return RedirectToAction("Create", "PrimeriKnjizenja");
         }
 
@@ -193,23 +130,10 @@ namespace AdminPanel.Controllers
             ViewBag.PrimeriKnjizenja = pKLista;
             ViewBag.PropisiPrimeriKnjizenja = ppkLista;
 
-            //List<Propis> propisi = (from p in _context.Propis
-            //                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-            //                        select p).ToList();
             List<RubrikaPK> rubrikePK = (from r in _context.RubrikaPK
                                          select r).ToList();
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from sta in _context.Stav
-            //                      select sta).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
 
-            //ViewBag.Propisi = propisi;
             ViewBag.RubrikePK = rubrikePK;
-            //ViewBag.Clanovi = clanovi;
-            //ViewBag.Stavovi = stavovi;
-            //ViewBag.Tacke = tacke;
 
             PrimeriKnjizenja pk = (from p in _context.PrimeriKnjizenja
                                    where p.Id == id
@@ -217,29 +141,6 @@ namespace AdminPanel.Controllers
             PropisPrimeriKnjizenja ppk = (from pkn in _context.PropisPrimeriKnjizenja
                                           where pkn.IdPrimeriKnjizenja == pk.Id
                                            select pkn).FirstOrDefault();
-
-            //if (ppk != null)
-            //{
-            //    Propis propis = (from p in _context.Propis
-            //                     where p.Id == ppk.IdPropis
-            //                     select p).SingleOrDefault();
-
-            //    Clan clan = (from cl in _context.Clan
-            //                 where cl.Id == ppk.IdClan
-            //                 select cl).SingleOrDefault();
-
-            //    Stav stav = (from st in _context.Stav
-            //                 where st.Id == ppk.IdStav
-            //                 select st).SingleOrDefault();
-            //    Tacka tacka = (from p in _context.Tacka
-            //                   where p.Id == ppk.IdTacka
-            //                   select p).SingleOrDefault();
-
-            //    ViewBag.Propis = propis;
-            //    ViewBag.Clan = clan;
-            //    ViewBag.Stav = stav;
-            //    ViewBag.Tacka = tacka;
-            //}
 
             RubrikaPK rpk = (from r in _context.RubrikaPK
                              where r.Id == pk.IdRubrikaPK
@@ -271,35 +172,7 @@ namespace AdminPanel.Controllers
         {
             PrimeriKnjizenja pknj = (from sr in _context.PrimeriKnjizenja
                                   where sr.Id == id
-                                   select sr).Single();
-
-            //PropisPrimeriKnjizenja propPk = (from ps in _context.PropisPrimeriKnjizenja
-            //                                 where ps.IdPrimeriKnjizenja == pknj.Id
-            //                                  select ps).SingleOrDefault();
-
-            //if(propPk !=null)
-            //{ 
-            //    if (propPk.IdPropis != null || propPk.IdPropis == null)
-            //    {
-            //        Propis propis = (from p in _context.Propis
-            //                         where p.Id == propPk.IdPropis
-            //                         select p).SingleOrDefault();
-            //    }
-
-            //    if (propPk.IdClan != null)
-            //    {
-            //        Clan clan = (from cl in _context.Clan
-            //                     where cl.Id == propPk.IdClan
-            //                     select cl).SingleOrDefault();
-            //    }
-
-            //    if (propPk.IdStav != null)
-            //    {
-            //        Stav stav = (from st in _context.Stav
-            //                     where st.Id == propPk.IdStav
-            //                     select st).SingleOrDefault();
-            //    }
-            //}
+                                   select sr).SingleOrDefault();
 
             RubrikaPK rpk = (from r in _context.RubrikaPK
                              where r.Id == pknj.IdRubrikaPK
@@ -311,22 +184,7 @@ namespace AdminPanel.Controllers
             pknj.Podnaslov = pk["Podnaslov"];
             pknj.Napomena = pk["Napomena"];
             pknj.Tekst = pk["Tekst"];
-            //if (!string.IsNullOrEmpty(pk["ListaPropisa"]))
-            //{
-            //    propPk.IdPropis = Convert.ToInt32(pk["ListaPropisa"]);
-            //}
-            //if (!string.IsNullOrEmpty(pk["IdClan"]))
-            //{
-            //    propPk.IdClan = Convert.ToInt32(pk["IdClan"]);
-            //}
-            //if (!string.IsNullOrEmpty(pk["IdStav"]))
-            //{
-            //    propPk.IdStav = Convert.ToInt32(pk["IdStav"]);
-            //}
-            //if (!string.IsNullOrEmpty(pk["IdTacka"]))
-            //{
-            //    propPk.IdTacka = Convert.ToInt32(pk["IdTacka"]);
-            //}
+
             if (!string.IsNullOrEmpty(pk["ListaRubrikaPK"]))
             {
                 pknj.IdRubrikaPK = Convert.ToInt32(pk["ListaRubrikaPK"]);
@@ -334,16 +192,20 @@ namespace AdminPanel.Controllers
 
             try
             {
-                _context.PrimeriKnjizenja.Update(pknj);
-                //if(propPk != null)
-                //{ 
-                //    _context.PropisPrimeriKnjizenja.Update(propPk);
-                //}
-                _context.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    _context.PrimeriKnjizenja.Update(pknj);
+                    _context.SaveChanges();
+                }
                 return RedirectPermanent("~/PrimeriKnjizenja/Index/" + pknj.IdRubrikaPK);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }

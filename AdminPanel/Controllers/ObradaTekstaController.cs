@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace AdminPanel.Controllers
 {
@@ -271,11 +270,15 @@ namespace AdminPanel.Controllers
                     _context.Podnaslov.Add(podnaslov);
                     _context.SaveChanges();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
-
             }
             if (brojacEtova == 2)
             {
@@ -289,11 +292,15 @@ namespace AdminPanel.Controllers
                     _context.Podnaslov.Add(podnaslov);
                     _context.SaveChanges();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
-
             }
             if (brojacEtova == 3)
             {
@@ -307,8 +314,13 @@ namespace AdminPanel.Controllers
                     _context.Podnaslov.Add(podnaslov);
                     _context.SaveChanges();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -324,8 +336,13 @@ namespace AdminPanel.Controllers
                     _context.Podnaslov.Add(podnaslov);
                     _context.SaveChanges();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -383,8 +400,13 @@ namespace AdminPanel.Controllers
                     //   brojacClanova++;
                     _context.SaveChanges();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -439,12 +461,16 @@ namespace AdminPanel.Controllers
                     //   brojacClanova++;
                     _context.SaveChanges();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
-
         }
 
         //UNOS STAVOVA U DB
@@ -503,8 +529,13 @@ namespace AdminPanel.Controllers
 
                     _context.SaveChanges();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -560,8 +591,13 @@ namespace AdminPanel.Controllers
 
                     _context.SaveChanges();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -618,8 +654,13 @@ namespace AdminPanel.Controllers
 
                     _context.SaveChanges();
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -709,8 +750,13 @@ namespace AdminPanel.Controllers
                 ViewBag.Uspeh = "Uspesno uklonjen tekst";
                 return RedirectPermanent("~/ObradaTeksta/Index/" + id);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }
@@ -763,9 +809,13 @@ namespace AdminPanel.Controllers
                     ViewBag.Msg = "Став је успешно убачен";
                     return RedirectPermanent("~/ObradaTeksta/DodajStav/" + s.IdClan);
                 }
-                catch
+                catch (Exception e)
                 {
-
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -834,6 +884,5 @@ namespace AdminPanel.Controllers
                 return RedirectPermanent("~/Identity/Account/Login");
             }
         }
-
     }
 }

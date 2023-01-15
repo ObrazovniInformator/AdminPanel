@@ -30,44 +30,22 @@ namespace AdminPanel.Controllers
                                                                    .ToDictionary(x => x.Key, x => x.Value);
 
                     ViewBag.SudskaPraksa = sudskaPraksa;
-                    //List<Propis> propisi = (from p in _context2.Propis
-                    //                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-                    //                        select p).ToList();
                     List<RubrikaSP> rubrikeSP = (from r in _context2.RubrikaSP
                                                  select r).ToList();
                     List<PodrubrikaSP> podrubrikeSP = (from pod in _context2.PodrubrikaSP
                                                        select pod).ToList();
-                    //List<PodpodrubrikaSP> podpodrubrikeSP = (from podpod in _context.PodpodrubrikaSP
-                    //                                         select podpod).ToList();
                     List<DonosilacSP> donosiociSP = (from ta in _context2.DonosilacSP
                                                      select ta).ToList();
-                    //List<Clan> clanovi = (from cl in _context2.Clan
-                    //                      select cl).ToList();
-                    //List<Stav> stavovi = (from stav in _context2.Stav
-                    //                      select stav).ToList();
-                    //List<Tacka> tacke = (from ta in _context2.Tacka
-                    //                     select ta).ToList();
 
                     ViewBag.IdPodrubrikaSP = id;
                     ViewBag.IdRubrikaSP = idR;
-                    //ViewBag.IdPodpodubrikaSP = idPPR;
                     ViewBag.IdDonosilacSP = idD;
                     ViewBag.RubrikeSP = rubrikeSP;
                     ViewBag.PodrubrikeSP = podrubrikeSP;
                     ViewBag.Donosioci = donosiociSP;
-                    //ViewBag.PodpodrubrikeSP = podpodrubrikeSP;
-                    //ViewBag.Propisi = propisi;
-                    //ViewBag.Clanovi = clanovi;
-                    //ViewBag.Stavovi = stavovi;
-                    //ViewBag.Tacke = tacke;
-
-                    //var model = new SudskaPraksaViewModel();
-                    //model.SudskaPraksaList = _context2.SudskaPraksa.ToList();
-                    //model.PropisSudskaPraksaList = _context2.PropisSudskaPraksa.ToList();
 
                     return View(sudskaPraksa);
                 }
-               
             }
             else
             {
@@ -160,30 +138,10 @@ namespace AdminPanel.Controllers
 
             if (email != null)
             {
-                //List<Propis> propisi = (from p in _context.Propis
-                //                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-                //                        select p).ToList();
-                //List<RubrikaSP> rubrikeSP = (from r in _context.RubrikaSP
-                //                             select r).ToList();
                 List<PodrubrikaSP> podrubrikeSP = (from pod in _context.PodrubrikaSP
                                                    select pod).ToList();
                 List<DonosilacSP> donosiociSP = (from ta in _context.DonosilacSP
                                                  select ta).ToList();
-                //List<Clan> clanovi = (from cl in _context.Clan
-                //                      select cl).ToList();
-                //List<Stav> stavovi = (from stav in _context.Stav
-                //                      select stav).ToList();
-                //List<Tacka> tacke = (from ta in _context.Tacka
-                //                     select ta).ToList();
-
-                //List<ProsvetniPropis> propisiPP = (from p in _context.ProsvetnIPropis
-                //                                   select p).ToList();
-                //List<ClanPP> clanoviPP = (from cl in _context.ClanPP
-                //                          select cl).ToList();
-                //List<StavPP> stavoviPP = (from stav in _context.StavPP
-                //                          select stav).ToList();
-                //List<TackaPP> tackePP = (from ta in _context.TackaPP
-                //                         select ta).ToList();
 
                 List<RubrikaSP> rubrikeSP = new List<RubrikaSP>();
                 rubrikeSP = (from r in _context.RubrikaSP
@@ -196,16 +154,6 @@ namespace AdminPanel.Controllers
                 int idSP = (from sm in _context.SudskaPraksa
                             select sm.Id).Max();
                 ViewBag.IdMaxSP = idSP;
-
-                //ViewBag.Propisi = propisi;
-                //ViewBag.Clanovi = clanovi;
-                //ViewBag.Stavovi = stavovi;
-                //ViewBag.Tacke = tacke;
-                //ViewBag.ProsvetniPropisi = propisiPP;
-                //ViewBag.ClanoviPP = clanoviPP;
-                //ViewBag.StavoviPP = stavoviPP;
-                //ViewBag.TackePP = tackePP;
-                //ViewBag.RubrikeSP = rubrikeSP;
                 ViewBag.PodrubrikeSP = podrubrikeSP;
                 ViewBag.DonosiociSP = donosiociSP;
 
@@ -216,6 +164,7 @@ namespace AdminPanel.Controllers
                 return RedirectPermanent("~/Identity/Account/Login");
             }
         }
+
         [HttpPost]
         public IActionResult Create(SudskaPraksa sp, ProsvetniPropisSudskaPraksa pPropisSP)
         {
@@ -227,44 +176,13 @@ namespace AdminPanel.Controllers
 
             rubrikeSP.Insert(0, new RubrikaSP { Id = 0, Naziv = "--Изабери РУБРИКУ--" });
 
-
-            //List<Propis> propisi = (from p in _context.Propis
-                                        //where p.IdPodrubrike == id && p.IdRubrike == idR
-                                    //select p).ToList();
-            //List<RubrikaSP> rubrikeSP = (from r in _context.RubrikaSP
-            //                             select r).ToList();
             List<PodrubrikaSP> podrubrikeSP = (from pod in _context.PodrubrikaSP
                                                select pod).ToList();
             List<DonosilacSP> donosiociSP = (from ta in _context.DonosilacSP
                                              select ta).ToList();
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from stav in _context.Stav
-            //                      select stav).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
 
-            //ViewBag.Propisi = propisi;
-            //ViewBag.Clanovi = clanovi;
-            //ViewBag.Stavovi = stavovi;
-            //ViewBag.Tacke = tacke;
-            //ViewBag.RubrikeSP = rubrikeSP;
             ViewBag.PodrubrikeSP = podrubrikeSP;
             ViewBag.DonosiociSP = donosiociSP;
-
-            //List<ProsvetniPropis> propisiPP = (from p in _context.ProsvetnIPropis
-            //                                   select p).ToList();
-            //List<ClanPP> clanoviPP = (from cl in _context.ClanPP
-            //                          select cl).ToList();
-            //List<StavPP> stavoviPP = (from stav in _context.StavPP
-            //                          select stav).ToList();
-            //List<TackaPP> tackePP = (from ta in _context.TackaPP
-            //                         select ta).ToList();
-
-            //ViewBag.ProsvetniPropisi = propisiPP;
-            //ViewBag.ClanoviPP = clanoviPP;
-            //ViewBag.StavoviPP = stavoviPP;
-            //ViewBag.TackePP = tackePP;
 
             SudskaPraksa s = new SudskaPraksa();
             s.Naslov = sp.Naslov;
@@ -273,70 +191,34 @@ namespace AdminPanel.Controllers
             s.Datum = sp.Datum;
             s.Napomena = sp.Napomena;
             s.Tekst = sp.Tekst;
-            //s.IdPropis = sp.IdPropis;
-            //s.IdClan = sp.IdClan;
-            //s.IdStav = sp.IdStav;
-            //s.IdTacka = sp.IdTacka;
             s.IdRubrikaSP = sp.IdRubrikaSP;
             s.IdPodrubrikaSP = sp.IdPodrubrikaSP;
             s.IdDonosilacSP = sp.IdDonosilacSP;
 
             try
             {
-                SudskaPraksa.DodajSudskuPraksu(s);
-                ViewBag.msg = "Успешно додата Судска пракса";
+                if (ModelState.IsValid)
+                {
+                    SudskaPraksa.DodajSudskuPraksu(s);
+                    ViewBag.msg = "Успешно додата Судска пракса.";
+                }
+                else
+                {
+                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново.";
+                }
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
 
             int sudskaPraksaId = (from sud in _context.SudskaPraksa
                                   select sud.Id).Max();
-
-            //PropisSudskaPraksa psp = new PropisSudskaPraksa();
-            //psp.IdPropis = s.IdPropis;
-            //psp.IdSudskaPraksa = sudskaPraksaId;
-            //psp.IdClan = s.IdClan;
-            //psp.IdStav = s.IdStav;
-            //psp.IdTacka = s.IdTacka;
-            //psp.DatumUnosa = DateTime.Now;
-
-            //ProsvetniPropisSudskaPraksa ppsp = new ProsvetniPropisSudskaPraksa();
-            //ppsp.IdProsvetniPropis = pPropisSP.IdProsvetniPropis;
-            //ppsp.IdSudskaPraksa = sudskaPraksaId;
-            //ppsp.IdClanPP = pPropisSP.IdClanPP;
-            //ppsp.IdStavPP = pPropisSP.IdStavPP;
-            //ppsp.IdTackaPP = pPropisSP.IdTackaPP;
-            //ppsp.DatumUnosa = DateTime.Now;
-
-            //if (psp != null)
-            //{
-            //    try
-            //    {
-            //        PropisSudskaPraksa.DodajPropisSudskuPraksu(psp);
-            //        ViewBag.Msg = "Успех";
-            //    }
-            //    catch
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //if (ppsp != null)
-            //{
-            //    try
-            //    {
-            //        ProsvetniPropisSudskaPraksa.DodajProsvetniPropisSudskaPraksa(ppsp);
-            //        ViewBag.Msg = "Успех";
-            //    }
-            //    catch
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //return RedirectPermanent("~/SudskaPraksa/Index/" + sp.IdPodrubrikaSP);
 
             return RedirectToAction("Create", "SudskaPraksa");
         }
@@ -360,20 +242,10 @@ namespace AdminPanel.Controllers
                                                select pod).ToList();
             List<DonosilacSP> donosiociSP = (from ta in _context.DonosilacSP
                                              select ta).ToList();
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from stav in _context.Stav
-            //                      select stav).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
 
-            //ViewBag.Propisi = propisi;
             ViewBag.RubrikeSP = rubrikeSP;
             ViewBag.PodrubrikeSP = podrubrikeSP;
             ViewBag.DonosiociSP = donosiociSP;
-            //ViewBag.Clanovi = clanovi;
-            //ViewBag.Stavovi = stavovi;
-            //ViewBag.Tacke = tacke;
 
             SudskaPraksa sp = (from s in _context.SudskaPraksa
                                where s.Id == id
@@ -384,29 +256,6 @@ namespace AdminPanel.Controllers
                                       select ps).FirstOrDefault();
 
             ViewBag.PropisSudskaPraksa = psp;
-
-            //if (psp != null)
-            //{
-            //    Propis propis = (from p in _context.Propis
-            //                     where p.Id == psp.IdPropis
-            //                     select p).SingleOrDefault();
-
-            //    Clan clan = (from cl in _context.Clan
-            //                 where cl.Id == psp.IdClan
-            //                 select cl).SingleOrDefault();
-
-            //    Stav stav = (from st in _context.Stav
-            //                 where st.Id == psp.IdStav
-            //                 select st).SingleOrDefault();
-            //    Tacka tacka = (from p in _context.Tacka
-            //                   where p.Id == psp.IdTacka
-            //                   select p).SingleOrDefault();
-
-            //    ViewBag.Propis = propis;
-            //    ViewBag.Clan = clan;
-            //    ViewBag.Stav = stav;
-            //    ViewBag.Tacka = tacka;
-            //}
 
             RubrikaSP rsp = (from r in _context.RubrikaSP
                              where r.Id == sp.IdRubrikaSP
@@ -433,32 +282,7 @@ namespace AdminPanel.Controllers
         {
             SudskaPraksa s = (from sr in _context.SudskaPraksa
                               where sr.Id == id
-                              select sr).Single();
-
-            //PropisSudskaPraksa propSp = (from ps in _context.PropisSudskaPraksa
-            //                             where ps.IdSudskaPraksa == s.Id
-            //                             select ps).FirstOrDefault();
-
-            //if (propSp.IdPropis != null)
-            //{
-            //    Propis propis = (from p in _context.Propis
-            //                     where p.Id == propSp.IdPropis
-            //                     select p).SingleOrDefault();
-            //}
-
-            //if (propSp.IdClan != null)
-            //{
-            //    Clan clan = (from cl in _context.Clan
-            //                 where cl.Id == propSp.IdClan
-            //                 select cl).SingleOrDefault();
-            //}
-
-            //if (propSp.IdStav != null)
-            //{
-            //    Stav stav = (from st in _context.Stav
-            //                 where st.Id == propSp.IdStav
-            //                 select st).SingleOrDefault();
-            //}
+                              select sr).SingleOrDefault();
 
             RubrikaSP rsp = (from r in _context.RubrikaSP
                              where r.Id == s.IdRubrikaSP
@@ -482,22 +306,7 @@ namespace AdminPanel.Controllers
             s.Datum = fcsp["Datum"];
             s.Napomena = fcsp["Napomena"];
             s.Tekst = fcsp["Tekst"];
-            //if (!string.IsNullOrEmpty(fcsp["ListaPropisa"]))
-            //{
-            //    propSp.IdPropis = Convert.ToInt32(fcsp["ListaPropisa"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcsp["IdClan"]))
-            //{
-            //    propSp.IdClan = Convert.ToInt32(fcsp["IdClan"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcsp["IdStav"]))
-            //{
-            //    propSp.IdStav = Convert.ToInt32(fcsp["IdStav"]);
-            //}
-            //if (!string.IsNullOrEmpty(fcsp["IdTacka"]))
-            //{
-            //    propSp.IdTacka = Convert.ToInt32(fcsp["IdTacka"]);
-            //}
+
             if (!string.IsNullOrEmpty(fcsp["ListaRubrikaSP"]))
             {
                 s.IdRubrikaSP = Convert.ToInt32(fcsp["ListaRubrikaSP"]);
@@ -513,17 +322,23 @@ namespace AdminPanel.Controllers
 
             try
             {
-                _context.SudskaPraksa.Update(s);
-                //_context.PropisSudskaPraksa.Update(propSp);
-                _context.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    _context.SudskaPraksa.Update(s);
+                    _context.SaveChanges();
+                }
                 return RedirectPermanent("~/SudskaPraksa/Index/" + s.IdRubrikaSP);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }
-        
 
         public IActionResult Details(int id)
         {
@@ -592,7 +407,6 @@ namespace AdminPanel.Controllers
             }
         }
 
-       
         public IActionResult Delete(int id)
         {
             SudskaPraksa sudskaPraksa = (from p in _context.SudskaPraksa
@@ -681,40 +495,6 @@ namespace AdminPanel.Controllers
             }
         }
 
-        //[HttpGet]
-        //public IActionResult CreatePodpodrubrika()
-        //{
-        //    string email = HttpContext.Session.GetString("UserEmail");
-
-        //    if (email != null)
-        //    {
-        //        List<PodrubrikaSP> podrubrikeSP = _context.PodrubrikaSP.ToList();
-        //        ViewBag.RubrikeSP = podrubrikeSP;
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        return RedirectPermanent("~/Identity/Account/Login");
-        //    }
-        //}
-        //[HttpPost]
-        //public IActionResult CreatePodpodrubrika(PodpodrubrikaSP podpodrubrikaSP)
-        //{
-        //    List<PodrubrikaSP> podrubrikeSP = _context.PodrubrikaSP.ToList();
-        //    ViewBag.RubrikeSP = podrubrikeSP;
-        //    try
-        //    {
-        //        _context.PodpodrubrikaSP.Add(podpodrubrikaSP);
-        //        _context.SaveChanges();
-        //        ViewBag.Msg = "Успешно сте додали подподрубрику за судску праксу";
-        //        return View();
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //}
-
         [HttpGet]
         public IActionResult CreateDonosilac()
         {
@@ -758,35 +538,28 @@ namespace AdminPanel.Controllers
                                          select sp).Single();
 
             Dictionary<int, string> propisi = _context.Propis
-  .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
-  .ToDictionary(x => x.Key, x => x.Value);
-            //List<Propis> propisi = (from p in _context.Propis
-            //                        select p).ToList();
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from stav in _context.Stav
-            //                      select stav).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
+                                                      .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
+                                                      .ToDictionary(x => x.Key, x => x.Value);
             Dictionary<int, string> clanovi = _context.Clan
-  .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
-  .ToDictionary(x => x.Key, x => x.Value);
+                                                      .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
+                                                      .ToDictionary(x => x.Key, x => x.Value);
 
             Dictionary<int, string> stavovi = _context.Stav
-  .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
-  .ToDictionary(x => x.Key, x => x.Value);
+                                                      .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
+                                                      .ToDictionary(x => x.Key, x => x.Value);
 
             Dictionary<int, string> tacke = _context.Tacka
-  .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
-  .ToDictionary(x => x.Key, x => x.Value);
+                                                      .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
+                                                      .ToDictionary(x => x.Key, x => x.Value);
 
             ViewBag.Propisi = propisi;
             ViewBag.Clanovi = clanovi;
             ViewBag.Stavovi = stavovi;
             ViewBag.Tacke = tacke;
+
             if (idRubrika != null)
             {
-                ViewBag.Msg = "Успешно успостављена веза";
+                ViewBag.Msg = "Успешно успостављена веза.";
             }
             ViewBag.SudskaPraksa = sudskaPraksa;
 

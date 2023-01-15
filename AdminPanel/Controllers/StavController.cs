@@ -67,9 +67,13 @@ namespace AdminPanel.Controllers
                     ViewBag.Msg = "Став је успешно убачен";
                     return RedirectPermanent("~/Stav/DodajStav/" + s.IdClan);
                 }
-                catch
+                catch (Exception e)
                 {
-
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -91,8 +95,13 @@ namespace AdminPanel.Controllers
                 _context.SaveChanges();
                 return RedirectPermanent("~/ObradaTeksta/Index/" + c.IdPropis);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }
@@ -136,8 +145,13 @@ namespace AdminPanel.Controllers
                     _context.SaveChanges();
                     return RedirectPermanent("~/ObradaTeksta/Index/" + c.IdPropis);
                 }
-                catch
+                catch (Exception e)
                 {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.InnerException.Message;
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
                     throw;
                 }
             }
@@ -146,7 +160,5 @@ namespace AdminPanel.Controllers
                 return RedirectPermanent("~/Identity/Account/Login");
             }
         }
-
-      
     }
 }

@@ -25,40 +25,22 @@ namespace AdminPanel.Controllers
                 int idD = Convert.ToInt32(idDonosilac);
                 using (AdminPanelContext _context2 = new AdminPanelContext()) 
                 {
-                    //_context2.ExecuteCommand("SET TRANSACTION LEVEL READ UNCOMMITED");
                     List<SluzbenoMisljenje> sluzbenoMisljenje = (from sm in _context2.SluzbenoMisljenje
                                                                      //where sm.IdPodrubrikaSM == id && sm.IdRubrikaSM == idR
                                                                  select sm).ToList();
-                    //List<Propis> propisi = (from p in _context2.Propis
-                    //                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-                    //                        select p).ToList();
                     List<RubrikaSM> rubrikeSM = (from rsm in _context2.RubrikaSM
                                                  select rsm).ToList();
                     List<PodrubrikaSM> podrubrikeSM = (from pod in _context2.PodrubrikaSM
                                                        select pod).ToList();
-                    //List<PodpodrubrikaSM> podpodrubrikeSM = (from podpod in _context.PodpodrubrikaSM
-                    //                                         select podpod).ToList();
                     List<DonosilacSM> donosiociSM = (from ta in _context2.DonosilacSM
                                                      select ta).ToList();
-                    //List<Clan> clanovi = (from cl in _context2.Clan
-                    //                      select cl).ToList();
-                    //List<Stav> stavovi = (from stav in _context2.Stav
-                    //                      select stav).ToList();
-                    //List<Tacka> tacke = (from ta in _context2.Tacka
-                    //                     select ta).ToList();
 
                     ViewBag.IdPodrubrikaSM = id;
                     ViewBag.IdRubrikaSM = idR;
-                    //ViewBag.IdPodpodubrikaSP = idPPR;
                     ViewBag.IdDonosilacSP = idD;
                     ViewBag.RubrikeSM = rubrikeSM;
                     ViewBag.PodrubrikeSM = podrubrikeSM;
                     ViewBag.Donosioci = donosiociSM;
-                    //ViewBag.PodpodrubrikeSM = podpodrubrikeSM;
-                    //ViewBag.Propisi = propisi;
-                    //ViewBag.Clanovi = clanovi;
-                    //ViewBag.Stavovi = stavovi;
-                    //ViewBag.Tacke = tacke;
 
                     var model = new SluzbenoMisljenjeViewModel();
                     model.SluzbenoMisljenjeList = _context2.SluzbenoMisljenje.ToList();
@@ -118,30 +100,10 @@ namespace AdminPanel.Controllers
 
             if (email != null)
             {
-                //List<Propis> propisi = (from p in _context.Propis
-                //                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-                //                        select p).ToList();
-                //List<RubrikaSM> rubrikeSM = (from r in _context.RubrikaSM
-                //                             select r).ToList();
                 List<PodrubrikaSM> podrubrikeSM = (from pod in _context.PodrubrikaSM
                                                    select pod).ToList();
                 List<DonosilacSM> donosiociSM = (from ta in _context.DonosilacSM
                                                  select ta).ToList();
-                //List<Clan> clanovi = (from cl in _context.Clan
-                //                      select cl).ToList();
-                //List<Stav> stavovi = (from stav in _context.Stav
-                //                      select stav).ToList();
-                //List<Tacka> tacke = (from ta in _context.Tacka
-                //                     select ta).ToList();
-
-                //List<ProsvetniPropis> propisiPP = (from p in _context.ProsvetnIPropis
-                //                                   select p).ToList();
-                //List<ClanPP> clanoviPP = (from cl in _context.ClanPP
-                //                          select cl).ToList();
-                //List<StavPP> stavoviPP = (from stav in _context.StavPP
-                //                          select stav).ToList();
-                //List<TackaPP> tackePP = (from ta in _context.TackaPP
-                //                         select ta).ToList();
 
                 List<RubrikaSM> rubrikeSM = new List<RubrikaSM>();
 
@@ -155,15 +117,6 @@ namespace AdminPanel.Controllers
 
                 rubrikeSM.Insert(0, new RubrikaSM { Id = 0, Naziv = "--Изабери РУБРИКУ--" });
 
-                //ViewBag.Propisi = propisi;
-                //ViewBag.Clanovi = clanovi;
-                //ViewBag.Stavovi = stavovi;
-                //ViewBag.Tacke = tacke;
-                //ViewBag.ProsvetniPropisi = propisiPP;
-                //ViewBag.ClanoviPP = clanoviPP;
-                //ViewBag.StavoviPP = stavoviPP;
-                //ViewBag.TackePP = tackePP;
-                //ViewBag.RubrikeSM = rubrikeSM;
                 ViewBag.PodrubrikeSM = podrubrikeSM;
                 ViewBag.DonosiociSM = donosiociSM;
 
@@ -175,7 +128,7 @@ namespace AdminPanel.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Create(SluzbenoMisljenje sm/*, ProsvetniPropisSluzbenoMisljenje pPropisSM*/)
+        public IActionResult Create(SluzbenoMisljenje sm)
         {
             var IdPodrubrikaSM = HttpContext.Request.Form["IdPodrubrikaSM"].ToString();
             List<RubrikaSM> rubrikeSM = new List<RubrikaSM>();
@@ -185,44 +138,13 @@ namespace AdminPanel.Controllers
 
             rubrikeSM.Insert(0, new RubrikaSM { Id = 0, Naziv = "--Изабери РУБРИКУ--" });
 
-
-            //List<Propis> propisi = (from p in _context.Propis
-            //                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-            //                        select p).ToList();
-            //List<RubrikaSP> rubrikeSP = (from r in _context.RubrikaSP
-            //                             select r).ToList();
             List<PodrubrikaSM> podrubrikeSM = (from pod in _context.PodrubrikaSM
                                                select pod).ToList();
             List<DonosilacSM> donosiociSM = (from ta in _context.DonosilacSM
                                              select ta).ToList();
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from stav in _context.Stav
-            //                      select stav).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
 
-            //ViewBag.Propisi = propisi;
-            //ViewBag.Clanovi = clanovi;
-            //ViewBag.Stavovi = stavovi;
-            //ViewBag.Tacke = tacke;
-            //ViewBag.RubrikeSP = rubrikeSP;
             ViewBag.PodrubrikeSM = podrubrikeSM;
             ViewBag.DonosiociSM = donosiociSM;
-
-            //List<ProsvetniPropis> propisiPP = (from p in _context.ProsvetnIPropis
-            //                                   select p).ToList();
-            //List<ClanPP> clanoviPP = (from cl in _context.ClanPP
-            //                          select cl).ToList();
-            //List<StavPP> stavoviPP = (from stav in _context.StavPP
-            //                          select stav).ToList();
-            //List<TackaPP> tackePP = (from ta in _context.TackaPP
-            //                         select ta).ToList();
-
-            //ViewBag.ProsvetniPropisi = propisiPP;
-            //ViewBag.ClanoviPP = clanoviPP;
-            //ViewBag.StavoviPP = stavoviPP;
-            //ViewBag.TackePP = tackePP;
 
             SluzbenoMisljenje s = new SluzbenoMisljenje();
             s.Naslov = sm.Naslov;
@@ -231,72 +153,35 @@ namespace AdminPanel.Controllers
             s.DatumDonosenja = sm.DatumDonosenja;
             s.Napomena = sm.Napomena;
             s.Tekst = sm.Tekst;
-            //s.IdPropis = sm.IdPropis;
-            //s.IdClan = sm.IdClan;
-            //s.IdStav = sm.IdStav;
-            //s.IdTacka = sm.IdTacka;
             s.IdRubrikaSM = sm.IdRubrikaSM;
             s.IdPodrubrikaSM = sm.IdPodrubrikaSM;
             s.IdDonosilacSM = sm.IdDonosilacSM;
 
             try
             {
-                SluzbenoMisljenje.DodajSluzbenoMisljenje(s);
-                ViewBag.msg = "Успешно додато Службено мишљење";
+                if (ModelState.IsValid)
+                {
+                    SluzbenoMisljenje.DodajSluzbenoMisljenje(s);
+                    ViewBag.msg = "Успешно додато Службено мишљење";
+                }
+                else
+                {
+                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново.";
+                }
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
 
             int sluzbenoMisljenjeId = (from slm in _context.SluzbenoMisljenje
                                        select slm.Id).Max();
 
-            //PropisSluzbenoMisljenje psm = new PropisSluzbenoMisljenje();
-            //psm.IdPropis = s.IdPropis;
-            //psm.IdSluzbenoMisljenje = sluzbenoMisljenjeId;
-            //psm.IdClan = s.IdClan;
-            //psm.IdStav = s.IdStav;
-            //psm.IdTacka = s.IdTacka;
-            //psm.DatumUnosa = DateTime.Now;
-
-            //ProsvetniPropisSluzbenoMisljenje ppsm = new ProsvetniPropisSluzbenoMisljenje();
-            //ppsm.IdProsvetniPropis = pPropisSM.IdProsvetniPropis;
-            //ppsm.IdSluzbenoMisljenje = sluzbenoMisljenjeId;
-            //ppsm.IdClanPP = pPropisSM.IdClanPP;
-            //ppsm.IdStavPP = pPropisSM.IdStavPP;
-            //ppsm.IdTackaPP = pPropisSM.IdTackaPP;
-            //ppsm.DatumUnosa = DateTime.Now;
-
-
-            //if (psm != null)
-            //{
-            //    try
-            //    {
-            //        PropisSluzbenoMisljenje.DodajPropisSluzbenoMisljenje(psm);
-            //        ViewBag.Msg = "Успех";
-            //    }
-            //    catch
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //if (ppsm != null)
-            //{
-            //    try
-            //    {
-            //        ProsvetniPropisSluzbenoMisljenje.DodajProsvetniPropisSluzbenoMisljenje(ppsm);
-            //        ViewBag.Msg = "Успех";
-
-            //    }
-            //    catch
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //return RedirectPermanent("~/SluzbenoMisljenje/Index/" + sm.IdPodrubrikaSM);
             return RedirectToAction("Create", "SluzbenoMisljenje");
         }
 
@@ -320,45 +205,16 @@ namespace AdminPanel.Controllers
             ViewBag.PropisiSluzbenaMisljenja = psmLista;
             ViewBag.ProsvetniPropisiSluzbenaMisljenja = ppsmLista;
 
-            //List<Propis> propisi = (from p in _context.Propis
-            //                            //where p.IdPodrubrike == id && p.IdRubrike == idR
-            //                        select p).ToList();
             List<RubrikaSM> rubrikeSM = (from r in _context.RubrikaSM
                                          select r).ToList();
             List<PodrubrikaSM> podrubrikeSM = (from pod in _context.PodrubrikaSM
                                                select pod).ToList();
             List<DonosilacSM> donosiociSM = (from ta in _context.DonosilacSM
                                              select ta).ToList();
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from sta in _context.Stav
-            //                      select sta).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
 
-            //ViewBag.Propisi = propisi;
             ViewBag.RubrikeSM = rubrikeSM;
             ViewBag.PodrubrikeSM = podrubrikeSM;
             ViewBag.DonosiociSM = donosiociSM;
-            //ViewBag.Clanovi = clanovi;
-            //ViewBag.Stavovi = stavovi;
-            //ViewBag.Tacke = tacke;
-
-            //List<ProsvetniPropis> propisiPP = (from p in _context.ProsvetnIPropis
-            //                                       //where p.IdPodrubrike == id && p.IdRubrike == idR
-            //                                   select p).ToList();
-
-            //List<ClanPP> clanoviPP = (from cl in _context.ClanPP
-            //                          select cl).ToList();
-            //List<StavPP> stavoviPP = (from sta in _context.StavPP
-            //                          select sta).ToList();
-            //List<TackaPP> tackePP = (from ta in _context.TackaPP
-            //                         select ta).ToList();
-
-            //ViewBag.ProsvetniPropisi = propisiPP;
-            //ViewBag.Clanovipp = clanoviPP;
-            //ViewBag.StavoviPP = stavoviPP;
-            //ViewBag.TackePP = tackePP;
 
             SluzbenoMisljenje sm = (from s in _context.SluzbenoMisljenje
                                     where s.Id == id
@@ -370,52 +226,6 @@ namespace AdminPanel.Controllers
             ProsvetniPropisSluzbenoMisljenje ppsm = (from ppsmi in _context.ProsvetniPropisSluzbenoMisljenje
                                                      where ppsmi.IdSluzbenoMisljenje == sm.Id
                                                      select ppsmi).FirstOrDefault();
-
-            //if (psm != null)
-            //{
-            //    Propis propis = (from p in _context.Propis
-            //                     where p.Id == psm.IdPropis
-            //                     select p).SingleOrDefault();
-
-            //    Clan clan = (from cl in _context.Clan
-            //                 where cl.Id == psm.IdClan
-            //                 select cl).SingleOrDefault();
-
-            //    Stav stav = (from st in _context.Stav
-            //                 where st.Id == psm.IdStav
-            //                 select st).SingleOrDefault();
-            //    Tacka tacka = (from p in _context.Tacka
-            //                   where p.Id == psm.IdTacka
-            //                   select p).SingleOrDefault();
-
-            //    ViewBag.Propis = propis;
-            //    ViewBag.Clan = clan;
-            //    ViewBag.Stav = stav;
-            //    ViewBag.Tacka = tacka;
-            //}
-
-            //if (ppsm != null)
-            //{
-            //    ProsvetniPropis propisPP = (from p in _context.ProsvetnIPropis
-            //                                where p.Id == ppsm.IdProsvetniPropis
-            //                                select p).SingleOrDefault();
-
-            //    ClanPP clanPP = (from cl in _context.ClanPP
-            //                     where cl.Id == ppsm.IdClanPP
-            //                     select cl).SingleOrDefault();
-
-            //    StavPP stavPP = (from st in _context.StavPP
-            //                     where st.Id == ppsm.IdStavPP
-            //                     select st).SingleOrDefault();
-            //    TackaPP tackaPP = (from p in _context.TackaPP
-            //                       where p.Id == ppsm.IdTackaPP
-            //                       select p).SingleOrDefault();
-
-            //    ViewBag.PropisPP = propisPP;
-            //    ViewBag.ClanPP = clanPP;
-            //    ViewBag.StavPP = stavPP;
-            //    ViewBag.TackaPP = tackaPP;
-            //}
 
             RubrikaSM rsm = (from r in _context.RubrikaSM
                              where r.Id == sm.IdRubrikaSM
@@ -448,36 +258,7 @@ namespace AdminPanel.Controllers
         {
             SluzbenoMisljenje s = (from sr in _context.SluzbenoMisljenje
                                    where sr.Id == id
-                                   select sr).Single();
-
-            //PropisSluzbenoMisljenje propSm = (from ps in _context.PropisSluzbenoMisljenje
-            //                                  where ps.IdSluzbenoMisljenje == s.Id
-            //                                  select ps).SingleOrDefault();
-
-            //ProsvetniPropisSluzbenoMisljenje prosPSm = (from pps in _context.ProsvetniPropisSluzbenoMisljenje
-            //                                            where pps.IdSluzbenoMisljenje == s.Id
-            //                                            select pps).FirstOrDefault();
-
-            //if (propSm.IdPropis != null)
-            //{
-            //    Propis propis = (from p in _context.Propis
-            //                     where p.Id == propSm.IdPropis
-            //                     select p).SingleOrDefault();
-            //}
-
-            //if (propSm.IdClan != null)
-            //{ 
-            //    Clan clan = (from cl in _context.Clan
-            //             where cl.Id == propSm.IdClan
-            //             select cl).SingleOrDefault();
-            //}
-
-            //if (propSm.IdStav != null)
-            //{
-            //    Stav stav = (from st in _context.Stav
-            //                 where st.Id == propSm.IdStav
-            //                 select st).SingleOrDefault();
-            //}
+                                   select sr).SingleOrDefault();
 
             RubrikaSM rsm = (from r in _context.RubrikaSM
                              where r.Id == s.IdRubrikaSM
@@ -485,32 +266,11 @@ namespace AdminPanel.Controllers
 
             PodrubrikaSM prsm = (from pr in _context.PodrubrikaSM
                                  where pr.Id == s.IdPodrubrikaSM
-                                 select pr).Single();
+                                 select pr).SingleOrDefault();
 
             DonosilacSM donosilac = (from don in _context.DonosilacSM
                                      where don.Id == s.IdDonosilacSM
-                                     select don).Single();
-
-            //if (prosPSm.IdProsvetniPropis != null)
-            //{
-            //    ProsvetniPropis prosvetniPropis = (from p in _context.ProsvetnIPropis
-            //                                       where p.Id == prosPSm.IdProsvetniPropis
-            //                                       select p).SingleOrDefault();
-            //}
-
-            //if (prosPSm.IdClanPP != null)
-            //{
-            //    ClanPP clanPP = (from cl in _context.ClanPP
-            //                     where cl.Id == prosPSm.IdClanPP
-            //                     select cl).SingleOrDefault();
-            //}
-
-            //if (prosPSm.IdStavPP != null)
-            //{
-            //    StavPP stavPP = (from st in _context.StavPP
-            //                     where st.Id == prosPSm.IdStavPP
-            //                     select st).SingleOrDefault();
-            //}
+                                     select don).SingleOrDefault();
 
             ViewBag.RubrikaSM = rsm;
             ViewBag.PodrubrikaSM = prsm;
@@ -522,22 +282,7 @@ namespace AdminPanel.Controllers
             s.DatumDonosenja = sm["DatumDonosenja"];
             s.Napomena = sm["Napomena"];
             s.Tekst = sm["Tekst"];
-            //if (!string.IsNullOrEmpty(sm["ListaPropisa"]))
-            //{
-            //    propSm.IdPropis = Convert.ToInt32(sm["ListaPropisa"]);
-            //}
-            //if (!string.IsNullOrEmpty(sm["IdClan"]))
-            //{
-            //    propSm.IdClan = Convert.ToInt32(sm["IdClan"]);
-            //}
-            //if (!string.IsNullOrEmpty(sm["IdStav"]))
-            //{
-            //    propSm.IdStav = Convert.ToInt32(sm["IdStav"]);
-            //}
-            //if (!string.IsNullOrEmpty(sm["IdTacka"]))
-            //{
-            //    propSm.IdTacka = Convert.ToInt32(sm["IdTacka"]);
-            //}
+
             if (!string.IsNullOrEmpty(sm["ListaRubrikaSM"]))
             {
                 s.IdRubrikaSM = Convert.ToInt32(sm["ListaRubrikaSM"]);
@@ -549,34 +294,24 @@ namespace AdminPanel.Controllers
             if (!string.IsNullOrEmpty(sm["IdDonosilacSM"]))
             {
                 s.IdDonosilacSM = Convert.ToInt32(sm["IdDonosilacSM"]);
-            }
-            //if (!string.IsNullOrEmpty(sm["IdProsvetniPropis"]))
-            //{
-            //    prosPSm.IdProsvetniPropis = Convert.ToInt32(sm["IdProsvetniPropis"]);
-            //}
-            //if (!string.IsNullOrEmpty(sm["IdClanPP"]))
-            //{
-            //    prosPSm.IdClanPP = Convert.ToInt32(sm["IdClanPP"]);
-            //}
-            //if (!string.IsNullOrEmpty(sm["IdStavPP"]))
-            //{
-            //    prosPSm.IdStavPP = Convert.ToInt32(sm["IdStavPP"]);
-            //}
-            //if (!string.IsNullOrEmpty(sm["IdTackaPP"]))
-            //{
-            //    prosPSm.IdTackaPP = Convert.ToInt32(sm["IdTackaPP"]);
-            //}
+            }            
 
             try
             {
-                _context.SluzbenoMisljenje.Update(s);
-                //_context.PropisSluzbenoMisljenje.Update(propSm);
-                //_context.ProsvetniPropisSluzbenoMisljenje.Update(prosPSm);
-                _context.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    _context.SluzbenoMisljenje.Update(s);
+                    _context.SaveChanges();
+                }
                 return RedirectPermanent("~/SluzbenoMisljenje/Index/" + s.IdRubrikaSM);
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }
@@ -634,7 +369,6 @@ namespace AdminPanel.Controllers
             {
                 return RedirectPermanent("~/Identity/Account/Login");
             }
-           
         }
 
         public IActionResult Delete(int id)
@@ -800,20 +534,20 @@ namespace AdminPanel.Controllers
             SluzbenoMisljenje sluzbenoMisljenje = _context.SluzbenoMisljenje.Find(id);
 
             Dictionary<int, string> propisi = _context.Propis
-  .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
-  .ToDictionary(x => x.Key, x => x.Value);
+                                                      .Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov))
+                                                      .ToDictionary(x => x.Key, x => x.Value);
 
             Dictionary<int, string> clanovi = _context.Clan
-  .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
-  .ToDictionary(x => x.Key, x => x.Value);
+                                                      .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
+                                                      .ToDictionary(x => x.Key, x => x.Value);
 
             Dictionary<int, string> stavovi = _context.Stav
-  .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
-  .ToDictionary(x => x.Key, x => x.Value);
+                                                      .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
+                                                      .ToDictionary(x => x.Key, x => x.Value);
 
             Dictionary<int, string> tacke = _context.Tacka
-  .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
-  .ToDictionary(x => x.Key, x => x.Value);
+                                                      .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
+                                                      .ToDictionary(x => x.Key, x => x.Value);
 
 
             //List<Propis> propisi = (from p in _context.Propis
@@ -888,20 +622,7 @@ namespace AdminPanel.Controllers
             List<TackaPP> tackePP = (from tac in _context.TackaPP
                                      select new TackaPP { Id = tac.Id, Naziv = tac.Naziv }).ToList();
 
-
-
             ViewBag.SluzbenaMisljenjaLista = sluzbenaMisljenjaLista;
-
-            //OVDE
-
-            //List<ProsvetniPropis> propisiPP = (from p in _context.ProsvetnIPropis
-            //                                   select p).ToList();
-            //List<ClanPP> clanoviPP = (from cl in _context.ClanPP
-            //                          select cl).ToList();
-            //List<StavPP> stavoviPP = (from stav in _context.StavPP
-            //                          select stav).ToList();
-            //List<TackaPP> tackePP = (from ta in _context.TackaPP
-            //                         select ta).ToList();
 
             ViewBag.ProsvetniPropisi = propisiPP;
             ViewBag.Clanovi = clanoviPP;
