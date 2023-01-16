@@ -26,22 +26,35 @@ namespace AdminPanel.Controllers
 
             if (email != null)
             {
-                InAktaPodvrsta podvrsteInAkta = (from pi in _context.InAktaPodvrsta
-                                                 where pi.Id == 1
-                                                 select pi).SingleOrDefault();
+                try
+                {
 
-                IEnumerable<RubrikaInAkta> rubrikeInAkta = (from ri in _context.RubrikaInAkta
-                                                            where ri.IdPodvrsta == 1
-                                                            select ri).ToArray();
+                    InAktaPodvrsta podvrsteInAkta = (from pi in _context.InAktaPodvrsta
+                                                     where pi.Id == 1
+                                                     select pi).SingleOrDefault();
 
-                Dictionary<int, string> inAkta = _context.InAkta.Where(x => x.IdPodvrsta == 1).Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov)).ToDictionary(x => x.Key, x => x.Value);
+                    IEnumerable<RubrikaInAkta> rubrikeInAkta = (from ri in _context.RubrikaInAkta
+                                                                where ri.IdPodvrsta == 1
+                                                                select ri).ToArray();
 
-                ViewData["PodvrsteInAkta"] = podvrsteInAkta;
-                ViewData["RubrikeInAkta"] = rubrikeInAkta;
-                ViewData["InAkta"] = inAkta;
-                ViewBag.Email = email;
+                    Dictionary<int, string> inAkta = _context.InAkta.Where(x => x.IdPodvrsta == 1).Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov)).ToDictionary(x => x.Key, x => x.Value);
 
-                return View();
+                    ViewData["PodvrsteInAkta"] = podvrsteInAkta;
+                    ViewData["RubrikeInAkta"] = rubrikeInAkta;
+                    ViewData["InAkta"] = inAkta;
+                    ViewBag.Email = email;
+
+                    return View();
+                }
+                catch (Exception e)
+                {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.Message + "ProsvetaInAkta";
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
+                    throw;
+                }
             }
             else
             {
@@ -55,22 +68,34 @@ namespace AdminPanel.Controllers
 
             if (email != null)
             {
-                InAktaPodvrsta podvrsteInAkta = (from p in _context.InAktaPodvrsta
-                                                 where p.Id == 2
-                                                 select p).SingleOrDefault();
+                try
+                {
+                    InAktaPodvrsta podvrsteInAkta = (from p in _context.InAktaPodvrsta
+                                                     where p.Id == 2
+                                                     select p).SingleOrDefault();
 
-                IEnumerable<RubrikaInAkta> rubrikeInAkta = (from rub in _context.RubrikaInAkta
-                                                            where rub.IdPodvrsta == 2
-                                                            select rub).ToArray();
+                    IEnumerable<RubrikaInAkta> rubrikeInAkta = (from rub in _context.RubrikaInAkta
+                                                                where rub.IdPodvrsta == 2
+                                                                select rub).ToArray();
 
-                Dictionary<int, string> inAkta = _context.InAkta.Where(x => x.IdPodvrsta == 2).Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov)).ToDictionary(x => x.Key, x => x.Value);
+                    Dictionary<int, string> inAkta = _context.InAkta.Where(x => x.IdPodvrsta == 2).Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov)).ToDictionary(x => x.Key, x => x.Value);
 
-                ViewData["PodvrsteInAkta"] = podvrsteInAkta;
-                ViewData["RubrikeInAkta"] = rubrikeInAkta;
-                ViewData["InAkta"] = inAkta;
-                ViewBag.Email = email;
+                    ViewData["PodvrsteInAkta"] = podvrsteInAkta;
+                    ViewData["RubrikeInAkta"] = rubrikeInAkta;
+                    ViewData["InAkta"] = inAkta;
+                    ViewBag.Email = email;
 
-                return View();
+                    return View();
+                }
+                catch (Exception e)
+                {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.Message + "JavniSektor";
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
+                    throw;
+                }
             }
             else
             {
@@ -84,23 +109,35 @@ namespace AdminPanel.Controllers
 
             if (email != null)
             {
-                InAktaPodvrsta podvrsteInAkta = (from pi in _context.InAktaPodvrsta
-                                                 where pi.Id == 3
-                                                 select pi).SingleOrDefault();
+                try
+                {
+                    InAktaPodvrsta podvrsteInAkta = (from pi in _context.InAktaPodvrsta
+                                                     where pi.Id == 3
+                                                     select pi).SingleOrDefault();
 
 
-                IEnumerable<RubrikaInAkta> rubrikeInAkta = (from ri in _context.RubrikaInAkta
-                                                            where ri.IdPodvrsta == 3
-                                                            select ri).ToArray();
+                    IEnumerable<RubrikaInAkta> rubrikeInAkta = (from ri in _context.RubrikaInAkta
+                                                                where ri.IdPodvrsta == 3
+                                                                select ri).ToArray();
 
-                Dictionary<int, string> inAkta = _context.InAkta.Where(x => x.IdPodvrsta == 3).Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov)).ToDictionary(x => x.Key, x => x.Value);
+                    Dictionary<int, string> inAkta = _context.InAkta.Where(x => x.IdPodvrsta == 3).Select(x => new KeyValuePair<int, string>(x.Id, x.Naslov)).ToDictionary(x => x.Key, x => x.Value);
 
-                ViewData["PodvrsteInAkta"] = podvrsteInAkta;
-                ViewData["RubrikeInAkta"] = rubrikeInAkta;
-                ViewData["InAkta"] = inAkta;
-                ViewBag.Email = email;
+                    ViewData["PodvrsteInAkta"] = podvrsteInAkta;
+                    ViewData["RubrikeInAkta"] = rubrikeInAkta;
+                    ViewData["InAkta"] = inAkta;
+                    ViewBag.Email = email;
 
-                return View();
+                    return View();
+                }
+                catch (Exception e)
+                {
+                    PracenjeGresaka pg = new PracenjeGresaka();
+                    pg.Greska = e.Message + "Arhiva";
+                    pg.Datum = DateTime.Now;
+                    _context.PracenjeGresaka.Add(pg);
+                    _context.SaveChanges();
+                    throw;
+                }
             }
             else
             {
