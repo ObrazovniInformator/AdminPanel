@@ -28,7 +28,6 @@ namespace AdminPanel.Controllers
             {
                 try
                 {
-
                     InAktaPodvrsta podvrsteInAkta = (from pi in _context.InAktaPodvrsta
                                                      where pi.Id == 1
                                                      select pi).SingleOrDefault();
