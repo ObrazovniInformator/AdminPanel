@@ -3,9 +3,11 @@ using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AdminPanel.Controllers
 {
@@ -145,55 +147,38 @@ namespace AdminPanel.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
             string email = HttpContext.Session.GetString("UserEmail");
             ViewBag.Email = email;
 
             if (email != null)
             {
-                List<Propis> propisi = (from p in _context.Propis
-                                        select p).ToList();
-                List<Clan> clanovi = (from cl in _context.Clan
-                                      select cl).ToList();
-                List<Stav> stavovi = (from stav in _context.Stav
-                                      select stav).ToList();
-                List<Tacka> tacke = (from ta in _context.Tacka
-                                     select ta).ToList();
-
-                List<ProsvetniPropis> propisiPP = (from p in _context.ProsvetnIPropis
-                                                   select p).ToList();
-                List<ClanPP> clanoviPP = (from cl in _context.ClanPP
-                                          select cl).ToList();
-                List<StavPP> stavoviPP = (from stav in _context.StavPP
-                                          select stav).ToList();
-                List<TackaPP> tackePP = (from ta in _context.TackaPP
-                                         select ta).ToList();
-
-                List<InAktaPodvrsta> podvrsteInAkta = new List<InAktaPodvrsta>();
-                podvrsteInAkta = (from r in _context.InAktaPodvrsta
-                                  select r).ToList();
+                List<Propis> propisi = await _context.Propis.Select(p => new Propis { Id = p.Id, Naslov = p.Naslov }).AsNoTracking().ToListAsync();
+                List<Clan> clanovi = await _context.Clan.AsNoTracking().ToListAsync();
+                List<Stav> stavovi = await _context.Stav.AsNoTracking().ToListAsync();
+                List<Tacka> tacke = await _context.Tacka.AsNoTracking().ToListAsync();
+                List<ProsvetniPropis> propisiPP = await _context.ProsvetnIPropis.Select(p => new ProsvetniPropis { Id = p.Id, Naslov = p.Naslov }).AsNoTracking().ToListAsync();
+                List<ClanPP> clanoviPP = await _context.ClanPP.AsNoTracking().ToListAsync();
+                List<StavPP> stavoviPP = await _context.StavPP.AsNoTracking().ToListAsync();
+                List<TackaPP> tackePP = await _context.TackaPP.AsNoTracking().ToListAsync();
+                List<InAktaPodvrsta> podvrsteInAkta = await _context.InAktaPodvrsta.AsNoTracking().ToListAsync();
                 ViewBag.PodvrsteIA = podvrsteInAkta;
                 podvrsteInAkta.Insert(0, new InAktaPodvrsta { Id = 0, Naziv = "--Изабери ПОДВРСТУ--" });
 
-                List<RubrikaInAkta> rubrikeInAkta = (from r in _context.RubrikaInAkta
-                                                     select r).ToList();
+                List<RubrikaInAkta> rubrikeInAkta = await _context.RubrikaInAkta.AsNoTracking().ToListAsync();
                 ViewBag.RubrikeIA = rubrikeInAkta;
 
-                List<PodrubrikaInAkta> podrubrikeInAkta = (from r in _context.PodrubrikaInAkta
-                                                           select r).ToList();
+                List<PodrubrikaInAkta> podrubrikeInAkta = await _context.PodrubrikaInAkta.AsNoTracking().ToListAsync();
                 ViewBag.PodrubrikeIA = podrubrikeInAkta;
 
-                List<PodpodrubrikaInAkta> podpodrubrikeInAkta = (from r in _context.PodpodrubrikaInAkta
-                                                                 select r).ToList();
+                List<PodpodrubrikaInAkta> podpodrubrikeInAkta = await _context.PodpodrubrikaInAkta.AsNoTracking().ToListAsync();
                 ViewBag.PodpodrubrikeIA = podpodrubrikeInAkta;
 
-                List<PodpodpodrubrikaInAkta> podpodpodrubrikeInAkta = (from r in _context.PodpodpodrubrikaInAkta
-                                                                       select r).ToList();
+                List<PodpodpodrubrikaInAkta> podpodpodrubrikeInAkta = await _context.PodpodpodrubrikaInAkta.AsNoTracking().ToListAsync();
                 ViewBag.PodpodrubrikeIA = podpodrubrikeInAkta;
 
-                List<PodpodpodpodrubrikaInAkta> podpodpodpodrubrikeInAkta = (from r in _context.PodpodpodpodrubrikaInAkta
-                                                                             select r).ToList();
+                List<PodpodpodpodrubrikaInAkta> podpodpodpodrubrikeInAkta = await _context.PodpodpodpodrubrikaInAkta.AsNoTracking().ToListAsync();
                 ViewBag.PodpodpodpodrubrikeIA = podpodpodpodrubrikeInAkta;
 
                 ViewBag.Propisi = propisi;
@@ -214,53 +199,39 @@ namespace AdminPanel.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Create(IFormCollection ia, PropisInAkta propIA, ProsvetniPropisInAkta prosPropIA)
+        public async Task<IActionResult> CreateAsync(IFormCollection ia, PropisInAkta propIA, ProsvetniPropisInAkta prosPropIA)
         {
             var IdRubrika = HttpContext.Request.Form["IdRubrika"].ToString();
-            List<RubrikaInAkta> rubrikeInAkta = new List<RubrikaInAkta>();
-            rubrikeInAkta = (from r in _context.RubrikaInAkta
-                             select r).ToList();
+            List<RubrikaInAkta> rubrikeInAkta = await _context.RubrikaInAkta.AsNoTracking().ToListAsync();
             ViewBag.RubrikeIA = rubrikeInAkta;
             rubrikeInAkta.Insert(0, new RubrikaInAkta { Id = 0, Naziv = "--Изабери РУБРИКУ--" });
 
-            List<PodrubrikaInAkta> podrubrikeInAkta = (from r in _context.PodrubrikaInAkta
-                                                       select r).ToList();
+            List<PodrubrikaInAkta> podrubrikeInAkta = await _context.PodrubrikaInAkta.AsNoTracking().ToListAsync();
             ViewBag.PodrubrikeIA = podrubrikeInAkta;
 
-            List<PodpodrubrikaInAkta> podpodrubrikeInAkta = (from r in _context.PodpodrubrikaInAkta
-                                                             select r).ToList();
+            List<PodpodrubrikaInAkta> podpodrubrikeInAkta = await _context.PodpodrubrikaInAkta.AsNoTracking().ToListAsync();
             ViewBag.PodpodrubrikeIA = podpodrubrikeInAkta;
 
-            List<PodpodpodrubrikaInAkta> podpodpodrubrikeInAkta = (from r in _context.PodpodpodrubrikaInAkta
-                                                                   select r).ToList();
+            List<PodpodpodrubrikaInAkta> podpodpodrubrikeInAkta = await _context.PodpodpodrubrikaInAkta.AsNoTracking().ToListAsync();
             ViewBag.PodpodrubrikeIA = podpodrubrikeInAkta;
 
-            List<PodpodpodpodrubrikaInAkta> podpodpodpodrubrikeInAkta = (from r in _context.PodpodpodpodrubrikaInAkta
-                                                                         select r).ToList();
+            List<PodpodpodpodrubrikaInAkta> podpodpodpodrubrikeInAkta = await _context.PodpodpodpodrubrikaInAkta.AsNoTracking().ToListAsync();
             ViewBag.PodpodpodpodrubrikeIA = podpodpodpodrubrikeInAkta;
 
-            List<Propis> propisi = (from p in _context.Propis
-                                    select p).ToList();
-            List<Clan> clanovi = (from cl in _context.Clan
-                                  select cl).ToList();
-            List<Stav> stavovi = (from stav in _context.Stav
-                                  select stav).ToList();
-            List<Tacka> tacke = (from ta in _context.Tacka
-                                 select ta).ToList();
+            List<Propis> propisi = await _context.Propis.Select(p => new Propis { Id = p.Id, Naslov = p.Naslov }).AsNoTracking().ToListAsync();
+            List<Clan> clanovi = await _context.Clan.AsNoTracking().ToListAsync();
+            List<Stav> stavovi = await _context.Stav.AsNoTracking().ToListAsync();
+            List<Tacka> tacke = await _context.Tacka.AsNoTracking().ToListAsync();
 
             ViewBag.Propisi = propisi;
             ViewBag.Clanovi = clanovi;
             ViewBag.Stavovi = stavovi;
             ViewBag.Tacke = tacke;
 
-            List<ProsvetniPropis> propisiPP = (from p in _context.ProsvetnIPropis
-                                               select p).ToList();
-            List<ClanPP> clanoviPP = (from cl in _context.ClanPP
-                                      select cl).ToList();
-            List<StavPP> stavoviPP = (from stav in _context.StavPP
-                                      select stav).ToList();
-            List<TackaPP> tackePP = (from ta in _context.TackaPP
-                                     select ta).ToList();
+            List<ProsvetniPropis> propisiPP = await _context.ProsvetnIPropis.Select(p => new ProsvetniPropis { Id = p.Id, Naslov = p.Naslov }).AsNoTracking().ToListAsync();
+            List<ClanPP> clanoviPP = await _context.ClanPP.AsNoTracking().ToListAsync();
+            List<StavPP> stavoviPP = await _context.StavPP.AsNoTracking().ToListAsync();
+            List<TackaPP> tackePP = await _context.TackaPP.AsNoTracking().ToListAsync();
 
             ViewBag.ProsvetniPropisi = propisiPP;
             ViewBag.ClanoviPP = clanoviPP;
