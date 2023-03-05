@@ -4,20 +4,17 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<RubrikaVesti> rubrike = ViewBag.ListaRubrikeV;
-    //List<Propis> propisi = ViewBag.Propisi;
-    //List<Clan> clanovi = ViewBag.Clanovi;
-    //List<Stav> stavovi = ViewBag.Stavovi;
-    //List<Tacka> tacke = ViewBag.Tacke;
-    int idMax = ViewBag.IdMaxV;
+    int? idMax = ViewBag.IdMaxV;
     List<VestiKategorija> kategorije = ViewBag.Kategorije;
 }
 
 <h1 style="margin-left:6.5%;">Креирај Вест</h1>
+
+<hr />
 @if(ViewBag.Msg != null)
 {
 <p style="margin-left:5%; color:green">@ViewBag.Msg</p>
 }
-<hr />
 <div class="row" style="margin-left:5%">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -81,14 +78,6 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Рубрика</label>
-                @*<select name="IdRubrikaVesti" class="form-control">
-            @foreach (RubrikaVesti rv in rubrike)
-            {
-                <option value="@rv.Id">@rv.NazivRubrike</option>
-            }
-        </select>
-
-        <span asp-validation-for="IdRubrikaVesti" class="text-danger"></span>*@
                 <select asp-for="IdRubrikaVesti" class="form-control" asp-items='@(new SelectList(ViewBag.ListaRubrikeV,"Id","NazivRubrike"))'>
                 </select>
                 <select name="IdKategorija">

@@ -217,10 +217,8 @@ namespace AdminPanel.Controllers
                 throw;
             }
 
-            int sudskaPraksaId = (from sud in _context.SudskaPraksa
-                                  select sud.Id).Max();
-
-            return RedirectToAction("Create", "SudskaPraksa");
+            //return RedirectToAction("Create", "SudskaPraksa");
+            return View();
         }
 
         [HttpGet]

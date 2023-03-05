@@ -2,12 +2,16 @@
 
 @{
     ViewData["Title"] = "Create";
-    int idPodrubrike = ViewBag.IdPodrubrike;
+    int? idPodrubrike = ViewBag.IdPodrubrike;
 }
 
 <h1 style="margin-left:6.5%;">Креирај просветни пропис</h1>
 
 <hr />
+@if (ViewBag.Msg != null)
+{
+    <p style="color: forestgreen;margin-left:6.5%;"><b>@ViewBag.Msg</b></p>
+}
 <div class="row" style="margin-left:5%; margin-bottom:50px;">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -18,10 +22,10 @@
                 <span asp-validation-for="Naslov" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="IdRubrike" class="control-label"></label>
-                <input asp-for="IdRubrike" class="form-control" />
-                <span asp-validation-for="IdRubrike" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="IdRubrike" class="control-label"></label>
+                    <input asp-for="IdRubrike" class="form-control" />
+                    <span asp-validation-for="IdRubrike" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <label asp-for="IdPodrubrike" class="control-label" hidden></label>
                 <input asp-for="IdPodrubrike" value="@idPodrubrike" class="form-control" hidden />
@@ -133,10 +137,10 @@
                 <span asp-validation-for="NapomeneGlasnika" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-            <label asp-for="TekstPropisa" class="control-label"></label>
-            <input asp-for="TekstPropisa" class="form-control" />
-            <span asp-validation-for="TekstPropisa" class="text-danger"></span>
-            </div>*@
+                <label asp-for="TekstPropisa" class="control-label"></label>
+                <input asp-for="TekstPropisa" class="form-control" />
+                <span asp-validation-for="TekstPropisa" class="text-danger"></span>
+                </div>*@
             <label class="control-label">Текст прописа</label>
             <textarea name="TekstPropisa" style="width:700px; height:500px;"></textarea>
             <script>
@@ -153,8 +157,8 @@
             </script>
             <br />
             @*<div class="form-group">
-                <a href="~/ProsvetniPropisi/FileUpload">Upload PDF fajl</a>
-            </div>*@
+                    <a href="~/ProsvetniPropisi/FileUpload">Upload PDF fajl</a>
+                </div>*@
             <div class="form-group">
                 <label class="control-label">Преамбула</label>
                 <input asp-for="Preambula" class="form-control" />
@@ -179,14 +183,14 @@
                 </thead>
                 <tbody>
                     @*@foreach (var item in Model.Files)
-                    {
-                        <tr>
-                            <td>
-                                <p>@Html.ActionLink(item.Name, "PreuzmiPdf", "ProsvetniPropisi", new { fileName = item.Name }, null)</p>
-                            </td>
+                        {
+                            <tr>
+                                <td>
+                                    <p>@Html.ActionLink(item.Name, "PreuzmiPdf", "ProsvetniPropisi", new { fileName = item.Name }, null)</p>
+                                </td>
 
-                        </tr>
-                    }*@
+                            </tr>
+                        }*@
                 </tbody>
             </table>
         }

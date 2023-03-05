@@ -171,7 +171,7 @@ namespace AdminPanel.Controllers
             casopis.IdBroj = Convert.ToInt32(cn["IdBroj"]);
             casopis.IdRubrika = Convert.ToInt32(cn["IdRubrika"]);
             casopis.IdPodrubrika = Convert.ToInt32(cn["IdPodrubrika"]);
-            casopis.IdOblast = Int32.Parse(cn["IdOblast"]);
+            casopis.IdOblast = Convert.ToInt32(cn["IdOblast"]);
 
             try
             {
@@ -182,9 +182,10 @@ namespace AdminPanel.Controllers
                 }
                 else
                 {
-                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново.";
+                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново. Проверите да ли сте унели Наслов и/или Област који су обавезна поља.";
                 }
-                return RedirectPermanent("~/Casopis/IspisListe/" + casopis.IdRubrika);
+                //return RedirectPermanent("~/Casopis/IspisListe/" + casopis.IdRubrika);
+                return View();
             }
             catch (Exception e)
             {

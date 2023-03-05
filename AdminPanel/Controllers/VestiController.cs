@@ -85,7 +85,7 @@ namespace AdminPanel.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(IFormCollection fc)
+        public IActionResult Create(IFormCollection fc, Vest vest)
         {
             List<RubrikaVesti> rubrikeV = new List<RubrikaVesti>();
             rubrikeV = (from r in _context.RubrikaVesti
@@ -102,15 +102,22 @@ namespace AdminPanel.Controllers
             v.Sazetak = fc["Sazetak"];
             v.Tekst = fc["Tekst"];
             v.DanUNedelji = fc["DanUNedelji"];
-            v.DanUMesecu = Convert.ToInt32(fc["DanUMesecu"]);
-            v.Mesec = Convert.ToInt32(fc["Mesec"]);
-            v.Godina = Convert.ToInt32(fc["Godina"]);
+            v.DanUMesecu = vest.DanUMesecu;
+            v.Mesec = vest.Mesec;
+            v.Godina = vest.Godina;
             v.IdRubrikaVesti = Convert.ToInt32(fc["IdRubrikaVesti"]);
             v.IdKategorija = Convert.ToInt32(fc["IdKategorija"]);
             try
             {
-                Vest.DodajVest(v);
-                ViewBag.Msg = "Успешно убачена вест.";
+                if (ModelState.IsValid)
+                {
+                    Vest.DodajVest(v);
+                    ViewBag.Msg = "Успешно убачена вест.";
+                }
+                else
+                {
+                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново.";
+                }
             }
             catch (Exception e)
             {
@@ -122,7 +129,8 @@ namespace AdminPanel.Controllers
                 throw;
             }
 
-            return RedirectToAction("Create", "Vesti");
+            //return RedirectToAction("Create", "Vesti");
+            return View();
         }
 
         public IActionResult Delete(int id)

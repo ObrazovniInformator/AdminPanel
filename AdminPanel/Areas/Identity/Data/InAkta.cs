@@ -56,11 +56,4 @@ namespace AdminPanel.Areas.Identity.Data
             _context.SaveChanges();
         }
     }
-
-    public class ViewModelInAkta
-    {
-        public int Id { get; set; }
-        public string Naslov { get; set; }
-        public int IdPodvrsta { get; set; }
-    }
 }

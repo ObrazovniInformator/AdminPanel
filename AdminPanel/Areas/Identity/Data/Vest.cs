@@ -11,7 +11,7 @@ namespace AdminPanel.Areas.Identity.Data
         public string Sazetak { get; set; }
         public string Tekst { get; set; }
         public string DanUNedelji { get; set; }
-        public int DanUMesecu { get; set; }
+        public int? DanUMesecu { get; set; }
         public int Mesec { get; set; }
         public int Godina { get; set; }
         public int IdRubrikaVesti { get; set; }

@@ -107,7 +107,7 @@ namespace AdminPanel.Controllers
 
                 List<RubrikaSM> rubrikeSM = new List<RubrikaSM>();
 
-                int idSM = (from sm in _context.SluzbenoMisljenje
+                int? idSM = (from sm in _context.SluzbenoMisljenje
                             select sm.Id).Max();
                 ViewBag.IdMaxSM = idSM;
 
@@ -179,10 +179,8 @@ namespace AdminPanel.Controllers
                 throw;
             }
 
-            int sluzbenoMisljenjeId = (from slm in _context.SluzbenoMisljenje
-                                       select slm.Id).Max();
-
-            return RedirectToAction("Create", "SluzbenoMisljenje");
+            //return RedirectToAction("Create", "SluzbenoMisljenje");
+            return View();
         }
 
         [HttpGet]

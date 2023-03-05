@@ -819,6 +819,10 @@
 <h1 style="margin-left:6.5%;">Креирај часопис</h1>
 
 <hr />
+@if (ViewBag.Msg != null)
+{
+    <p style="color: forestgreen;margin-left:6.5%;"><b>@ViewBag.Msg</b></p>
+}
 <div class="row" style="margin-left:5%; margin-bottom:50px;">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -864,8 +868,8 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Област</label>
-                <select id="IdOblast" name="IdOblast" class="form-control" asp-items="@(new SelectList(ViewBag.GlavneOblastiCasopis,"ID","Naziv"))">
-                    <option value="">-- Изабери ОБЛАСТ --</option>
+                <select id="IdOblast" name="IdOblast" class="form-control" asp-items="@(new SelectList(ViewBag.GlavneOblastiCasopis,"ID","Naziv", null))">
+                    <option value="0">-- Изабери ОБЛАСТ --</option>
                 </select>
             </div>
             <div class="form-group">
@@ -885,26 +889,26 @@
                 <select id="IdPodrubrika" name="IdPodrubrika" class="form-control" asp-items="@(new SelectList(string.Empty,"Id","Naziv"))"></select>
             </div>
             @*<div class="form-group">
-                <label class="control-label">Пропис</label><br />
-                <select id="IdPropis" name="IdPropis" class="selectpicker" asp-items='@(new SelectList(ViewBag.Propisi,"Id","Naslov"))' data-live-search="true" data-live-search-style="startsWith">
-                    <option value="">-- Изабери ПРОПИС --</option>
-                </select>
-            </div>*@
+                    <label class="control-label">Пропис</label><br />
+                    <select id="IdPropis" name="IdPropis" class="selectpicker" asp-items='@(new SelectList(ViewBag.Propisi,"Id","Naslov"))' data-live-search="true" data-live-search-style="startsWith">
+                        <option value="">-- Изабери ПРОПИС --</option>
+                    </select>
+                </div>*@
             @*<div class="form-group">
-                <label class="control-label">Члан</label>
-                <select id="IdClan" name="IdClan" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                </select>
-            </div>*@
+                    <label class="control-label">Члан</label>
+                    <select id="IdClan" name="IdClan" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
+                    </select>
+                </div>*@
             @*<div class="form-group">
-                <label class="control-label">Став</label>
-                <select id="IdStav" name="IdStav" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                </select>
-            </div>*@
+                    <label class="control-label">Став</label>
+                    <select id="IdStav" name="IdStav" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
+                    </select>
+                </div>*@
             @*<div class="form-group">
-                <label class="control-label">Тачка</label>
-                <select id="IdTacka" name="IdTacka" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                </select>
-            </div>*@
+                    <label class="control-label">Тачка</label>
+                    <select id="IdTacka" name="IdTacka" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
+                    </select>
+                </div>*@
             <div class="form-group">
                 <input type="submit" value="Креирај часопис" class="btn btn-primary" />
             </div>

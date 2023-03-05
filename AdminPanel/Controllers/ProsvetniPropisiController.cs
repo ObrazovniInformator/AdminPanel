@@ -89,9 +89,6 @@ namespace AdminPanel.Controllers
 
             if (email != null)
             {
-               
-            
-
                 ViewBag.IdPodrubrike = id;
                 return View();
             }
@@ -106,7 +103,7 @@ namespace AdminPanel.Controllers
         {
             int idRubrike = (from p in _context.PodrubrikaPP
                              where p.ID == propis.IdPodrubrike
-                             select p.IdRubrika).Single();
+                             select p.IdRubrika).SingleOrDefault();
             int idPropis = (from pr in _context.ProsvetnIPropis
                             select pr.Id).Max();
             propis.Id = idPropis + 1;
@@ -135,7 +132,8 @@ namespace AdminPanel.Controllers
                 throw;
             }
 
-            return RedirectPermanent("~/ProsvetniPropisi/Index/" + propis.IdPodrubrike);
+            //return RedirectPermanent("~/ProsvetniPropisi/Index/" + propis.IdPodrubrike);
+            return View();
         }
 
         //public IActionResult SpisakPropisa(int id)

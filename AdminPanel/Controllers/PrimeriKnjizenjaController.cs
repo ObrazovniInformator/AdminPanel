@@ -111,7 +111,8 @@ namespace AdminPanel.Controllers
                 throw;
             }
 
-            return RedirectToAction("Create", "PrimeriKnjizenja");
+            //return RedirectToAction("Create", "PrimeriKnjizenja");
+            return View();
         }
 
         [HttpGet]

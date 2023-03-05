@@ -201,6 +201,10 @@ namespace AdminPanel.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync(IFormCollection ia, PropisInAkta propIA, ProsvetniPropisInAkta prosPropIA)
         {
+            List<InAktaPodvrsta> podvrsteInAkta = await _context.InAktaPodvrsta.AsNoTracking().ToListAsync();
+            ViewBag.PodvrsteIA = podvrsteInAkta;
+            podvrsteInAkta.Insert(0, new InAktaPodvrsta { Id = 0, Naziv = "--Изабери ПОДВРСТУ--" });
+
             var IdRubrika = HttpContext.Request.Form["IdRubrika"].ToString();
             List<RubrikaInAkta> rubrikeInAkta = await _context.RubrikaInAkta.AsNoTracking().ToListAsync();
             ViewBag.RubrikeIA = rubrikeInAkta;
@@ -254,14 +258,15 @@ namespace AdminPanel.Controllers
 
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && i.Naslov != "")
                 {
                     InAkta.DodajInAkta(i);
                     ViewBag.msg = "Успешно додата Ин Акта.";
                 }
                 else
                 {
-                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново.";
+                    ViewBag.Msg = "Догодила се грешка код чувања у базу. Проверите унете податке и покушајте поново. Проверите да ли сте унели Наслов који је обавезно поље.";
+                    return View();
                 }
             }
             catch (Exception e)
@@ -300,8 +305,13 @@ namespace AdminPanel.Controllers
                 ViewBag.Msg = "Успех";
                 return RedirectPermanent("~/InAkta/Index");
             }
-            catch
+            catch (Exception e)
             {
+                PracenjeGresaka pg = new PracenjeGresaka();
+                pg.Greska = e.InnerException.Message;
+                pg.Datum = DateTime.Now;
+                _context.PracenjeGresaka.Add(pg);
+                _context.SaveChanges();
                 throw;
             }
         }
