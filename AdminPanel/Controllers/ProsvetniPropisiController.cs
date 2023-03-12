@@ -33,7 +33,7 @@ namespace AdminPanel.Controllers
                 int idR = Convert.ToInt32(idRubrika);
                 List<ProsvetniPropis> prosvetniPropisi = (from p in _context.ProsvetnIPropis
                                                           where p.IdPodrubrike == id
-                                                          select new ProsvetniPropis { Id = p.Id,Naslov = p.Naslov,GlasiloIDatumObjavljivanja = p.GlasiloIDatumObjavljivanja }).ToList();
+                                                          select p).ToList();
                 List<PodnaslovPP> podnasloviPP = (from pod in _context.PodnaslovPP
                                               select pod).ToList();
                 List<ClanPP> clanoviPP = (from pod in _context.ClanPP
