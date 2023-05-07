@@ -194,6 +194,11 @@ namespace AdminPanel.Controllers
             {
                 Propis p = _context.Propis.Find(id);
 
+                int idP = (from pr in _context.Propis
+                           select pr.Id).Max();
+
+                ViewBag.IdMaxP = idP;
+
                 Rubrika rubrika = (from r in _context.Rubrika
                                    where r.ID == p.IdRubrike
                                    select r).Single();

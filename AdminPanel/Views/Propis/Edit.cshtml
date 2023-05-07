@@ -6,6 +6,7 @@
     Podrubrika podrubrika = (Podrubrika)ViewBag.Podrubrika;
     List<Rubrika> rubrike = ViewBag.Rubrike;
     List<Podrubrika> podrubrike = ViewBag.Podrubrike;
+    int idMax = ViewBag.IdMaxP;
 }
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -252,7 +253,11 @@
             <div class="form-group">
                 <input type="submit" value="Сачувај" class="btn btn-primary" />
             </div>
-            <a href="~/Propis/Index/@rubrika.ID/@podrubrika.ID">Врати се на листу прописа</a>
+            <div>
+                <a href="~/Propis/KreirajVezuPropisPropis/@idMax" class="btn btn-success">Креирај још веза са прописом</a>
+                <br />
+                <a href="~/Propis/Index/@rubrika.ID/@podrubrika.ID">Врати се на листу прописа</a>
+            </div>   
         </form>
     </div>
 </div>
