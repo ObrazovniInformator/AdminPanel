@@ -1,0 +1,24 @@
+﻿@using AdminPanel.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Hijararhija";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SluzbenoMisljenje> sluzbenaMisljenja = (List<SluzbenoMisljenje>)ViewBag.SluzbenaMisljenja;
+}
+
+<h1 style="margin-left:10%">Хијерархија службена мишљења</h1>
+<div style="margin-left:10%">
+    <form asp-action="Hijararhija">
+        <table class="table">
+
+            @foreach (SluzbenoMisljenje sm in sluzbenaMisljenja.OrderBy(c => c.RedniBroj))
+            {
+                <tr>
+                    <td>@sm.Naslov</td>
+                    <td><input name="SluzbenoMisljenje @sm.Id" type="number" value="@sm.RedniBroj" /></td>
+                </tr>
+            }
+
+        </table>
+        <input type="submit" value="Чувај" />
+    </form>
+</div>

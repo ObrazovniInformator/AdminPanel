@@ -141,6 +141,9 @@
                 @Html.ActionLink("Сви подаци", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Веза са прописом", "KreirajVezuPropisSluzbenoMisljenje", new { id = item.Id }) |
                 @Html.ActionLink("Веза са просветним прописом", "KreirajVezuProsvetniPropisSluzbenoMisljenje", new { id = item.Id }) |
+                <br />
+                <a href="~/SluzbenoMisljenje/Hijararhija/@item.IdPodrubrikaSM">Хијерархија </a> |
+                <br />
                 <a href="~/SluzbenoMisljenje/Delete/@item.Id" onclick="return confirm('Да ли сте сигурни да желите да избришете Службено Мишљење - @item.Naslov ?')">Избриши</a>
 
             </td>

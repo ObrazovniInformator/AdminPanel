@@ -523,6 +523,38 @@ namespace AdminPanel.Controllers
         }
 
         [HttpGet]
+        public IActionResult Hijararhija(int id)
+        {
+            List<SluzbenoMisljenje> sluzbenaMisljenja = (from p in _context.SluzbenoMisljenje
+                                    where p.IdPodrubrikaSM == id
+                                    select p).ToList();
+            ViewBag.SluzbenaMisljenja = sluzbenaMisljenja;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Hijararhija(int id, IFormCollection fc)
+        {
+            List<SluzbenoMisljenje> sluzbenaMisljenja = (from p in _context.SluzbenoMisljenje
+                                                         where p.IdPodrubrikaSM == id
+                                    select p).ToList();
+            foreach (SluzbenoMisljenje p in sluzbenaMisljenja)
+            {
+                p.RedniBroj = Convert.ToInt32(fc["SluzbenoMisljenje " + p.Id]);
+            }
+            try
+            {
+                _context.SaveChanges();
+                return RedirectPermanent("~/SluzbenoMisljenje/Index/" + id);
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
+
+        [HttpGet]
         public IActionResult KreirajVezuPropisSluzbenoMisljenje(int id, string idRubrika)
         {
             int idSM = (from sm in _context.SluzbenoMisljenje

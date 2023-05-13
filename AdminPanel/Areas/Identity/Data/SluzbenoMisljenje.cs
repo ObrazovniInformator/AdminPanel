@@ -22,6 +22,7 @@ namespace AdminPanel.Areas.Identity.Data
         public string DatumDonosenja { get; set; }
         public string Napomena { get; set; }
         public string Tekst { get; set; }
+        public int? RedniBroj { get; set; }
         public int IdPropis { get; set; }
         public Propis IdPropisNavigation { get; set; }
         public int IdClan { get; set; }
