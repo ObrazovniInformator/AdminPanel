@@ -156,6 +156,7 @@ namespace AdminPanel.Controllers
             s.IdRubrikaSM = sm.IdRubrikaSM;
             s.IdPodrubrikaSM = sm.IdPodrubrikaSM;
             s.IdDonosilacSM = sm.IdDonosilacSM;
+            s.RedniBroj = sm.RedniBroj;
 
             try
             {
