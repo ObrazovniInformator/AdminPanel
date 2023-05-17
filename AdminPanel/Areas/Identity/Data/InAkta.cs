@@ -14,6 +14,7 @@ namespace AdminPanel.Areas.Identity.Data
         public int Id { get; set; }
         [Required(ErrorMessage = "Наслов је обавезан податак.")]
         public string Naslov { get; set; }
+        [Required(ErrorMessage = "Текст је обавезан податак.")]
         public string Tekst { get; set; }
         public string Autor { get; set; }
         public string DatumObjavljivanja { get; set; }

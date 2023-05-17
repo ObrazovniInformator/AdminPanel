@@ -14,6 +14,7 @@ namespace AdminPanel.Areas.Identity.Data
         public string Naslov { get; set; }
         public string Podnaslov { get; set; }
         public string Napomena { get; set; }
+        [Required(ErrorMessage = "Текст је обавезан податак.")]
         public string Tekst { get; set; }
         public int? IdPropis { get; set; }
         public Propis IdPropisNavigation { get; set; }
