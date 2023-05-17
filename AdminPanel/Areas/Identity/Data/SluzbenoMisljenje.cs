@@ -17,13 +17,10 @@ namespace AdminPanel.Areas.Identity.Data
         public int Id { get; set; }
         [Required(ErrorMessage = "Наслов је обавезан податак.")]
         public string Naslov { get; set; }
-        [Required(ErrorMessage = "Поднаслов је обавезан податак.")]
         public string Podnaslov { get; set; }
-        [Required(ErrorMessage = "Број је обавезан податак.")]
         public string Broj { get; set; }
         public string DatumDonosenja { get; set; }
         public string Napomena { get; set; }
-        [Required(ErrorMessage = "Текст је обавезан податак.")]
         public string Tekst { get; set; }
         public int? RedniBroj { get; set; }
         public int IdPropis { get; set; }

@@ -28,13 +28,13 @@ namespace AdminPanel.Areas.Identity.Data
         public string Naslov { get; set; }
         public int? IdRubrike { get; set; }
         public int? IdPodrubrike { get; set; }
-        [Required(ErrorMessage = "Гласило и датум ибјављивања обавезан податак.")]
+        //[Required(ErrorMessage = "Гласило и датум ибјављивања обавезан податак.")]
         public string GlasiloIDatumObjavljivanja { get; set; }
-        [Required(ErrorMessage = "Врста прописа је обавезан податак.")]
+        //[Required(ErrorMessage = "Врста прописа је обавезан податак.")]
         public string VrstaPropisa { get; set; }
-        [Required(ErrorMessage = "Доносилац је обавезан податак.")]
+        //[Required(ErrorMessage = "Доносилац је обавезан податак.")]
         public string Donosilac { get; set; }
-        [Required(ErrorMessage = "Ниво важења је обавезан податак.")]
+        //[Required(ErrorMessage = "Ниво важења је обавезан податак.")]
         public string NivoVazenja { get; set;}
         public DateTime? DatumStupanjaNaSnaguVerzijePropisa { get; set; }
         public DateTime? DatumPrestankaVerzije { get; set; }
