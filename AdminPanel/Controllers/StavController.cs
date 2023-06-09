@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdminPanel.Controllers
 {
@@ -29,7 +28,6 @@ namespace AdminPanel.Controllers
                                  where p.Id == id
                                  select p).SingleOrDefault();
                 ViewBag.Propis = propis;
-
 
                 List<Propis> propisi = (from pr in _context.Propis
                                         where pr.Id == id

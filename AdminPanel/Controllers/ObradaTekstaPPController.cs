@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace AdminPanel.Controllers
 {
@@ -66,7 +64,6 @@ namespace AdminPanel.Controllers
                 string patternStav = @"<p \s*(.+?)\s*>(<strong>)?(<em>)?<span \s*(.+?)\s*>(?!Члан)(\*\p{L}{1}\p{Ll}\s*(.+?)\s*)?\s*(.+?)\s*(?<!\@+)</span>(?<!<span \s*(.+?)\s*>\@+\s*(.+?)\s*</span>)(</em>)?(</strong>)?</p>";
                 string tackaPatern = @"<p \s*(.+?)\s*><span \s*(.+?)\s*>[0-9]+\)*\.*\s*(.+?)\s*\p{Ll}\s*(.+?)\s*</span></p>";
                 string alinejaPatern = @"<p \s*(.+?)\s*><span \s*(.+?)\s*>(&ndash;)+\s*\p{Ll}+\s*(.+?)\s*</span></p>";
-                // string slikaPatern = @"<img .\s*(.+?)\s*>";
                 string patern1Podnaslov = @"<p \s*(.+?)\s*>(<strong>)?(<em>)?<span \s*(.+?)\s*>(\*\p{Lu}+\s*\p{Ll}+\s*(.+?)\s*)?([0-9]+\)*\.*\s+\p{Lu}+\s*\p{L}*\s*\p{Ll}+\s*(.+?)\s*)?\s*(.+?)\s*\@*</span>(</em>)?(</strong>)?</p>(\s*(<p \s*(.+?)\s*><span \s*(.+?)\s*>)+[0-9]+(\)*\.*\s+\p{Lu}\s*\p{Ll}\s*(.+?)\s*(?<!\@+)</span></p>)+)*(<p \s*(.+?)\s*><span \s*(.+?)\s*>(&ndash;)+\s*p{Ll}+\s*(.+?)\s*\p{Ll}\s*(.+?)\s*</span></p>)*";
 
                 string input2 = collection["TekstPropisa"]; //"I Mhave a dog Mand a Mcat.";
@@ -97,8 +94,6 @@ namespace AdminPanel.Controllers
 
                 foreach (string s in list2)
                 {
-
-                    //SUTRA UJUTUU OVO PRVA STVAR
                     int i = 0;
                     string slovoUClanu = slova[i];
                     List<ClanPP> clanovi = (from ck in _context.ClanPP
@@ -144,11 +139,7 @@ namespace AdminPanel.Controllers
                             var listTacaka = _matchListtacka.Cast<Match>().Select(match => match.Value).ToList();
                             foreach (string tacka in listTacaka)
                             {
-
-
                                 UbaciTacku(tacka);
-
-
                             }
                             string inputAlineja = s;
                             List<string> _returnValueAlineja = new List<string>();
@@ -156,13 +147,8 @@ namespace AdminPanel.Controllers
                             var listAlineja = _matchListAlineja.Cast<Match>().Select(match => match.Value).ToList();
                             foreach (string alineja in listAlineja)
                             {
-
-
                                 UbaciAlineju(alineja);
-
-
                             }
-
                         }
                     }
                 }
@@ -220,7 +206,6 @@ namespace AdminPanel.Controllers
             {
                 idPodnaslova = (from idP in _context.PodnaslovPP
                                 select idP.Id).Max();
-
             }
 
             int brojacEtova = 0;
@@ -229,12 +214,10 @@ namespace AdminPanel.Controllers
                 if (c.Contains("@@@@"))
                 {
                     brojacEtova = 4;
-
                 }
                 else if (c.Contains("@@@"))
                 {
                     brojacEtova = 3;
-
                 }
                 else if (c.Contains("@@"))
                 {
@@ -379,7 +362,6 @@ namespace AdminPanel.Controllers
                 try
                 {
                     _context.ClanPP.Add(c);
-                    //   brojacClanova++;
                     _context.SaveChanges();
                 }
                 catch (Exception e)
@@ -395,7 +377,7 @@ namespace AdminPanel.Controllers
         }
 
         //CLAN SA SLOVOM UNOS
-        //IDENRICNO KAO PRETHODNA S TIM STO BROJI I UBACUJE CLANOVE KOJI IMAJU I SLOVNU OZNAKU
+        //IDENTICNO KAO PRETHODNA S TIM STO BROJI I UBACUJE CLANOVE KOJI IMAJU I SLOVNU OZNAKU
         public void UbaciClanSaSlovom(int id, string s, int brojacClanova, string slovoUClanu)
         {
             List<PodnaslovPP> podnaslovi = (from pod in _context.PodnaslovPP
@@ -440,7 +422,6 @@ namespace AdminPanel.Controllers
                 try
                 {
                     _context.ClanPP.Add(c);
-                    //   brojacClanova++;
                     _context.SaveChanges();
                 }
                 catch (Exception e)
@@ -475,8 +456,7 @@ namespace AdminPanel.Controllers
                             select sc).Single();
             }
 
-            //pattern.Replace("\"", "\"");
-            string input = s; //"I Mhave a dog Mand a Mcat.";
+            string input = s;
             List<string> _returnValue = new List<string>();
             MatchCollection _matchList = Regex.Matches(input, pattern);
             var list = _matchList.Cast<Match>().Select(match => match.Value).ToList();
@@ -541,8 +521,7 @@ namespace AdminPanel.Controllers
                                select sc).Single();
             }
 
-            //pattern.Replace("\"", "\"");
-            string input = s; //"I Mhave a dog Mand a Mcat.";
+            string input = s;
             List<string> _returnValue = new List<string>();
             MatchCollection _matchList = Regex.Matches(input, pattern);
             var list = _matchList.Cast<Match>().Select(match => match.Value).ToList();
@@ -588,8 +567,6 @@ namespace AdminPanel.Controllers
         static int brojacTacaka = 1;
         public void UbaciTacku(string s)
         {
-            //string tackaPatern = "<p style=\"margin: 0in 0in 7.5pt; line - height: 115 %; font - size: 11pt; font - family: Verdana, sans - serif; \"><span style=\"color: black; \">1) ако код послодавца није основан синдикат или ниједан синдикат не испуњава услове репрезентативности или није закључен споразум о удруживању у складу са овим законом;</span></p>"
-
             string pattern = @"<p \s*(.+?)\s*>(<strong>)?(<em>)?<span \s*(.+?)\s*>[0-9]+\)*\.*(\s*<em>)?\s+\p{Ll}\s*(.+?)\s*(?<!\@+)</span>(</em>)?(</strong>)?</p>";
             List<TackaPP> tacke = (from str in _context.TackaPP
                                  select str).ToList();
@@ -605,8 +582,7 @@ namespace AdminPanel.Controllers
                              select sc).Single();
             }
 
-            //pattern.Replace("\"", "\"");
-            string input = s; //"I Mhave a dog Mand a Mcat.";
+            string input = s;
             List<string> _returnValue = new List<string>();
             MatchCollection _matchList = Regex.Matches(input, pattern);
             var list = _matchList.Cast<Match>().Select(match => match.Value).ToList();
@@ -854,8 +830,6 @@ namespace AdminPanel.Controllers
                 return RedirectPermanent("~/Identity/Account/Login");
             }
         }
-
-
 
         public IActionResult CitajPdf(int id)
         {

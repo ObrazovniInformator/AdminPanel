@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AdminPanel.Controllers
 {
@@ -764,7 +764,6 @@ namespace AdminPanel.Controllers
 
             List<GlavneOblastiCasopis> glavneOblastiCasopis = _context.GlavneOblastiCasopis.ToList();
             List<RubrikaCasopis> rubrike = _context.RubrikaCasopis.ToList();
-            //List<PodrubrikaCasopis> podrubrike = _context.PodrubrikaCasopis.ToList();
             List<CasopisNaslov> casopisNaslovi = (from cn in _context.CasopisNaslov
                                                   where cn.Id == id
                                                   select cn).ToList();

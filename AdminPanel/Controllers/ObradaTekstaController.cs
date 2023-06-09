@@ -47,7 +47,6 @@ namespace AdminPanel.Controllers
                                          where idStavova.Contains(al.IdStav)
                                          select al).ToList();
 
-
                 ViewBag.Podnaslovi = podnaslovi;
                 ViewBag.Clanovi = clanovi;
                 ViewBag.Stavovi = stavovi;
@@ -83,22 +82,16 @@ namespace AdminPanel.Controllers
                 // string slikaPatern = @"<img .\s*(.+?)\s*>";
                 string patern1Podnaslov = @"<p \s*(.+?)\s*>(<strong>)?(<em>)?<span \s*(.+?)\s*>(\*\p{Lu}+\s*\p{Ll}\s*(.+?)\s*)?([0-9]+\)*\.*\s+\p{Lu}+\s*\p{L}*\s*\p{Ll}+\s*(.+?)\s*)?\s*(.+?)\s*\@*</span>(</em>)?(</strong>)?</p>(\s*(<p \s*(.+?)\s*><span \s*(.+?)\s*>)+[0-9]+(\)*\.*\s+\p{Lu}\s*\p{Ll}\s*(.+?)\s*(?<!\@+)</span></p>)+)*(<p \s*(.+?)\s*><span \s*(.+?)\s*>(&ndash;)+\s*p{Ll}+\s*(.+?)\s*\p{Ll}\s*(.+?)\s*</span></p>)*";
 
-
-
                 string input2 = collection["TekstPropisa"];
                 MatchCollection _matchList2 = Regex.Matches(input2, patern1Podnaslov);
                 var list2 = _matchList2.Cast<Match>().Select(match => match.Value).ToList();
                 ViewBag.Lista = list2;
                 int brojacClanova = 1;
                 List<string> slova = new List<string>();
-                slova.Add("а");
-              //  slova.Add("б");
-        
+                slova.Add("а"); 
 
                 foreach (string s in list2)
                 {
-
-                    //SUTRA UJUTUU OVO PRVA STVAR
                     int i = 0;
                     string slovoUClanu = slova[i];
                     List<Clan> clanovi = (from ck in _context.Clan
@@ -117,8 +110,6 @@ namespace AdminPanel.Controllers
                         UbaciClan(id, s, brojacClanova);
                         brojacClanova += 1;
                         continue;
-                       
-
                     }
                     else if (s.Contains(clan2))
                     {
@@ -137,8 +128,6 @@ namespace AdminPanel.Controllers
                         if (list.Count > 0)
                         {
                             UbaciStav(id, s);
-                            
-
                         }
                         string inputtacka = s;
                         MatchCollection _matchListtacka = Regex.Matches(inputtacka, tackaPatern);
@@ -186,7 +175,6 @@ namespace AdminPanel.Controllers
                                          where idStavova.Contains(al.IdStav)
                                          select al).ToList();
 
-
                 ViewBag.Podnaslovi = podnaslovi;
                 ViewBag.Clanovi = clanovi2;
                 ViewBag.Stavovi = stavovi;
@@ -210,13 +198,6 @@ namespace AdminPanel.Controllers
                              where p.Id == id
                              select p).Single();
 
-            //string patern1 = @"<p \s*(.+?)\s*>(<strong>)?(<em>)?<span \s*(.+?)\s*>([0-9]+(\))+\s+)?\s*(.+?)\s*\@*</span>(</em>)?(</strong>)?</p>";
-
-            //string input = tekst; //"I Mhave a dog Mand a Mcat.";
-            //List<string> _returnValue = new List<string>();
-            //MatchCollection _matchList = Regex.Matches(input, patern1);
-            //var list = _matchList.Cast<Match>().Select(match => match.Value).ToList();
-
             Podnaslov podnaslov = new Podnaslov();
 
             NivoPodnaslova nivo1 = _context.NivoPodnaslova.Find(1);
@@ -226,37 +207,26 @@ namespace AdminPanel.Controllers
 
             List<Podnaslov> podnaslovi = (from pod in _context.Podnaslov
                                           select pod).ToList();
-            
-                //if (podnaslovi.Count > 0)
-                //{
-                //    idPodnaslova = (from idP in _context.Podnaslov
-                //                    select idP.Id).Max();
-
-                //}
-            
 
             int brojacEtova = 0;
-            //foreach (string c in list)
-            //{
-                if (tekst.Contains("@@@@"))
-                {
-                    brojacEtova = 4;
+            if (tekst.Contains("@@@@"))
+            {
+                brojacEtova = 4;
 
-                }
-                else if (tekst.Contains("@@@"))
-                {
-                    brojacEtova = 3;
+            }
+            else if (tekst.Contains("@@@"))
+            {
+                brojacEtova = 3;
 
-                }
-                else if (tekst.Contains("@@"))
-                {
-                    brojacEtova = 2;
-                }
-                else
-                {
-                    brojacEtova = 1;
-                }
-           // }
+            }
+            else if (tekst.Contains("@@"))
+            {
+                brojacEtova = 2;
+            }
+            else
+            {
+                brojacEtova = 1;
+            }
             string bezEta = tekst.Replace('@', ' ');
             if (brojacEtova == 1)
             {
@@ -346,13 +316,11 @@ namespace AdminPanel.Controllers
                     throw;
                 }
             }
-
         }
         //UBACIVANJE CLANOVA U BP. KRECE REDOM OD CLANA 1, BROJI IH I UBACUJE U PRAVILNOM REDOSLEDU
         //static int brojacClanova = 1;
         public void UbaciClan(int id, string s, int brojacClanova)
         {
-
             List<Podnaslov> podnaslovi = (from pod in _context.Podnaslov
                                           where pod.IdPropis == id
                                           select pod).ToList();
@@ -369,14 +337,6 @@ namespace AdminPanel.Controllers
             }
 
             string clanPatern = "Члан " + brojacClanova;
-            //List<Clan> clanovi = (_context.Clan.ToList());
-          //  int idClana = 0;
-            //if (clanovi.Count > 0)
-            //{
-            //    idClana = (from c in _context.Clan
-            //               select c.Id).Max();
-            //}
-
 
             if (s.Contains(clanPatern))
             {
@@ -397,7 +357,6 @@ namespace AdminPanel.Controllers
                 try
                 {
                     _context.Clan.Add(c);
-                    //   brojacClanova++;
                     _context.SaveChanges();
                 }
                 catch (Exception e)
@@ -431,13 +390,6 @@ namespace AdminPanel.Controllers
             }
             brojacClanova--;
             string clanPatern = "Члан " + brojacClanova + slovoUClanu + "";
-           // List<Clan> clanovi = (_context.Clan.ToList());
-         //   int idClana = 0;
-           // if (clanovi.Count > 0)
-           // {
-            //    idClana = (from c in _context.Clan
-                       //    select c.Id).Max();
-           // }
 
             if (s.Contains(clanPatern))
             {
@@ -479,22 +431,16 @@ namespace AdminPanel.Controllers
         {
             int idStava = 0;
             string pattern = @"<p \s*(.+?)\s*>(<strong>)?(<em>)?<span \s*(.+?)\s*>(\*\p{Lu}+\s*\p{Ll}+\s*(.+?)\s*)?\s*\p{L}+\s*\p{L}*\s*\p{Ll}+\s*(.+?)\s*(?<!\@+&nbsp;)(?<!\@+)(?<![0-9]+\)+)</span>(?<!<span \s*(.+?)\s*>\@+\s*(.+?)\s*</span>)(</em>)?(</strong>)?</p>";
-            //List<Stav> stavovi = (from str in _context.Stav
-            //                      select str).ToList();
+
             Stav stavClan = new Stav();
 
-            //if (stavovi.Count > 0)
-            //{
+            idStava = (from sta in _context.Stav
+                        select sta.Id).Max();
+            stavClan = (from sc in _context.Stav
+                        where sc.Id == idStava
+                        select sc).Single();
 
-                idStava = (from sta in _context.Stav
-                           select sta.Id).Max();
-                stavClan = (from sc in _context.Stav
-                            where sc.Id == idStava
-                            select sc).Single();
-          //  }
-
-            //pattern.Replace("\"", "\"");
-            string input = s; //"I Mhave a dog Mand a Mcat.";
+            string input = s;
             List<string> _returnValue = new List<string>();
             MatchCollection _matchList = Regex.Matches(input, pattern);
             var list = _matchList.Cast<Match>().Select(match => match.Value).ToList();
@@ -546,22 +492,17 @@ namespace AdminPanel.Controllers
         public void UbaciAlineju(string s)
         {
             string pattern = @"<p \s*(.+?)\s*>(<strong>)?(<em>)?<span \s*(.+?)\s*>(&ndash;)+\s*\p{Ll}+\s*(.+?)\s*(?<!\@+)</span>(</strong>)?</p>";
-            //List<Alineja> alineja = (from str in _context.Alineja
-            //                         select str).ToList();
+
             Alineja alinejaStav = new Alineja();
 
-            //if (alineja.Count > 0)
-            //{
-                int idAlineje = (from a in _context.Alineja
-                                 select a.Id).Max();
+            int idAlineje = (from a in _context.Alineja
+                                select a.Id).Max();
 
-                alinejaStav = (from sc in _context.Alineja
-                               where sc.Id == idAlineje
-                               select sc).Single();
-          //  }
+            alinejaStav = (from sc in _context.Alineja
+                            where sc.Id == idAlineje
+                            select sc).Single();
 
-            //pattern.Replace("\"", "\"");
-            string input = s; //"I Mhave a dog Mand a Mcat.";
+            string input = s;
             List<string> _returnValue = new List<string>();
             MatchCollection _matchList = Regex.Matches(input, pattern);
             var list = _matchList.Cast<Match>().Select(match => match.Value).ToList();
@@ -607,24 +548,19 @@ namespace AdminPanel.Controllers
         static int brojacTacaka = 1;
         public void UbaciTacku(string s)
         {
-            //string tackaPatern = "<p style=\"margin: 0in 0in 7.5pt; line - height: 115 %; font - size: 11pt; font - family: Verdana, sans - serif; \"><span style=\"color: black; \">1) ако код послодавца није основан синдикат или ниједан синдикат не испуњава услове репрезентативности или није закључен споразум о удруживању у складу са овим законом;</span></p>"
-
             string pattern = @"<p \s*(.+?)\s*>(<strong>)?(<em>)?<span \s*(.+?)\s*>\(?[0-9]+\)*\.*(\s*<em>)?\s+(\p{L})*(\p{Ll})+\s*(.+?)\s*(?<!\@+)</span>(</em>)?(</strong>)?</p>";
             //List<Tacka> tacke = (from str in _context.Tacka
             //                     select str).ToList();
             Tacka tackaStav = new Tacka();
             int idTacke = 0;
-            //if (tacke.Count > 0)
-            //{
 
-                idTacke = (from tac in _context.Tacka
-                           select tac.Id).Max();
-                tackaStav = (from sc in _context.Tacka
-                             where sc.Id == idTacke
-                             select sc).Single();
-           // }
+            idTacke = (from tac in _context.Tacka
+                        select tac.Id).Max();
+            tackaStav = (from sc in _context.Tacka
+                            where sc.Id == idTacke
+                            select sc).Single();
 
-           string input = s;
+            string input = s;
             MatchCollection _matchList = Regex.Matches(input, pattern);
             var list = _matchList.Cast<Match>().Select(match => match.Value).ToList();
 
@@ -701,7 +637,6 @@ namespace AdminPanel.Controllers
                 }
             }
 
-
             try
             {
                 if (tacke != null)
@@ -773,16 +708,12 @@ namespace AdminPanel.Controllers
                 Clan c = (from clan in _context.Clan
                           where clan.Id == id
                           select clan).SingleOrDefault();
-                //List<Clan> clanovi = new List<Clan>();
                 List<Clan> clanovi = (from cl in _context.Clan
                            where cl.IdPropis == c.IdPropis
                     select cl).ToList();
                 ViewBag.Stavovi = clanovi;
-                //Stav s = (from stav in _context.Stav
-                //    where c.Id == 1
-                //    select stav).SingleOrDefault();
                 ViewBag.Clan = c;
-                //ViewBag.IdStav = s;
+
                 return View();
             }
             else
@@ -795,7 +726,6 @@ namespace AdminPanel.Controllers
         public IActionResult DodajStav(Stav s)
         {
             string email = HttpContext.Session.GetString("UserEmail");
-
 
             if (email != null)
             {

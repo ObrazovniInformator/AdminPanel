@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AdminPanel.Controllers
 {
@@ -537,7 +536,6 @@ namespace AdminPanel.Controllers
         }
 
         //Upload file on server
-
         public async Task<bool> UploadFile(int id, IFormFile file)
         {
             string path = "";
@@ -587,7 +585,6 @@ namespace AdminPanel.Controllers
                                            select p).Single();
             string path = file.PdfPath;
             return File(System.IO.File.ReadAllBytes(path), "application/pdf");
-
         }
     }
 }

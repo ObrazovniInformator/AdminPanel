@@ -111,7 +111,6 @@ namespace AdminPanel.Controllers
                 throw;
             }
 
-            //return RedirectToAction("Create", "PrimeriKnjizenja");
             return View();
         }
 
@@ -125,7 +124,6 @@ namespace AdminPanel.Controllers
                                               where pknj.Id == id
                                                select pknj).ToList();
             List<PropisPrimeriKnjizenja> ppkLista = (from ppknj in _context.PropisPrimeriKnjizenja
-                                                         //where piak.IdInAkta == ia.Id
                                                      select ppknj).ToList();
 
             ViewBag.PrimeriKnjizenja = pKLista;
@@ -374,7 +372,6 @@ namespace AdminPanel.Controllers
                 var primeriKnjizenja = from sm in _context.PrimeriKnjizenja
                                         select sm;
                 List<Propis> propisi = (from p in _context.Propis
-                                            //where p.IdPodrubrike == id && p.IdRubrike == idR
                                         select p).ToList();
                 List<Clan> clanovi = (from cl in _context.Clan
                                       select cl).ToList();

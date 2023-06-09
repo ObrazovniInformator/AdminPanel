@@ -1,24 +1,22 @@
-﻿using System;
+﻿using AdminPanel.Areas.Identity.Data;
+using AdminPanel.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
-using AdminPanel.Data;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AdminPanel.Controllers
 {
     public class PretplatnikController : Controller
     {
         AdminPanelContext _context = new AdminPanelContext();
-        // GET: Pretplatnik
+
         public ActionResult Index()
         {
             string email = HttpContext.Session.GetString("UserEmail");
-
 
             if (email != null)
             {
@@ -54,8 +52,6 @@ namespace AdminPanel.Controllers
             return View(pretplatnik);
         }
 
-
-        // GET: Pretplatnik/Details/5
         public ActionResult Details(int id)
         {
             string email = HttpContext.Session.GetString("UserEmail");
@@ -68,8 +64,6 @@ namespace AdminPanel.Controllers
 
             Enkripcija enkripcija = new Enkripcija();
             pretplatnik.Lozinka = enkripcija.Decrypt(pretplatnik.Lozinka);
-
-
 
             if (email != null)
             {
@@ -99,7 +93,6 @@ namespace AdminPanel.Controllers
         //    }
         //}
 
-        // GET: Pretplatnik/Create
         public ActionResult Create()
         {
             string email = HttpContext.Session.GetString("UserEmail");
@@ -115,7 +108,6 @@ namespace AdminPanel.Controllers
             }
         }
 
-        // POST: Pretplatnik/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Pretplatnik pretplatnik)
@@ -142,7 +134,6 @@ namespace AdminPanel.Controllers
             }
         }
 
-        // GET: Pretplatnik/Edit/5
         public ActionResult Edit(int id)
         {
             string email = HttpContext.Session.GetString("UserEmail");
@@ -158,7 +149,6 @@ namespace AdminPanel.Controllers
             }
         }
 
-        // POST: Pretplatnik/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Pretplatnik p)

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdminPanel.Controllers
 {
@@ -26,7 +25,6 @@ namespace AdminPanel.Controllers
                 using (AdminPanelContext _context2 = new AdminPanelContext()) 
                 {
                     List<SluzbenoMisljenje> sluzbenoMisljenje = (from sm in _context2.SluzbenoMisljenje
-                                                                     //where sm.IdPodrubrikaSM == id && sm.IdRubrikaSM == idR
                                                                  select sm).ToList();
                     List<RubrikaSM> rubrikeSM = (from rsm in _context2.RubrikaSM
                                                  select rsm).ToList();
@@ -194,10 +192,8 @@ namespace AdminPanel.Controllers
                                                          where smi.Id == id
                                   select smi).ToList();
             List<PropisSluzbenoMisljenje> psmLista = (from psmi in _context.PropisSluzbenoMisljenje
-                                                     //where piak.IdInAkta == ia.Id
                                                  select psmi).ToList();
             List<ProsvetniPropisSluzbenoMisljenje> ppsmLista = (from ppsmi in _context.ProsvetniPropisSluzbenoMisljenje
-                                                                    //where ppiak.IdInAkta == ia.Id
                                                                 select ppsmi).ToList();
 
             ViewBag.SluzbenaMisljenja = sMLista;
@@ -345,7 +341,6 @@ namespace AdminPanel.Controllers
                                      where d.Id == sluzbenoMisljenje.IdDonosilacSM
                                      select d).SingleOrDefault();
 
-
             ViewBag.Propis = propisi;
             ViewBag.Clan = clanovi;
             ViewBag.Stav = stavovi;
@@ -459,40 +454,6 @@ namespace AdminPanel.Controllers
             }
         }
 
-        //[HttpGet]
-        //public IActionResult CreatePodpodrubrika()
-        //{
-        //    string email = HttpContext.Session.GetString("UserEmail");
-
-        //    if (email != null)
-        //    {
-        //        List<PodrubrikaSM> podrubrikeSM = _context.PodrubrikaSM.ToList();
-        //        ViewBag.RubrikeSM = podrubrikeSM;
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        return RedirectPermanent("~/Identity/Account/Login");
-        //    }
-        //}
-        //[HttpPost]
-        //public IActionResult CreatePodpodrubrika(PodpodrubrikaSM podpodrubrikaSM)
-        //{
-        //    List<PodrubrikaSM> podrubrikeSM = _context.PodrubrikaSM.ToList();
-        //    ViewBag.RubrikeSM = podrubrikeSM;
-        //    try
-        //    {
-        //        _context.PodpodrubrikaSM.Add(podpodrubrikaSM);
-        //        _context.SaveChanges();
-        //        ViewBag.Msg = "Успешно сте додали подподрубрику за службено мишљење";
-        //        return View();
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //}
-
         [HttpGet]
         public IActionResult CreateDonosilac()
         {
@@ -552,7 +513,6 @@ namespace AdminPanel.Controllers
             {
                 return View();
             }
-
         }
 
         [HttpGet]
@@ -579,16 +539,6 @@ namespace AdminPanel.Controllers
             Dictionary<int, string> tacke = _context.Tacka
                                                       .Select(x => new KeyValuePair<int, string>(x.Id, x.Naziv))
                                                       .ToDictionary(x => x.Key, x => x.Value);
-
-
-            //List<Propis> propisi = (from p in _context.Propis
-            //                        select p).ToList();
-            //List<Clan> clanovi = (from cl in _context.Clan
-            //                      select cl).ToList();
-            //List<Stav> stavovi = (from stav in _context.Stav
-            //                      select stav).ToList();
-            //List<Tacka> tacke = (from ta in _context.Tacka
-            //                     select ta).ToList();
 
             ViewBag.Propisi = propisi;
             ViewBag.Clanovi = clanovi;

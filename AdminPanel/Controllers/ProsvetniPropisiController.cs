@@ -42,7 +42,6 @@ namespace AdminPanel.Controllers
                 ViewBag.Podnaslovi = podnasloviPP;
                 ViewBag.Clanovi = clanoviPP;
 
-
                 return View(prosvetniPropisi);
             }
             else
@@ -132,17 +131,8 @@ namespace AdminPanel.Controllers
                 throw;
             }
 
-            //return RedirectPermanent("~/ProsvetniPropisi/Index/" + propis.IdPodrubrike);
             return View();
         }
-
-        //public IActionResult SpisakPropisa(int id)
-        //{
-        //    List<ProsvetniPropis> prosvetniPropisi = (from pp in _context.ProsvetnIPropis
-        //                                              where pp.IdPodrubrike == id
-        //                                              select pp).ToList();
-        //    return View(prosvetniPropisi);
-        //}
 
         [HttpGet]
         public IActionResult Edit(int id)
@@ -231,7 +221,7 @@ namespace AdminPanel.Controllers
             string p = (from pr in _context.ProsvetnIPropis
                         where pr.Id == id
                         select pr.TekstPropisa).SingleOrDefault();
-            //doovde
+
             propis.PravniOsnovZaDonosenjaPropisa = fcc["PravniOsnovZaDonosenjaPropisa"];
             propis.NormaOsnovaZaDonosenje = fcc["NormaOsnovaZaDonosenje"];
             propis.PropisKojiJePrestaoDaVazi = fcc["PropisKojiJePrestaoDaVazi"];
@@ -362,7 +352,6 @@ namespace AdminPanel.Controllers
             List<RubrikaPP> rubrike = new List<RubrikaPP>();
 
             rubrike = (from rc in _context.RubrikaPP
-                       //where rc. == IdOblast
                        select rc).ToList();
 
             rubrike.Insert(0, new RubrikaPP { ID = 0, NazivRubrike = "Изаберите рубрику" });
@@ -452,7 +441,6 @@ namespace AdminPanel.Controllers
         }
 
         //Upload file on server
-
         public async Task<bool> UploadFile(int id, IFormFile file)
         {
             string path = "";
@@ -502,7 +490,6 @@ namespace AdminPanel.Controllers
                                   select p).Single();
             string path = file.PdfPath;
             return File(System.IO.File.ReadAllBytes(path), "application/pdf");
-
         }
     }
 }

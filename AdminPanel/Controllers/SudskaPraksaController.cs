@@ -64,7 +64,6 @@ namespace AdminPanel.Controllers
                 var sudskePrakse = from sp in _context.SudskaPraksa
                                    select sp;
                 List<Propis> propisi = (from p in _context.Propis
-                                            //where p.IdPodrubrike == id && p.IdRubrike == idR
                                         select p).ToList();
                 List<Clan> clanovi = (from cl in _context.Clan
                                       select cl).ToList();
@@ -217,7 +216,6 @@ namespace AdminPanel.Controllers
                 throw;
             }
 
-            //return RedirectToAction("Create", "SudskaPraksa");
             return View();
         }
 
@@ -227,7 +225,6 @@ namespace AdminPanel.Controllers
             string email = HttpContext.Session.GetString("UserEmail");
             ViewBag.Email = email;
 
-            //List<Propis> propisi = _context.Propis.ToList();
             List<SudskaPraksa> sudskaPraksa = (from spe in _context.SudskaPraksa
                                                where spe.Id == id
                                   select spe).ToList();

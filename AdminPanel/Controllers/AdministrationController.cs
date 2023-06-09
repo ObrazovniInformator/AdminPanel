@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace AdminPanel.Controllers
 {
     [Authorize]
     public class AdministrationController : Controller
     {
-       // private readonly RoleManager<IdentityRole> roleManager;
         UserManager<IdentityUser> userManager;
         SignInManager<IdentityUser> SignInManager;
         public AdministrationController(SignInManager<IdentityUser> SignInManager, UserManager<IdentityUser> userManager)

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdminPanel.Controllers
 {
@@ -88,7 +87,6 @@ namespace AdminPanel.Controllers
         {
             string email = HttpContext.Session.GetString("UserEmail");
 
-
             if (email != null)
             {
                 int idMax = (from tacka in _context.TackaPP
@@ -116,7 +114,6 @@ namespace AdminPanel.Controllers
                 return RedirectPermanent("~/Identity/Account/Login");
             }
         }
-
 
         public IActionResult DeleteTacku(int id)
         {
