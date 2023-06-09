@@ -54,11 +54,9 @@
     <tbody>
     @foreach (var item in Model) {
         <tr>
-
             <td>
                 @Html.DisplayFor(modelItem => item.Naslov)
             </td>
-
             <td>
                 @Html.DisplayFor(modelItem => item.GlasiloIDatumObjavljivanja)
             </td>
@@ -85,7 +83,6 @@
                     </div>
                 </td>
             }
-
         <td>
             @Html.ActionLink("Измени", "Edit", new { id = item.Id }) |<br />
             @Html.ActionLink("Сви подаци", "Details", new { id = item.Id }) |<br />
@@ -93,13 +90,11 @@
             @Html.ActionLink("Додај ПДФ фајл", "FileUpload", new { id = item.Id }) |<br />
 
             <a href="~/ObradaTeksta/Index/@item.Id">Обрада текста</a> |<br />
-
-            <a href="~/ObradaTeksta/PrikazCelogTeksta/@item.Id">Испис текста</a>
-            <br />
-            <a href="~/Propis/Hijararhija/@item.IdPodrubrike">Хијерархија </a>
-            <br />
+            <a href="~/ObradaTeksta/PrikazCelogTeksta/@item.Id">Испис текста</a><br />
+            <a href="~/Propis/Hijararhija/@item.IdPodrubrike">Хијерархија </a><br />
             <a href="~/Propis/Delete/@item.Id" onclick="return confirm('Да ли сте сигурни да желите да избришете пропис @item.Naslov')">Бриши пропис</a> |<br />
-</tr>
+        </td>
+    </tr>
     }
     </tbody>
 </table>

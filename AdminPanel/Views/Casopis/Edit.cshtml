@@ -9,14 +9,6 @@
     List<GlavneOblastiCasopis> glavneOblastiCasopis = ViewBag.GlavneOblastiCasopis;
     List<RubrikaCasopis> rubrikeCasopis = ViewBag.RubrikeCasopis;
     List<PodrubrikaCasopis> podrubrike = ViewBag.PodrubrikeCasopis;
-    //List<Propis> propisi = ViewBag.Propisi;
-    //List<Clan> clanovi = ViewBag.Clanovi;
-    //List<Stav> stavovi = ViewBag.Stavovi;
-    //List<Tacka> tacke = ViewBag.Tacke;
-    //Propis p = ViewBag.Propis;
-    //Clan cl = ViewBag.Clan;
-    //Stav st = ViewBag.Stav;
-    //Tacka ta = ViewBag.Tacka;
     GlavneOblastiCasopis goc = ViewBag.GlavnaOblastCasopis;
     CasopisGodina cg = ViewBag.CasopisGodina;
     CasopisBroj cb = ViewBag.CasopisBroj;
@@ -988,65 +980,7 @@
                     }
                 </select>
             </div>
-            @*<div class="form-group">
-                <label class="control-label">Пропис</label>
-                <select id="IdPropis" name="IdPropis" class="selectpicker" asp-items='@(new SelectList(ViewBag.Propisi,"Id","Naslov"))' data-live-search="true" data-live-search-style="startsWith">
-                    @if (p != null)
-                    {
-                        <option value="@p.Id">@p.Naslov</option>
-                    }
-                    else
-                    {
-                        <option value="">-- Изабери ПРОПИС --</option>
-                    }
-                </select>
-            </div>*@
-            @*<div class="form-group">
-                <label class="control-label">Члан</label>
-                <select id="IdClan" name="IdClan" class="form-control" asp-for="PropisCasopis.IdClan">
-                    @if (cl != null)
-                    {
-                        @foreach (Clan c in clanovi)
-                        {
-                            @if (c.IdPropis == p.Id)
-                            {
-
-                                <option value="@c.Id">@c.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>*@
-            @*<div class="form-group">
-                <label class="control-label">Став</label>
-                <select id="IdStav" name="IdStav" class="form-control" asp-for="PropisCasopis.IdStav">
-                    @if (st != null)
-                    {
-                        @foreach (Stav s in stavovi)
-                        {
-                            @if (s.IdClan == cl.Id)
-                            {
-                                <option value="@s.Id">@s.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>*@
-            @*<div class="form-group">
-                <label class="control-label">Тачка</label>
-                <select id="IdTacka" name="IdTacka" class="form-control" asp-for="PropisCasopis.IdTacka">
-                    @if (ta != null)
-                    {
-                        @foreach (Tacka t in tacke)
-                        {
-                            @if (t.IdStav == st.Id)
-                            {
-                                <option value="@t.Id">@t.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>*@
+            
             <br />
             <div class="form-group">
                 <input type="submit" value="Сачувај" class="btn btn-primary" />

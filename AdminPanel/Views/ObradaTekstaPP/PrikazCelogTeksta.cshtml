@@ -41,10 +41,8 @@
                                 @Html.Raw(t.Tekst)
                             }
                         }
-
                     }
                 }
-
             }
         }
 
@@ -58,8 +56,6 @@
                 {
                     <p style="text-align: center; text-indent: 24pt; line-height: normal; background: white; font-size: 13pt; font-family: Calibri, sans-serif;">
                         <span style="font-size: 9.0pt; font-family: Verdana, sans-serif; color: #333333;">@Html.Raw(c.Naziv)</span><br />
-
-
                     </p>
                     @foreach (StavPP s in stavovi)
                     {
@@ -81,12 +77,10 @@
                                     @Html.Raw(a.Tekst)
                                 }
                             }
-
                         }
                     }
                 }
             }
-
         }
     }
 
@@ -94,7 +88,6 @@
 
     @foreach(PdfFajlProsvetniPropis pdf in pdfovi)
     {
-
         <p><a href="~/ObradaTekstaPP/CitajPdf/@pdf.Id" target="_blank">@pdf.NaslovPdf</a></p>
     }
 </div>

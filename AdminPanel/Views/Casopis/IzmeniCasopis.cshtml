@@ -30,8 +30,6 @@
                 </td>
                 <td>
                     @Html.ActionLink("Измени", "Edit", new { id = item.Key }) |
-                    @*@Html.ActionLink("Сви подаци", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Веза са прописом", "KreirajVezuSudskaPraksaPropis", new { id = item.Id }) |*@
                     <a href="~/Casopis/Delete/@item.Key" onclick="return confirm('Да ли сте сигурни да желите да избришете Часопис - @item.Value ?')">Избриши</a>
                 </td>
             </tr>

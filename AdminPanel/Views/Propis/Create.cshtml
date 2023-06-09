@@ -28,11 +28,6 @@
                 <input asp-for="Naslov" class="form-control" />
                 <span asp-validation-for="Naslov" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                    <label asp-for="IdRubrike" class="control-label"></label>
-                    <input asp-for="IdRubrike" class="form-control" />
-                    <span asp-validation-for="IdRubrike" class="text-danger"></span>
-                </div>*@
             <div class="form-group">
                 <label asp-for="IdPodrubrike" class="control-label" hidden></label>
                 <input asp-for="IdPodrubrike" value="@idPodrubrike" class="form-control" hidden />
@@ -143,11 +138,6 @@
                 <input asp-for="NapomeneGlasnika" class="form-control" />
                 <span asp-validation-for="NapomeneGlasnika" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                    <label asp-for="TekstPropisa" class="control-label"></label>
-                    <input asp-for="TekstPropisa" class="form-control" />
-                    <span asp-validation-for="TekstPropisa" class="text-danger"></span>
-                </div>*@
             <label class="control-label">Текст прописа</label>
             <textarea name="TekstPropisa" style="width:700px; height:500px;"></textarea>
             <script>
@@ -231,4 +221,3 @@
         </form>
     </div>
 </div>
-

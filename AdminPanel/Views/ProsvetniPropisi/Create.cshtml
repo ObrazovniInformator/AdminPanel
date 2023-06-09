@@ -21,11 +21,6 @@
                 <input asp-for="Naslov" class="form-control" />
                 <span asp-validation-for="Naslov" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                    <label asp-for="IdRubrike" class="control-label"></label>
-                    <input asp-for="IdRubrike" class="form-control" />
-                    <span asp-validation-for="IdRubrike" class="text-danger"></span>
-                </div>*@
             <div class="form-group">
                 <label asp-for="IdPodrubrike" class="control-label" hidden></label>
                 <input asp-for="IdPodrubrike" value="@idPodrubrike" class="form-control" hidden />
@@ -136,11 +131,6 @@
                 <input asp-for="NapomeneGlasnika" class="form-control" />
                 <span asp-validation-for="NapomeneGlasnika" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="TekstPropisa" class="control-label"></label>
-                <input asp-for="TekstPropisa" class="form-control" />
-                <span asp-validation-for="TekstPropisa" class="text-danger"></span>
-                </div>*@
             <label class="control-label">Текст прописа</label>
             <textarea name="TekstPropisa" style="width:700px; height:500px;"></textarea>
             <script>
@@ -208,9 +198,6 @@
                 });
             </script>
             <br />
-            @*<div class="form-group">
-                    <a href="~/ProsvetniPropisi/FileUpload">Upload PDF fajl</a>
-                </div>*@
             <div class="form-group">
                 <label class="control-label">Преамбула</label>
                 <input asp-for="Preambula" class="form-control" />
@@ -220,7 +207,6 @@
                 <input type="submit" value="Креирај просветни пропис" class="btn btn-primary" />
             </div>
             <div>
-                @*<a asp-controller="ProsvetniPropisi" asp-action="Index">Врати се на листу просветних прописа</a>*@
                 <a href="~/ProsvetniPropisi/Index/@idPodrubrike">Врати се на листу просветних прописа</a>
             </div>
         </form>
@@ -233,19 +219,7 @@
                         <th>PDF - Naziv fajla</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @*@foreach (var item in Model.Files)
-                        {
-                            <tr>
-                                <td>
-                                    <p>@Html.ActionLink(item.Name, "PreuzmiPdf", "ProsvetniPropisi", new { fileName = item.Name }, null)</p>
-                                </td>
-
-                            </tr>
-                        }*@
-                </tbody>
             </table>
         }
     </div>
 </div>
-

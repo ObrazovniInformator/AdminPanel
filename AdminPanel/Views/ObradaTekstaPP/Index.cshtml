@@ -73,7 +73,6 @@
 
                         }
                     }
-
                 }
             }
 
@@ -87,12 +86,9 @@
                     {
                         <p style="text-align: center; text-indent: 24pt; line-height: normal; background: white; font-size: 13pt; font-family: Calibri, sans-serif;">
                             <span style="font-size: 9.0pt; font-family: Verdana, sans-serif; color: #333333;">@Html.Raw(c.Naziv)</span> <span><a href="~/ClanPP/IzmeniClan/@c.Id">Измени члан</a></span><br />
-
-
                         </p>
                         @foreach (StavPP s in stavovi)
                         {
-
                             if (s.IdClan == c.Id)
                             {
                                 @Html.Raw(s.Tekst)<span><a href="~/StavPP/EditStav/@s.Id">Измени став</a></span> <span><a href="~/StavPP/DeleteStav/@s.Id" onclick="return confirm('Да ли сте сигурни да желите да избришете @s.Naziv')">Бриши став</a></span>
@@ -110,7 +106,6 @@
                                         @Html.Raw(a.Tekst)
                                     }
                                 }
-
                             }
                         }
                     }
@@ -124,4 +119,3 @@
         }
     </div>
 </div>
-

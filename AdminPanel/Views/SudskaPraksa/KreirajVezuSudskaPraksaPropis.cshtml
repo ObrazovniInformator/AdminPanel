@@ -789,7 +789,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Пропис</label><br />
-                <select id="IdPropis" name="IdPropis" class="selectpicker" @*asp-items='@(new SelectList(ViewBag.Propisi,"Id","Naslov"))'*@ data-live-search="true" data-live-search-style="startsWith">
+                <select id="IdPropis" name="IdPropis" class="selectpicker" data-live-search="true" data-live-search-style="startsWith">
                     <option value="">-- Изабери ПРОПИС --</option>
                     @foreach (var item in propisi)
                     {
@@ -799,7 +799,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Члан</label>
-                <select id="IdClan" name="IdClan" class="form-control" @*asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'*@>
+                <select id="IdClan" name="IdClan" class="form-control">
                     @foreach (var item in clanovi)
                     {
                         <option value="@item.Key">@item.Value</option>
@@ -809,7 +809,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Став</label>
-                <select id="IdStav" name="IdStav" class="form-control" @*asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'*@>
+                <select id="IdStav" name="IdStav" class="form-control">
                 @foreach (var item in stavovi)
                 {
                     <option value="@item.Key">@item.Value</option>
@@ -818,7 +818,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Тачка</label>
-                <select id="IdTacka" name="IdTacka" class="form-control" @*asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'*@>
+                <select id="IdTacka" name="IdTacka" class="form-control">
                 @foreach(var item in tacke)
                 {
                     <option value="@item.Key">@item.Value</option>
@@ -834,5 +834,3 @@
         </form>
     </div>
 </div>
-
-

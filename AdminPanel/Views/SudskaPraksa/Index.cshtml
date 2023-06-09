@@ -3,13 +3,8 @@
     ViewData["Title"] = "Index";
     int idRubrikaSP = ViewBag.IdRubrikaSP;
     int idPodrubrikaSP = ViewBag.IdPodrubrikaSP;
-    //int idPodpodrubrikaSP = ViewBag.IdPodpodrubrikaSP;
     int idDonosilacSP = ViewBag.IdDonosilacSP;
     Dictionary<int, string> sudskaPraksa = (Dictionary<int, string>) ViewBag.SudskaPraksa;
-    // List<Propis> propisi = ViewBag.Propisi;
-    //List<Clan> clanovi = ViewBag.Clanovi;
-    //List<Stav> stavovi = ViewBag.Stavovi;
-    //List<Tacka> tacke = ViewBag.Tacke;
 }
 <style>
     @@media (min-width: 1600px) {
@@ -37,107 +32,25 @@
 <p>
     <a href="~/SudskaPraksa/CreateRubrika/@idRubrikaSP" style="font-size:25px;" class="btn btn-block btn-danger">Креирај рубрику за судску праксу</a>
     <a href="~/SudskaPraksa/CreatePodrubrika/@idPodrubrikaSP" style="font-size:25px;" class="btn btn-block btn-danger">Креирај подрубрику за судску праксу</a>
-    @*<a href="~/SudskaPraksa/CreatePodrubrika/@idPodpodrubrikaSP" style="font-size:25px;" class="btn btn-block btn-danger">Креирај подподрубрику за судску праксу</a>*@
     <a href="~/SudskaPraksa/CreateDonosilac/@idDonosilacSP" style="font-size:25px;" class="btn btn-block btn-danger">Креирај доносиоца за судску праксу</a>
     <a href="~/SudskaPraksa/Create/@idPodrubrikaSP" style="font-size:25px;" class="btn btn-block btn-danger">Креирај судску праксу</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>*@
             <th>
                 <label class="control-label">Наслов</label>
             </th>
-            @*<th>
-                <label class="control-label">Поднаслов</label>
-            </th>
-            <th>
-                <label class="control-label">Број</label>
-            </th>*@
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Datum)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Napomena)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tekst)
-                </th>*@
-            @*<th>
-                    @Html.DisplayNameFor(model => model.IdPropis)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdClan)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdStav)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdTacka)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdRubrikaSP)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdPodrubrikaSP)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdPodpodrubrikaSP)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdDonosilacSP)
-                </th>*@
-            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in sudskaPraksa)
         {
             <tr>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>*@
                 <td>
                     @item.Value;
                 </td>
-            
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Datum)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Napomena)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tekst)
-                    </td>*@
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.IdPropis)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdClan)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdStav)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdTacka)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdRubrikaSP)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdPodrubrikaSP)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdPodpodrubrikaSP)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdDonosilacSP)
-                    </td>*@
                 <td>
-                    @*@Html.ActionLink("Измени", "Edit", new { id = item.Id }) |*@
                     @Html.ActionLink("Сви подаци", "Details", new { id = item.Key }) |
                     @Html.ActionLink("Веза са прописом", "KreirajVezuSudskaPraksaPropis", new { id = item.Key }) | 
                     @Html.ActionLink("Веза са просветним прописом", "KreirajVezuSudskaPraksaProsvetniPropis", new { id = item.Key }) |

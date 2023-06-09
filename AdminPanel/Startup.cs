@@ -1,22 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AdminPanel.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace AdminPanel
 {
@@ -33,7 +24,7 @@ namespace AdminPanel
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AdminPanelContext>(
-       options => options.UseSqlServer("Server=DESKTOP-7Q87QHR\\SQLEXPRESS;Database=adminPanel;Integrated Security=True;"));
+            options => options.UseSqlServer("Server=DESKTOP-7Q87QHR\\SQLEXPRESS;Database=adminPanel;Integrated Security=True;"));
             services.AddControllersWithViews();
 
             services.AddSession(options =>
@@ -78,8 +69,6 @@ namespace AdminPanel
             
             app.UseAuthentication();
             app.UseAuthorization();
-            
-
 
             app.UseEndpoints(endpoints =>
             {
@@ -87,9 +76,7 @@ namespace AdminPanel
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}/{idRubrika?}");
                 endpoints.MapRazorPages();
-
             });
-
         }
     }
 }

@@ -923,27 +923,6 @@
                     });
                 </script>
             </div>
-            @*<div class="form-group">
-                    <label class="control-label">Пропис</label><br />
-                    <select id="IdPropis" asp-for="IdPropis" class="selectpicker" asp-items='@(new SelectList(ViewBag.Propisi,"Id","Naslov"))' data-live-search="true" data-live-search-style="startsWith">
-                        <option value="">-- Изабери ПРОПИС --</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Члан</label>
-                    <select id="IdClan" asp-for="IdClan" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Став</label>
-                    <select id="IdStav" asp-for="IdStav" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Тачка</label>
-                    <select id="IdTacka" asp-for="IdTacka" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                    </select>
-                </div>*@
             <div class="form-group">
                 <label class="control-label">Рубрика Службеног мишљења</label>
                 <select asp-for="IdRubrikaSM" class="form-control" asp-items='@(new SelectList(ViewBag.ListaRubrikeSM,"Id","Naziv"))'>
@@ -954,11 +933,6 @@
                 <select id="IdPodrubrikaSM" asp-for="IdPodrubrikaSM" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
                 </select>
             </div>
-            @*<div class="form-group">
-                    <label class="control-label">Подподрубрика Службеног мишљења</label>
-                    <input asp-for="IdPodpodrubrikaSM" class="form-control" />
-                    <span asp-validation-for="IdPodpodrubrikaSM" class="text-danger"></span>
-                </div>*@
             <div class="form-group">
                 <label class="control-label">Доносилац</</label>
                 <select name="IdDonosilacSM" class="form-control">
@@ -969,28 +943,6 @@
                 </select>
                 <span asp-validation-for="IdDonosilacSM" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                    <label class="control-label">Просветни Пропис</label><br />
-                    <select id="IdProsvetniPropis" asp-for="IdProsvetniPropis" class="selectpicker" asp-items='@(new SelectList(ViewBag.ProsvetniPropisi,"Id","Naslov"))' data-live-search="true" data-live-search-style="startsWith">
-                        <option value="">-- Изабери ПРОПИС --</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Члан ПП</label>
-                    <select id="IdClanPP" asp-for="IdClanPP" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Став ПП</label>
-                    <select id="IdStavPP" asp-for="IdStavPP" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Тачка ПП</label>
-                    <select id="IdTackaPP" asp-for="IdTackaPP" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                    </select>
-                </div>
-                <br />*@
             <div class="form-group">
                 <input type="submit" value="Креирај службено мишљење" class="btn btn-primary" />
             </div>

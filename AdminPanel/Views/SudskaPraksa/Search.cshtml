@@ -14,7 +14,6 @@
         }
     }
 
-
     #sidebar-wrapper {
         font-size: 1.3rem !important;
     }
@@ -43,14 +42,6 @@
             <th>
                 @Html.DisplayName("Број")
             </th>
-            @*<th>
-                    @Html.DisplayName("Датум")
-                </th>
-                <th>
-                    @Html.DisplayName("Напомена")
-                </th>*@
-            <th></th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -68,28 +59,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Broj)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Datum)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Napomena)
-                    </td>*@
-                @*@foreach (Clan c in clanovi)
-                    {
-                        if (c.IdPropis == item.Id)
-                        {
-                            <td>
-                                <div class="alert alert-success" role="alert">
-                                    Убачен
-                                </div>
-                            </td>
-                            break;
-                        }
-                    }*@
                 <td>
                     @Html.ActionLink("Измени", "Edit", new { id = item.Id }) |<br />
                     @Html.ActionLink("Сви подаци", "Details", new { id = item.Id }) |<br />
-                    @*<a href="~/ObradaTeksta/Index/@item.Id">Обрада текста</a>*@
             </tr>
         }
     </tbody>

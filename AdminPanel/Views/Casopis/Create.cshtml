@@ -8,10 +8,6 @@
     List<CasopisBroj> casopisBrojevi = ViewBag.CasopisBrojevi;
     List<RubrikaCasopis> rubrike = ViewBag.Rubrike;
     List<GlavneOblastiCasopis> glavneOblastiCasopis = ViewBag.GlavneOblastiCasopis;
-    //List<Propis> propisi = ViewBag.Propisi;
-    //List<Clan> clanovi = ViewBag.Clanovi;
-    //List<Stav> stavovi = ViewBag.Stavovi;
-    //List<Tacka> tacke = ViewBag.Tacke;
 }
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js" integrity="sha256-C6CB9UYIS9UJeqinPHWTHVqh/E1uhG5Twh+Y5qFQmYg=" crossorigin="anonymous"></script>
@@ -942,27 +938,6 @@
                 <label class="control-label">Подрубрика</label>
                 <select id="IdPodrubrika" name="IdPodrubrika" class="form-control" asp-items="@(new SelectList(string.Empty,"Id","Naziv"))"></select>
             </div>
-            @*<div class="form-group">
-                    <label class="control-label">Пропис</label><br />
-                    <select id="IdPropis" name="IdPropis" class="selectpicker" asp-items='@(new SelectList(ViewBag.Propisi,"Id","Naslov"))' data-live-search="true" data-live-search-style="startsWith">
-                        <option value="">-- Изабери ПРОПИС --</option>
-                    </select>
-                </div>*@
-            @*<div class="form-group">
-                    <label class="control-label">Члан</label>
-                    <select id="IdClan" name="IdClan" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                    </select>
-                </div>*@
-            @*<div class="form-group">
-                    <label class="control-label">Став</label>
-                    <select id="IdStav" name="IdStav" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                    </select>
-                </div>*@
-            @*<div class="form-group">
-                    <label class="control-label">Тачка</label>
-                    <select id="IdTacka" name="IdTacka" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
-                    </select>
-                </div>*@
             <div class="form-group">
                 <input type="submit" value="Креирај часопис" class="btn btn-primary" />
             </div>

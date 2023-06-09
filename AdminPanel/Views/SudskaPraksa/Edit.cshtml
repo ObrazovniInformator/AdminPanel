@@ -2,17 +2,9 @@
 @using AdminPanel.Areas.Identity.Data;
 @{
     ViewData["Title"] = "Edit";
-    //List<Propis> propisi = ViewBag.Propisi;
-    //List<Clan> clanovi = ViewBag.Clanovi;
-    //List<Stav> stavovi = ViewBag.Stavovi;
-    //List<Tacka> tacke = ViewBag.Tacke;
     List<RubrikaSP> rubrikeSP = ViewBag.RubrikeSP;
     List<PodrubrikaSP> podrubrikeSP = ViewBag.PodrubrikeSP;
     List<DonosilacSP> donosiociSP = ViewBag.DonosiociSP;
-    //Propis p = ViewBag.Propis;
-    //Clan cl = ViewBag.Clan;
-    //Stav st = ViewBag.Stav;
-    //Tacka ta = ViewBag.Tacka;
     RubrikaSP rsp = ViewBag.RubrikaSP;
     PodrubrikaSP prsp1 = ViewBag.PodrubrikaSP;
     DonosilacSP donosilac = ViewBag.Donosilac;
@@ -876,65 +868,6 @@
                     });
                 </script>
             </div>
-            @*<div class="form-group">
-                <label class="control-label">Пропис</label>
-                <select id="IdPropis" name="ListaPropisa" class="selectpicker" asp-items='@(new SelectList(ViewBag.Propisi,"Id","Naslov"))' data-live-search="true" data-live-search-style="startsWith">
-                    @if (p != null)
-                    {
-                        <option value="@p.Id">@p.Naslov</option>
-                    }
-                    else
-                    {
-                        <option value="">-- Изабери ПРОПИС --</option>
-                    }
-                </select>
-            </div>*@
-            @*<div class="form-group">
-                <label class="control-label">Члан</label>
-                <select id="IdClan" asp-for="PropisSudskaPraksa.IdClan" name="IdClan" class="form-control">
-                    @if (cl != null)
-                    {
-                        @foreach (Clan c in clanovi)
-                        {
-                            @if (c.IdPropis == p.Id)
-                            {
-
-                                <option value="@c.Id">@c.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>*@
-            @*<div class="form-group">
-                <label class="control-label">Став</label>
-                <select id="IdStav" asp-for="PropisSudskaPraksa.IdStav" name="IdStav" class="form-control">
-                    @if (st != null)
-                    {
-                        @foreach (Stav s in stavovi)
-                        {
-                            @if (s.IdClan == cl.Id)
-                            {
-                                <option value="@s.Id">@s.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>*@
-            @*<div class="form-group">
-                <label class="control-label">Тачка</label>
-                <select id="IdTacka" asp-for="PropisSudskaPraksa.IdTacka" name="IdTacka" class="form-control">
-                    @if (ta != null)
-                    {
-                        @foreach (Tacka t in tacke)
-                        {
-                            @if (t.IdStav == st.Id)
-                            {
-                                <option value="@t.Id">@t.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>*@
             <div class="form-group">
                 <label class="control-label">Рубрика Судске праксе</label>
                 <select id="IdRubrikaSP" asp-for="@Model.SudskaPraksa.IdRubrikaSP" name="ListaRubrikaSP" class="form-control" asp-items='@(new SelectList(ViewBag.RubrikeSP,"Id","Naziv"))'>
@@ -959,11 +892,6 @@
                     }
                     </select>
             </div>
-            @*<div class="form-group">
-                    <label class="control-label">Подподрубрика Судске праксе</label>
-                    <input asp-for="IdPodpodrubrikaSP" class="form-control" />
-                    <span asp-validation-for="IdPodpodrubrikaSP" class="text-danger"></span>
-                </div>*@
             <div class="form-group">
                 <label class="control-label">Доносилац</</label>
                 <select asp-for="@Model.SudskaPraksa.IdDonosilacSP" name="IdDonosilacSP" class="form-control">

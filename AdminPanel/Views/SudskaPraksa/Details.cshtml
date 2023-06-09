@@ -62,55 +62,44 @@
             @Html.Raw(@Model.Tekst)
         </dd>
       
-            @foreach (string p in propisi)
-            {
+        @foreach (string p in propisi)
+        {
 
-                    <dt class="col-sm-2">
-                        @Html.DisplayName("Наслов прописа")
-                    </dt>
-                    <dd class="col-sm-10">
-                        @p
+                <dt class="col-sm-2">
+                    @Html.DisplayName("Наслов прописа")
+                </dt>
+                <dd class="col-sm-10">
+                    @p
+                </dd>
+        }
 
-                    </dd>
-            }
-
-            @foreach (string c in clanovi)
-            {
-
-                            <dt class="col-sm-2">
-                                @Html.DisplayName("Члан")
-                            </dt>
-                            <dd class="col-sm-10">
-                                @c
-             
-
-                            </dd>
-            }
-            @foreach (string s in stavovi)
-            {
-
-                                    <dt class="col-sm-2">
-                                        @Html.DisplayName("Став")
-                                    </dt>
-                                    <dd class="col-sm-10">
-                                        @s <br />
-
-                                    </dd>
-            }
-            @foreach (string t in tacke)
-            {
-
-                                        <dt class="col-sm-2">
-                                            @Html.DisplayName("Тачка")
-                                        </dt>
-                                        <dd class="col-sm-10">
-                                            @t <br />
-
-                                        </dd>
-                                    
-                                }
-
-        
+        @foreach (string c in clanovi)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayName("Члан")
+            </dt>
+            <dd class="col-sm-10">
+                @c
+            </dd>
+        }
+        @foreach (string s in stavovi)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayName("Став")
+            </dt>
+            <dd class="col-sm-10">
+                @s <br />
+            </dd>
+        }
+        @foreach (string t in tacke)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayName("Тачка")
+            </dt>
+            <dd class="col-sm-10">
+                @t <br />
+            </dd>                   
+         }
 
         <dt class="col-sm-2">
             @Html.DisplayName("Рубрика")

@@ -1,19 +1,17 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "IspisListe";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Dictionary<int, string> casopisNaslovi = ViewBag.CasopisNaslovi;
     int brojac = 0;
 }
-    <div class="container" style="margin-left: 5%">
-        <h1>Чланци у овој рубрици:</h1>
-        <br /><br /><br />
-        @foreach (var cn in casopisNaslovi)
-        {
-            brojac += 1;
-            <ul style="list-style-type: none">
-                <li><b>@brojac.  <a href="~/Casopis/Details/@cn.Key">@cn.Value</a></b></li>
-            </ul>
-        }
-
-    </div>
+<div class="container" style="margin-left: 5%">
+    <h1>Чланци у овој рубрици:</h1>
+    <br /><br /><br />
+    @foreach (var cn in casopisNaslovi)
+    {
+        brojac += 1;
+        <ul style="list-style-type: none">
+            <li><b>@brojac.  <a href="~/Casopis/Details/@cn.Key">@cn.Value</a></b></li>
+        </ul>
+    }
+</div>

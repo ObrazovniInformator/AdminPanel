@@ -90,7 +90,7 @@
             <td>
                 @Html.ActionLink("Измени", "Edit", new { id = item.Id }) |<br />
                 @Html.ActionLink("Сви подаци", "Details", new { id = item.Id }) |<br />
-                @Html.ActionLink("Додај преамбулу", "DodajPreambulu", new { id = item.Id }) |<br /> 
+                @Html.ActionLink("Додај преамбулу", "DodajPreambulu", new { id = item.Id }) |<br />
                 @Html.ActionLink("Додај ПДФ фајл", "FileUpload", new { id = item.Id }) |<br />
 
                 <a href="~/ObradaTekstaPP/Index/@item.Id">Обрада текста</a> |<br />
@@ -99,8 +99,9 @@
                 <a href="~/ProsvetniPropisi/Hijerarhija/@item.IdPodrubrike">Хијерархија </a> |
                 <br />
                 <a href="~/ProsvetniPropisi/Delete/@item.Id" onclick="return confirm('Да ли сте сигурни да желите да избришете просветни пропис @item.Naslov')">Бриши просветни пропис</a> |<br />
-</tr>
-        }
-    </tbody>
+            </td>
+        </tr>
+    }
+   </tbody>
 </table>
 

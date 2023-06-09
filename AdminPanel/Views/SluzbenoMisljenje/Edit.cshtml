@@ -2,31 +2,15 @@
 @using AdminPanel.Areas.Identity.Data;
 @{
     ViewData["Title"] = "Edit";
-    //List<Propis> propisi = ViewBag.Propisi;
-    //List<Clan> clanovi = ViewBag.Clanovi;
-    //List<Stav> stavovi = ViewBag.Stavovi;
-    //List<Tacka> tacke = ViewBag.Tacke;
     List<RubrikaSM> rubrikeSM = ViewBag.RubrikeSM;
     List<PodrubrikaSM> podrubrikeSM = ViewBag.PodrubrikeSM;
     List<DonosilacSM> donosiociSM = ViewBag.DonosiociSM;
-    //Propis p = ViewBag.Propis;
-    //Clan cl = ViewBag.Clan;
-    //Stav st = ViewBag.Stav;
-    //Tacka ta = ViewBag.Tacka;
     RubrikaSM rsm = ViewBag.RubrikaSM;
     PodrubrikaSM prsm1 = ViewBag.PodrubrikaSM;
     DonosilacSM donosilac = ViewBag.Donosilac;
     SluzbenoMisljenje sm = ViewBag.SluzbenoMisljenje;
     int idMax = (int)ViewBag.IdMaxSM;
 
-    //List<ProsvetniPropis> propisiPP = ViewBag.ProsvetniPropisi;
-    //List<ClanPP> clanoviPP = ViewBag.ClanoviPP;
-    //List<StavPP> stavoviPP = ViewBag.StavoviPP;
-    //List<TackaPP> tackePP = ViewBag.TackePP;
-    //ProsvetniPropis pPP = ViewBag.PropisPP;
-    //ClanPP clPP = ViewBag.ClanPP;
-    //StavPP stPP = ViewBag.StavPP;
-    //TackaPP taPP = ViewBag.TackaPP;
     List<PropisSluzbenoMisljenje> propisiSlMislj = ViewBag.PropisiSluzbenaMisljenja;
     List<ProsvetniPropisSluzbenoMisljenje> prosPropisiSluMislj = ViewBag.ProsvetniPropisiSluzbenaMisljenja;
 }
@@ -931,65 +915,6 @@
                     });
                 </script>
             </div>
-            @*<div class="form-group">
-                <label class="control-label">Пропис</label>
-                <select id="IdPropis" name="ListaPropisa" class="selectpicker" asp-items='@(new SelectList(ViewBag.Propisi,"Id","Naslov"))' data-live-search="true" data-live-search-style="startsWith">
-                    @if (p != null)
-                    {
-                        <option value="@p.Id">@p.Naslov</option>
-                    }
-                    else
-                    {
-                        <option value="">-- Изабери ПРОПИС --</option>
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Члан</label>
-                <select id="IdClan" name="IdClan" class="form-control" asp-for="PropisSluzbenoMisljenje.IdClan">
-                    @if (cl != null)
-                    {
-                        @foreach (Clan c in clanovi)
-                        {
-                            @if (c.IdPropis == p.Id)
-                            {
-
-                                <option value="@c.Id">@c.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Став</label>
-                <select id="IdStav" name="IdStav" class="form-control" asp-for="PropisSluzbenoMisljenje.IdStav">
-                    @if (st != null)
-                    {
-                        @foreach (Stav s in stavovi)
-                        {
-                            @if (s.IdClan == cl.Id)
-                            {
-                                <option value="@s.Id">@s.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Тачка</label>
-                <select id="IdTacka" name="IdTacka" class="form-control" asp-for="PropisSluzbenoMisljenje.IdTacka">
-                    @if (ta != null)
-                    {
-                        @foreach (Tacka t in tacke)
-                        {
-                            @if (t.IdStav == st.Id)
-                            {
-                                <option value="@t.Id">@t.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>*@
             <div class="form-group">
                 <label class="control-label">Рубрика Службеног мишљења</label>
                 <select id="IdRubrikaSM" name="ListaRubrikaSM" class="form-control" asp-items='@(new SelectList(ViewBag.RubrikeSM,"Id","Naziv"))'>
@@ -1004,18 +929,10 @@
                 <select id="IdPodrubrikaSM" asp-for="SluzbenoMisljenje.IdPodrubrikaSM" name="ListaPodrubrikaSM" class="form-control" asp-items='@(new SelectList(string.Empty,"Id","Naziv"))'>
                     @foreach (PodrubrikaSM prsm in podrubrikeSM)
                     {
-                        @*@if (prsm.IdRubrika == rsm.Id)
-                        {*@
-                            <option value="@prsm.Id">@prsm.Naziv</option>
-                        @*}*@
+                        <option value="@prsm.Id">@prsm.Naziv</option>
                     }
                 </select>
             </div>
-            @*<div class="form-group">
-            <label class="control-label">Подподрубрика Службеног мишљења</label>
-            <input asp-for="IdPodpodrubrikaSM" class="form-control" />
-            <span asp-validation-for="IdPodpodrubrikaSM" class="text-danger"></span>
-        </div>*@
             <div class="form-group">
                 <label class="control-label">Доносилац</label>
                 <select asp-for="SluzbenoMisljenje.IdDonosilacSM" name="IdDonosilacSM" class="form-control">
@@ -1026,71 +943,10 @@
                 </select>
                 <span asp-validation-for="SluzbenoMisljenje.IdDonosilacSM" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label class="control-label">Просветни Пропис</label>
-                <select id="IdProsvetniPropis" name="IdProsvetniPropis" class="selectpicker" asp-items='@(new SelectList(ViewBag.ProsvetniPropisi,"Id","Naslov"))' data-live-search="true" data-live-search-style="startsWith">
-                    @if (pPP != null)
-                    {
-                        <option value="@pPP.Id">@pPP.Naslov</option>
-                    }
-                    else
-                    {
-                        <option value="">-- Изабери ПРОПИС --</option>
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Члан ПП</label>
-                <select id="IdClanPP" name="IdClanPP" class="form-control" asp-for="ProsvetniPropisSluzbenoMisljenje.IdClanPP">
-                    @if (clPP != null)
-                    {
-                        @foreach (ClanPP c in clanoviPP)
-                        {
-                            @if (c.IdPropis == pPP.Id)
-                            {
-
-                                <option value="@c.Id">@c.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Став ПП</label>
-                <select id="IdStavPP" name="IdStavPP" class="form-control" asp-for="ProsvetniPropisSluzbenoMisljenje.IdStavPP">
-                    @if (stPP != null)
-                    {
-                        @foreach (StavPP s in stavoviPP)
-                        {
-                            @if (s.IdClan == clPP.Id)
-                            {
-                                <option value="@stPP.Id">@stPP.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Тачка ПП</label>
-                <select id="IdTackaPP" name="IdTackaPP" class="form-control" asp-for="ProsvetniPropisSluzbenoMisljenje.IdTackaPP">
-                    @if (taPP != null)
-                    {
-                        @foreach (TackaPP t in tackePP)
-                        {
-                            @if (t.IdStav == stPP.Id)
-                            {
-                                <option value="@t.Id">@t.Naziv</option>
-                            }
-                        }
-                    }
-                </select>
-            </div>
-            <br />*@
             <div class="form-group">
                 <input type="submit" value="Сачувај" class="btn btn-primary" />
             </div>
             <div>
-                @*<a href="~/InAkta/KreirajVezuProsvetniPropisSluzbenoMisljenje/@idMax" class="btn btn-success">Креирај још веза са просветним прописом</a><br />*@
                 <a style="margin-bottom:100px;" asp-action="Index">Врати се на листу службених мишљења</a>
             </div>
         </form>

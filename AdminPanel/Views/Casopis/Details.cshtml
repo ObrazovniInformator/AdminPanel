@@ -14,7 +14,7 @@
     RubrikaCasopis rubrika = ViewBag.Rubrika;
     PodrubrikaCasopis podrubrika = ViewBag.Podrubrika;
     GlavneOblastiCasopis glavneOblastiCasopis = ViewBag.GlavneOblastiCasopis;
-     List<PdfFajCasopis> pdf = ViewBag.Pdf;
+    List<PdfFajCasopis> pdf = ViewBag.Pdf;
 }
 
 <h1 style="margin-left:5%;">Сви подаци из часописа</h1>
@@ -108,11 +108,10 @@
         </dd>
         <dt class="col-sm-12">@Html.DisplayName("PDF")</dt>
      
-            @foreach (PdfFajCasopis p in pdf)
-            {
-                <dd><p><a href="~/Casopis/CitajPdf/@p.Id" target="_blank">@p.NaslovPdf</a></p></dd>
-            }
-       
+        @foreach (PdfFajCasopis p in pdf)
+        {
+            <dd><p><a href="~/Casopis/CitajPdf/@p.Id" target="_blank">@p.NaslovPdf</a></p></dd>
+        }
 
         @foreach (Propis p in propisi)
         {
@@ -159,9 +158,6 @@
                     }
                 }
             }
-
-
         }
-
     </dl>
 </div>

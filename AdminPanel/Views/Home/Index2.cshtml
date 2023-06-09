@@ -12,7 +12,6 @@
     List<PodrubrikaCasopis> podrubrike = ViewBag.Podrubrike;
     List<CasopisGodina> casopisGodine = ViewBag.CasopisGodine;
     List<CasopisBroj> casopisBrojevi = ViewBag.CasopisBrojevi;
-   // Dictionary<int, string> casopisNaslovi = ViewBag.CasopisNaslovi;
     List<PodrubrikaCasopis> idPodrubrika = ViewBag.Result;
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -105,15 +104,9 @@
                                                 {
                                                     @if (p.IdOblast == go.ID && p.IdBroj == cb.Id)
                                                     {
-                                                <li>
-                                                    <a href="~/Casopis/IspisListe/@p.ID"> <span class="caret">@p.NazivRubrike</span></a>
-                                                    @*<ul>
-
-
-        </ul>*@
-
-
-                                                </li>
+                                                        <li>
+                                                            <a href="~/Casopis/IspisListe/@p.ID"> <span class="caret">@p.NazivRubrike</span></a>
+                                                        </li>
                                                     }
                                                 }
                                             </ul>

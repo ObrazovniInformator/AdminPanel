@@ -43,36 +43,6 @@
             <th>
                 @Html.DisplayName("Број")
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.DatumDonosenja)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Napomena)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tekst)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdPropis)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdClan)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdStav)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdTacka)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdRubrikaSM)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdPodrubrikaSM)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdDonosilacSM)
-                </th>*@
             <th></th>
             <th></th>
         </tr>
@@ -90,40 +60,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Broj)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.DatumDonosenja)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Napomena)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tekst)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdPropis)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdClan)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdStav)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdTacka)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdRubrikaSM)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdPodrubrikaSM)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdDonosilacSM)
-                    </td>*@
                 <td>
                     @Html.ActionLink("Измени", "Edit", new { id = item.Id }) |<br />
                     @Html.ActionLink("Сви подаци", "Details", new { id = item.Id }) |<br />
-                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                 </td>
             </tr>
         }

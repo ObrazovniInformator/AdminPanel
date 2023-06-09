@@ -12,8 +12,6 @@
             max-width: 1600px;
         }
     }
-
-
     #sidebar-wrapper {
         font-size: 1.3rem !important;
     }
@@ -103,10 +101,9 @@
             <br />
             <a href="~/ObradaTekstaPP/PrikazCelogTeksta/@item.Id">Испис текста</a>
             <br />
-            @*<a href="~/Propis/Hijararhija/@item.IdPodrubrike">Хијарархија </a>
-        <br />*@
             <a href="~/ProsvetniPropisi/Delete/@item.Id" onclick="return confirm('Да ли сте сигурни да желите да избришете пропис @item.Naslov')">Бриши пропис</a> |<br />
-</tr>
-        }
+        </td>
+    </tr>
+    }
     </tbody>
 </table>

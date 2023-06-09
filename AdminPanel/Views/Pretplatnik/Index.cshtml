@@ -35,23 +35,23 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prezime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PIB)
-            </td>
-            <td>
-                @Html.ActionLink("Измени", "Edit", new {  id=item.ID  }) |
-                @Html.ActionLink("Сви подаци", "Details", new {  id=item.ID  }) |
-                <a href="~/Pretplatnik/Delete/@item.ID" onclick="return confirm('Да ли стварно желите да обришете претплатника @item.Ime')">Бриши</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prezime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PIB)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Измени", "Edit", new {  id=item.ID  }) |
+                        @Html.ActionLink("Сви подаци", "Details", new {  id=item.ID  }) |
+                        <a href="~/Pretplatnik/Delete/@item.ID" onclick="return confirm('Да ли стварно желите да обришете претплатника @item.Ime')">Бриши</a>
+                    </td>
+                </tr>
+        }
     </tbody>
 </table>
