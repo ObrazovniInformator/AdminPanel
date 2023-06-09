@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AdminPanel.Areas.Identity.Data;
+﻿using AdminPanel.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +7,7 @@ namespace AdminPanel.Data
 {
     public class AdminPanelContext : IdentityDbContext<IdentityUser>
     {
-        public AdminPanelContext()
-        {
-            Database.SetCommandTimeout(150000);
-        }
+        public AdminPanelContext() => Database.SetCommandTimeout(150000);
 
         public AdminPanelContext(DbContextOptions<AdminPanelContext> options)
             : base(options)

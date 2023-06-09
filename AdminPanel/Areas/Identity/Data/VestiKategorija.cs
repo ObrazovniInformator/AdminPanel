@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AdminPanel.Areas.Identity.Data
 {
@@ -14,7 +11,6 @@ namespace AdminPanel.Areas.Identity.Data
         }
         public int Id { get; set; }
         public string NazivKategorije { get; set; }
-
 
         public ICollection<Vest> Vest { get; set; }
     }
